@@ -1,0 +1,31 @@
+1. Rendering
+  - AlphaBlending
+  - png 로딩
+  - Fade In, Out 카메라 효과
+
+2. 컴포넌트
+  - Animator
+  - FSM
+  - Rigidbody
+
+3. Clone 가상함수와 복사생성자
+
+4. 오브젝트 생성 및 삭제
+  - TaskMgr  
+  - Level 전환
+
+5. Debug Log
+  - DbgLogMgr
+
+6. UI
+
+
+7. Tool Level
+  - Tile 기반 툴
+  - Save / Load
+
+
+
+
+
+
