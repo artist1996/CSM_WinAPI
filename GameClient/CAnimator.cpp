@@ -56,14 +56,23 @@ void CAnimator::CreateAnimation(  const wstring& _AnimName
 
 void CAnimator::LoadAnimation(const wstring& _AnimName, const wstring& _strRelativeFilePath)
 {
-	CAnimation* pAnim = FindAnimation(_AnimName);
+	m_CurAnim = FindAnimation(_AnimName);
 
-	if (pAnim != nullptr)
+	if (m_CurAnim != nullptr)
 	{
 		return;
 	}
+	CAnimation* pAnim = new CAnimation;
 
-	
+	if (FAILED(pAnim->Load(_strRelativeFilePath)))
+	{
+		delete pAnim;
+		return;
+	}
+
+	pAnim->SetName(_AnimName);
+	pAnim->m_Animator = this;
+	m_mapAnim.insert(make_pair(_AnimName, pAnim));
 }
 
 
