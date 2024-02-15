@@ -174,16 +174,27 @@ int CAnimation::Load(const wstring& _strRelativeFilePath)
 
 	if (bAtlasTex) // true라면 정보 들어있음.
 	{
+		wstring strKey;
+		wstring strFilePath;
+
+		wchar_t szBuff[256] = {};
 		size_t len = 0;
 		fread(&len, sizeof(size_t), 1, pFile);
-		wchar_t szBuff[256] = {};
+		fread(szBuff, sizeof(wchar_t), len, pFile);
 
-		fread(&szBuff, sizeof(wchar_t), len, pFile);
+		strKey = szBuff;
 
-		wstring strKey = szBuff;
+		wmemset(szBuff, 0, 256);
 
-		wstring strFilePath;
+		fread(&len, sizeof(size_t), 1, pFile);
+		fread(szBuff, sizeof(wchar_t), len, pFile);
+		
+	    strFilePath = szBuff;
+
+		m_Atlas = CAssetMgr::GetInst()->LoadTexture(strKey.c_str(), strFilePath.c_str());
 	}
 	
+	fclose(pFile);
+
 	return S_OK;
 }
