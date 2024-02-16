@@ -5,6 +5,7 @@ struct tAnimFrm
 {
     Vec2    StartPos;
     Vec2    SliceSize;
+    Vec2    Offset;
     float   Duration;
 };
 
@@ -32,6 +33,8 @@ public:
 
     void Save(const wstring& _strRelativeFolderPath);
     int  Load(const wstring& _strRelativeFilePath);
+
+    tAnimFrm& GetFrame(int _Frame) { return m_vecFrm[_Frame]; }     // Frame 정보 반환 함수
 
     void Reset()
     {

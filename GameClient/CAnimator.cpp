@@ -82,7 +82,7 @@ CAnimation* CAnimator::FindAnimation(const wstring& _AnimName)
 
 	if (iter == m_mapAnim.end())
 		return nullptr;
-
+	
 	return iter->second;
 }
 

@@ -90,57 +90,57 @@ void CAnimation::Create(  CTexture* _AtlasTex, Vec2 _StartPos
 
 void CAnimation::Save(const wstring& _strRelativeFolderPath)
 {
-	wstring strFilePath = CPathMgr::GetInst()->GetContehtPath();	// 절대 경로 얻어옴
-	strFilePath += _strRelativeFolderPath;							// 상대 경로 지정
+	// Save 함수 개선
+	wstring strFilePath = CPathMgr::GetInst()->GetContehtPath();	// 컨텐츠 패스(절대경로)
+	strFilePath += _strRelativeFolderPath;							// 상대 경로
 	strFilePath += GetName();										// 파일 이름
 	strFilePath += L".anim";										// 확장자 명
 
-	FILE* pFile = nullptr;
+	FILE* pFile = nullptr;				// 파일
+	_wfopen_s(&pFile, strFilePath.c_str(), L"w");		// 문자열을 저장할 것이기 때문에 wb가 아닌 w로 파일 개방
 
-	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");					// 파일 개방 시켜놈
+	if (nullptr == pFile)								// pFile이 nullptr이면 파일 개방 실패 했기 때문에 return 해버림
+		return;
 
-	if (nullptr == pFile)	// 개방 했는데 nullptr이면
+	// 애니메이션의 이름을 먼저 저장
+	fwprintf_s(pFile, L"[ANIMATION_NAME]\n");
+	
+	wstring strAnimName = GetName();
+	fwprintf_s(pFile, L"%s\n\n", strAnimName.c_str());
+
+	// 아틀라스 이미지 정보 저장
+
+	fwprintf_s(pFile, L"[ATLAS_TEXTURE]\n");
+
+	if (nullptr == m_Atlas)
 	{
-		return;	// 에러 니까 return 때려버림
+		fwprintf_s(pFile, L"[KEY]\t%s\n", L"None");
+		fwprintf_s(pFile, L"[PATH]\t%s\n", L"None");
 	}
+
+	else
+	{
+		fwprintf_s(pFile, L"[KEY]\t%s\n", m_Atlas->GetKey().c_str());
+		fwprintf_s(pFile, L"[PATH]\t%s\n", m_Atlas->GetRelativePath().c_str());
+	}
+
+	fwprintf_s(pFile, L"\n");
 
 	// 프레임 정보 저장
-	size_t FrmCount = m_vecFrm.size();			// 프레임 정보를 각각 저장 할 거기 떄문에 Frame vector의 사이즈를 들고옴.
+	fwprintf_s(pFile, L"[FRAME_COUNT]\n");
+	fwprintf_s(pFile, L"%d\n\n", (int)m_vecFrm.size());	
 
-	for (size_t i = 0; i < FrmCount; ++i)
+	for (size_t i = 0; i < m_vecFrm.size(); ++i)
 	{
-		// 저장할 정보는? 해당 프레임의 정보
-		tAnimFrm frm = {};
-		frm.StartPos = m_vecFrm[i].StartPos;
-		frm.SliceSize = m_vecFrm[i].SliceSize;
-		frm.Duration = m_vecFrm[i].Duration;
-		// pFile이 마지막
-		fwrite(&frm, sizeof(tAnimFrm),1, pFile);
+		fwprintf_s(pFile, L"[FRAME_INDEX]\n%d\n", (int)i);
+		fwprintf_s(pFile, L"[STATR_POS]\t%f%f\n", m_vecFrm[i].StartPos.x, m_vecFrm[i].StartPos.y);
+		fwprintf_s(pFile, L"[SLICE_SIZE]\t\t%f%f\n", m_vecFrm[i].SliceSize.x, m_vecFrm[i].SliceSize.y);
+		fwprintf_s(pFile, L"[OFFSET]\t\t%f%f\n", m_vecFrm[i].Offset.x, m_vecFrm[i].Offset.y);
+		fwprintf_s(pFile, L"[DURATION]\t%f\n", m_vecFrm[i].Duration);
+
+		fwprintf_s(pFile, L"\n");
 	}
 
-	// 아틀라스 정보 저장
-	bool bAtlasTex = false;
-	if (nullptr != m_Atlas)
-	{
-		bAtlasTex = true;
-	}
-
-	fwrite(&bAtlasTex, sizeof(bool), 1, pFile);
-
-	if (bAtlasTex)
-	{
-		wstring strKey = m_Atlas->GetKey();
-		size_t len = strKey.length();
-		fwrite(&len, sizeof(size_t), 1, pFile);
-		fwrite(strKey.c_str(), sizeof(wchar_t), len, pFile);
-
-		wstring strRelativePath = m_Atlas->GetRelativePath();
-		len = strRelativePath.length();
-		fwrite(&len, sizeof(size_t), 1, pFile);
-		fwrite(strRelativePath.c_str(), sizeof(wchar_t), len, pFile);
-	}
-
-	// 파일 닫기
 	fclose(pFile);
 }
 
