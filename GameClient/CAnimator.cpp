@@ -54,25 +54,25 @@ void CAnimator::CreateAnimation(  const wstring& _AnimName
 	m_mapAnim.insert(make_pair(_AnimName, pAnim));
 }
 
-void CAnimator::LoadAnimation(const wstring& _AnimName, const wstring& _strRelativeFilePath)
+void CAnimator::LoadAnimation(const wstring& _strRelativeFilePath)
 {
-	m_CurAnim = FindAnimation(_AnimName);
-
-	if (m_CurAnim != nullptr)
-	{
-		return;
-	}
+	// LoadAnimation 함수 개선
+	// Save 할 때에 Animation 이름을 저장 해줬기 때문에 Load 해주고 pAnim의 Name을 insert 해주면 된다.
 	CAnimation* pAnim = new CAnimation;
-
 	if (FAILED(pAnim->Load(_strRelativeFilePath)))
 	{
 		delete pAnim;
 		return;
 	}
 
-	pAnim->SetName(_AnimName);
+	if (nullptr != FindAnimation(pAnim->GetName()))
+	{
+		delete pAnim;
+		return;
+	}
+
 	pAnim->m_Animator = this;
-	m_mapAnim.insert(make_pair(_AnimName, pAnim));
+	m_mapAnim.insert(make_pair(pAnim->GetName(), pAnim));
 }
 
 

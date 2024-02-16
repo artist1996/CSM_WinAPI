@@ -114,14 +114,14 @@ void CAnimation::Save(const wstring& _strRelativeFolderPath)
 
 	if (nullptr == m_Atlas)
 	{
-		fwprintf_s(pFile, L"[KEY]\t%s\n", L"None");
-		fwprintf_s(pFile, L"[PATH]\t%s\n", L"None");
+		fwprintf_s(pFile, L"[ATLAS_KEY]\t%s\n", L"None");
+		fwprintf_s(pFile, L"[ATLAS_PATH]\t%s\n", L"None");
 	}
 
 	else
 	{
-		fwprintf_s(pFile, L"[KEY]\t%s\n", m_Atlas->GetKey().c_str());
-		fwprintf_s(pFile, L"[PATH]\t%s\n", m_Atlas->GetRelativePath().c_str());
+		fwprintf_s(pFile, L"[ATLAS_KEY]\t%s\n", m_Atlas->GetKey().c_str());
+		fwprintf_s(pFile, L"[ATLAS_PATH]\t%s\n", m_Atlas->GetRelativePath().c_str());
 	}
 
 	fwprintf_s(pFile, L"\n");
@@ -132,12 +132,11 @@ void CAnimation::Save(const wstring& _strRelativeFolderPath)
 
 	for (size_t i = 0; i < m_vecFrm.size(); ++i)
 	{
-		fwprintf_s(pFile, L"[FRAME_INDEX]\n%d\n", (int)i);
-		fwprintf_s(pFile, L"[STATR_POS]\t%f %f\n", m_vecFrm[i].StartPos.x, m_vecFrm[i].StartPos.y);
-		fwprintf_s(pFile, L"[SLICE_SIZE]\t\t%f %f\n", m_vecFrm[i].SliceSize.x, m_vecFrm[i].SliceSize.y);
-		fwprintf_s(pFile, L"[OFFSET]\t\t%f %f\n", m_vecFrm[i].Offset.x, m_vecFrm[i].Offset.y);
-		fwprintf_s(pFile, L"[DURATION]\t%f\n", m_vecFrm[i].Duration);
-
+		fwprintf_s(pFile, L"[FRAME_INDEX]\t%d\n", (int)i);
+		fwprintf_s(pFile, L"[START_POS]\t%f  %f\n", m_vecFrm[i].StartPos.x, m_vecFrm[i].StartPos.y);
+		fwprintf_s(pFile, L"[SLICE_SIZE]\t\t%f  %f\n", m_vecFrm[i].SliceSize.x, m_vecFrm[i].SliceSize.y);
+		fwprintf_s(pFile, L"[OFFSET]\t\t%f  %f\n", m_vecFrm[i].Offset.x, m_vecFrm[i].Offset.y);
+		fwprintf_s(pFile, L"[DURATION]  \t%f\n", m_vecFrm[i].Duration);
 		fwprintf_s(pFile, L"\n");
 	}
 
@@ -168,16 +167,18 @@ int CAnimation::Load(const wstring& _strRelativeFilePath)
 
 	// 정보 읽어오기
 	// 파일의 끝에 도달하면 읽어드릴 데이터가 없기 때문에 EOF(-1)을 반환한다.
-	while (EOF != fwscanf_s(pFile, szBuff, 256))
+	while (EOF != fwscanf_s(pFile, L"%s", szBuff, 256))
 	{
-		if (L"[ANIMATION_NAME]" == szBuff)
+		wstring strRead = szBuff;
+
+		if (L"[ANIMATION_NAME]" == strRead)
 		{
 			// 한번 더 읽어오고 SetName함수 호출 해서 이름 세팅해준다.
 			fwscanf_s(pFile,L"%s", szBuff, 256);
 			SetName(szBuff);
 		}
 
-		else if (L"[ATLAS_TEXTURE]" == szBuff)
+		else if (L"[ATLAS_TEXTURE]" == strRead)
 		{
 			// 아틀라스의 정보를 저장시킨다.
 			fwscanf_s(pFile, L"%s", szBuff, 256);
@@ -194,17 +195,18 @@ int CAnimation::Load(const wstring& _strRelativeFilePath)
 			}
 		}
 
-		else if (L"[FRAME_COUNT]" == szBuff)
+		else if (L"[FRAME_COUNT]" == strRead)
 		{
 			// FrameCount 받아와서 반복문 돌려준다.
 			int FrmCount = 0;
-			fwscanf_s(pFile, L"%d", FrmCount);
+			fwscanf_s(pFile, L"%d", &FrmCount);
 
 			for (int i = 0; i < FrmCount; ++i)
 			{
 				tAnimFrm frm = {};
 				// START POS 가 나올 때 까지 읽는다.
-				do { fwscanf_s(pFile, L"%s", szBuff, 256); } while (wcscmp(szBuff, L"[START_POS]"));
+				do { fwscanf_s(pFile, L"%s", szBuff, 256); }
+				while (wcscmp(szBuff, L"[START_POS]"));
 
 				fwscanf_s(pFile, L"%f%f", &frm.StartPos.x, &frm.StartPos.y);
 				fwscanf_s(pFile, L"%s", szBuff, 256);

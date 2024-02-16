@@ -34,22 +34,13 @@ CPlayer::CPlayer()
 	m_BodyCol->SetScale(Vec2(30.f, 60.f));
 	m_BodyCol->SetActive(true);
 
-
-	// Animation 추가
-	CTexture* pAtlas = CAssetMgr::GetInst()->LoadTexture(L"PlayerAtlasTex", L"texture\\link_32.bmp");
-	m_Animator->CreateAnimation(L"IDLE_DOWN", pAtlas, Vec2(0.f, 0.f), Vec2(120.f, 130.f), 3, 10);
-	m_Animator->CreateAnimation(L"IDLE_LEFT", pAtlas, Vec2(0.f, 130.f), Vec2(120.f, 130.f), 3, 10);
-	m_Animator->CreateAnimation(L"IDLE_UP", pAtlas, Vec2(0.f, 260.f), Vec2(120.f, 130.f), 1, 1);
-	m_Animator->CreateAnimation(L"IDLE_RIGHT", pAtlas, Vec2(0.f, 390.f), Vec2(120.f, 130.f), 3, 10);
-
-	m_Animator->CreateAnimation(L"WALK_DOWN", pAtlas, Vec2(0.f, 520.f), Vec2(120.f, 130.f), 10, 18);
-	m_Animator->CreateAnimation(L"WALK_LEFT", pAtlas, Vec2(0.f, 650.f), Vec2(120.f, 130.f), 10, 18);
-	m_Animator->CreateAnimation(L"WALK_UP",	  pAtlas, Vec2(0.f, 780.f), Vec2(120.f, 130.f), 10, 18);	
-	m_Animator->CreateAnimation(L"WALK_RIGHT",pAtlas, Vec2(0.f, 910.f), Vec2(120.f, 130.f), 10, 18);
-
-	m_Animator->FindAnimation(L"WALK_DOWN")->Save(L"animation\\player\\");
-
-	m_Animator->Play(L"IDLE_DOWN", true);
+	//CTexture* pAtlas = CAssetMgr::GetInst()->LoadTexture(L"PlayerAtlasTex", L"texture\\link_32.bmp");
+	//m_Animator->CreateAnimation(L"WALK_DOWN", pAtlas, Vec2(0.f, 520.f), Vec2(120.f, 130.f), 10, 18);
+	//m_Animator->FindAnimation(L"WALK_DOWN")->Save(L"animation\\player\\");
+	//
+	//m_Animator->Play(L"WALK_DOWN", true);
+	m_Animator->LoadAnimation(L"animation\\player\\WALK_DOWN.anim");
+	m_Animator->Play(L"WALK_DOWN", true);
 }
 
 CPlayer::~CPlayer()
@@ -72,11 +63,11 @@ void CPlayer::tick()
 	}
 	else if (KEY_TAP(KEY::LEFT))
 	{
-		m_Animator->Play(L"WALK_LEFT", true);
+		//m_Animator->Play(L"WALK_LEFT", true);
 	}
 	else if (KEY_RELEASED(KEY::LEFT))
 	{
-		m_Animator->Play(L"IDLE_LEFT", true);
+		//m_Animator->Play(L"IDLE_LEFT", true);
 	}
 
 
@@ -86,11 +77,11 @@ void CPlayer::tick()
 	}
 	else if (KEY_TAP(KEY::RIGHT))
 	{
-		m_Animator->Play(L"WALK_RIGHT", true);
+		//m_Animator->Play(L"WALK_RIGHT", true);
 	}
 	else if (KEY_RELEASED(KEY::RIGHT))
 	{
-		m_Animator->Play(L"IDLE_RIGHT", true);
+		//m_Animator->Play(L"IDLE_RIGHT", true);
 	}
 
 
@@ -101,11 +92,11 @@ void CPlayer::tick()
 	}
 	else if (KEY_TAP(KEY::UP))
 	{
-		m_Animator->Play(L"WALK_UP", true);
+		//m_Animator->Play(L"WALK_UP", true);
 	}
 	else if (KEY_RELEASED(KEY::UP))
 	{
-		m_Animator->Play(L"IDLE_UP", true);
+		//m_Animator->Play(L"IDLE_UP", true);
 	}
 
 
@@ -116,11 +107,11 @@ void CPlayer::tick()
 	}
 	else if (KEY_TAP(KEY::DOWN))
 	{
-		m_Animator->Play(L"WALK_DOWN", true);
+		//m_Animator->Play(L"WALK_DOWN", true);
 	}
 	else if (KEY_RELEASED(KEY::DOWN))
 	{
-		m_Animator->Play(L"IDLE_DOWN", true);
+		//m_Animator->Play(L"IDLE_DOWN", true);
 	}
 
 
@@ -159,3 +150,21 @@ void CPlayer::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _O
 {
 	int a = 0;
 }
+
+// Animation 추가
+	//CTexture* pAtlas = CAssetMgr::GetInst()->LoadTexture(L"PlayerAtlasTex", L"texture\\link_32.bmp");
+	//m_Animator->CreateAnimation(L"IDLE_DOWN", pAtlas, Vec2(0.f, 0.f), Vec2(120.f, 130.f), 3, 10);
+	//m_Animator->CreateAnimation(L"IDLE_LEFT", pAtlas, Vec2(0.f, 130.f), Vec2(120.f, 130.f), 3, 10);
+	//m_Animator->CreateAnimation(L"IDLE_UP", pAtlas, Vec2(0.f, 260.f), Vec2(120.f, 130.f), 1, 1);
+	//m_Animator->CreateAnimation(L"IDLE_RIGHT", pAtlas, Vec2(0.f, 390.f), Vec2(120.f, 130.f), 3, 10);
+	//
+	//m_Animator->CreateAnimation(L"WALK_DOWN", pAtlas, Vec2(0.f, 520.f), Vec2(120.f, 130.f), 10, 18);
+	//m_Animator->CreateAnimation(L"WALK_LEFT", pAtlas, Vec2(0.f, 650.f), Vec2(120.f, 130.f), 10, 18);
+	//m_Animator->CreateAnimation(L"WALK_UP",	  pAtlas, Vec2(0.f, 780.f), Vec2(120.f, 130.f), 10, 18);	
+	//m_Animator->CreateAnimation(L"WALK_RIGHT",pAtlas, Vec2(0.f, 910.f), Vec2(120.f, 130.f), 10, 18);
+
+	//m_Animator->FindAnimation(L"WALK_DOWN")->Save(L"animation\\player\\");
+
+	//m_Animator->LoadAnimation(L"animation\\player\\WALK_DOWN.anim");
+
+	//m_Animator->Play(L"IDLE_DOWN", true);
