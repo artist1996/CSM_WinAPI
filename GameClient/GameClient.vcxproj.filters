@@ -326,4 +326,7 @@
       <Filter>03. Game\08. Module\Animation</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
 </Project>

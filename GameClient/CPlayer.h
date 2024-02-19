@@ -4,6 +4,7 @@
 
 class CCollider;
 class CAnimator;
+class CRigidBody;
 
 class CPlayer :
     public CObj
@@ -17,6 +18,7 @@ private:
     CCollider*  m_HeadCol;
     CCollider*  m_BodyCol;
     CAnimator*  m_Animator;
+    CRigidBody* m_RigidBody;
 
 public:
     virtual void begin();

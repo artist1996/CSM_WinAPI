@@ -8,6 +8,7 @@
 #include "CAnimator.h"
 #include "CAnimation.h"
 #include "CDbgRender.h"
+#include "CRigidBody.h"
 
 #include "CMissile.h"
 #include "CGuidedMissile.h"
@@ -23,6 +24,7 @@ CPlayer::CPlayer()
 	m_HeadCol = (CCollider*)AddComponent(new CCollider);
 	m_BodyCol = (CCollider*)AddComponent(new CCollider);
 	m_Animator = (CAnimator*)AddComponent(new CAnimator);
+	m_RigidBody = (CRigidBody*)AddComponent(new CRigidBody);
 
 	m_HeadCol->SetName(L"Head Collider");
 	m_HeadCol->SetOffsetPos(Vec2(0.f, -40.f));
@@ -41,6 +43,9 @@ CPlayer::CPlayer()
 	//m_Animator->Play(L"WALK_DOWN", true);
 	m_Animator->LoadAnimation(L"animation\\player\\WALK_DOWN.anim");
 	m_Animator->Play(L"WALK_DOWN", true);
+
+	m_RigidBody->SetMass(1.f);
+	m_RigidBody->SetMaxWalkSpeed(500.f);
 }
 
 CPlayer::~CPlayer()
@@ -59,7 +64,7 @@ void CPlayer::tick()
 	// 왼쪽키가 눌린적이 있으면(눌려있으면) 왼쪽으로 1픽셀 이동	
 	if (KEY_PRESSED(KEY::LEFT))
 	{
-		vPos.x -= m_Speed * DT;
+		m_RigidBody->AddForce(Vec2(-1000.f, 0.f));
 	}
 	else if (KEY_TAP(KEY::LEFT))
 	{
@@ -73,7 +78,7 @@ void CPlayer::tick()
 
 	if (KEY_PRESSED(KEY::RIGHT))
 	{
-		vPos.x += m_Speed * DT;
+		m_RigidBody->AddForce(Vec2(1000.f, 0.f));
 	}
 	else if (KEY_TAP(KEY::RIGHT))
 	{
@@ -88,7 +93,7 @@ void CPlayer::tick()
 
 	if (KEY_PRESSED(KEY::UP))
 	{
-		vPos.y -= m_Speed * DT;
+		m_RigidBody->AddForce(Vec2(0.f, -1000.f));
 	}
 	else if (KEY_TAP(KEY::UP))
 	{
@@ -103,7 +108,7 @@ void CPlayer::tick()
 
 	if (KEY_PRESSED(KEY::DOWN))
 	{
-		vPos.y += m_Speed * DT;
+		m_RigidBody->AddForce(Vec2(0.f, 1000.f));
 	}
 	else if (KEY_TAP(KEY::DOWN))
 	{
