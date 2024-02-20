@@ -10,6 +10,7 @@
 class CComponent;
 class CCollider;
 class CAnimator;
+class CRigidBody;
 class CFSM;
 
 class CObj :

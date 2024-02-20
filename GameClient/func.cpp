@@ -38,6 +38,20 @@ void DebugLog(LOG_TYPE _Type, const wchar_t* _LogMgs)
 }
 
 #include "CObj.h"
+float Saturate(float _Ratio)
+{
+	if (_Ratio < 0.f)
+	{
+		_Ratio = 0.f;
+	}
+
+	if (_Ratio > 1.f)
+	{
+		_Ratio = 1.f;
+	}
+
+	return _Ratio;
+}
 bool IsValid(CObj*& _Object)
 {
 	if (nullptr == _Object)

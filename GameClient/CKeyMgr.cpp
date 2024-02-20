@@ -18,6 +18,9 @@ UINT g_RealKey[(UINT)KEY::KEY_END] =
 	VK_CONTROL,
 	VK_LSHIFT,
 	VK_ESCAPE,
+
+	VK_LBUTTON,
+	VK_RBUTTON,
 };
 
 
@@ -87,6 +90,13 @@ void CKeyMgr::tick()
 
 				m_vecKeyInfo[i].bPressed = false;
 			}
+
+			m_PrevMousePos = m_MousePos;
+			POINT ptMouse = {};
+			GetCursorPos(&ptMouse);
+			ScreenToClient(CEngine::GetInst()->GetMainWnd(), &ptMouse);
+			m_MousePos = ptMouse;
+			m_DragDir = m_MousePos - m_PrevMousePos;
 		}
 	}
 	

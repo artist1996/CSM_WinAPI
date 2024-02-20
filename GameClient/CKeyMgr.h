@@ -16,6 +16,8 @@ enum class KEY
 	SHIFT,
 	ESC,
 
+	LBTN,
+	RBTN,
 
 	
 	KEY_END,
@@ -42,10 +44,16 @@ class CKeyMgr
 	SINGLE(CKeyMgr);
 private:
 	vector<tKeyInfo>	m_vecKeyInfo;
+	Vec2				m_MousePos;
+	Vec2				m_PrevMousePos;
+	Vec2				m_DragDir;
 
 public:
 	void init();
 	void tick();
+
+	Vec2 GetMousePos()		{ return m_MousePos; }
+	Vec2 GetDragDir()		{ return m_DragDir; }
 
 public:
 	KEY_STATE GetKeyState(KEY _Key)

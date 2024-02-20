@@ -98,6 +98,16 @@ public:
 		, y(_y)
 	{}
 
+	Vec2(int _x, int _y)
+		: x((float)_x)
+		, y((float)_y)
+	{}
+
+	Vec2(POINT _pt)
+		: x((float)_pt.x)
+		, y((float)_pt.y)
+	{}
+
 	~Vec2()
 	{
 
