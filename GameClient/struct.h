@@ -14,7 +14,7 @@ public:
 
 	float Length()
 	{
-		return sqrtf((x + x) * (y + y));
+		return sqrtf((x * x) + (y * y));
 	}
 
 	void Normalize()
@@ -25,6 +25,8 @@ public:
 		x /= Len;
 		y /= Len;
 	}
+
+	bool IsZero() { return x == 0.f && y == 0.f; }
 
 
 	Vec2 operator +(float f) { return Vec2(x + f, y + f); }

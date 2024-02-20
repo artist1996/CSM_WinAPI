@@ -110,6 +110,9 @@
     <Filter Include="03. Game\05. Object\Effect">
       <UniqueIdentifier>{b73471f7-b9f1-4a2e-9743-4a52dcc3b6ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\05. Object\Force">
+      <UniqueIdentifier>{04dcd61d-7d2d-42a3-ad6a-4e2a49a87f3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -220,6 +223,9 @@
     <ClInclude Include="CAnimation.h">
       <Filter>03. Game\08. Module\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="CForce.h">
+      <Filter>03. Game\05. Object\Force</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -324,6 +330,9 @@
     </ClCompile>
     <ClCompile Include="CAnimation.cpp">
       <Filter>03. Game\08. Module\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="CForce.cpp">
+      <Filter>03. Game\05. Object\Force</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

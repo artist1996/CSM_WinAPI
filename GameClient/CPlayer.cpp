@@ -45,7 +45,9 @@ CPlayer::CPlayer()
 	m_Animator->Play(L"WALK_DOWN", true);
 
 	m_RigidBody->SetMass(1.f);
-	m_RigidBody->SetMaxWalkSpeed(500.f);
+	m_RigidBody->SetMaxWalkSpeed(300.f);
+	m_RigidBody->SetInitWalkSpeed(200.f);
+	m_RigidBody->SetFriction(2000.f);
 }
 
 CPlayer::~CPlayer()
@@ -88,8 +90,6 @@ void CPlayer::tick()
 	{
 		//m_Animator->Play(L"IDLE_RIGHT", true);
 	}
-
-
 
 	if (KEY_PRESSED(KEY::UP))
 	{
