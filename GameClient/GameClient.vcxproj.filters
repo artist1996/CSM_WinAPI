@@ -113,6 +113,9 @@
     <Filter Include="03. Game\05. Object\Force">
       <UniqueIdentifier>{04dcd61d-7d2d-42a3-ad6a-4e2a49a87f3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\05. Object\Platform">
+      <UniqueIdentifier>{6ed30d0d-55b0-4a56-b14c-3a55c282c123}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -226,6 +229,9 @@
     <ClInclude Include="CForce.h">
       <Filter>03. Game\05. Object\Force</Filter>
     </ClInclude>
+    <ClInclude Include="CPlatform.h">
+      <Filter>03. Game\05. Object\Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -333,6 +339,9 @@
     </ClCompile>
     <ClCompile Include="CForce.cpp">
       <Filter>03. Game\05. Object\Force</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlatform.cpp">
+      <Filter>03. Game\05. Object\Platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

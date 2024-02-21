@@ -160,6 +160,7 @@
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CPathMgr.h" />
+    <ClInclude Include="CPlatform.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CRigidBody.h" />
     <ClInclude Include="CSelectObj.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CPathMgr.cpp" />
+    <ClCompile Include="CPlatform.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CRigidBody.cpp" />
     <ClCompile Include="CSelectObj.cpp" />

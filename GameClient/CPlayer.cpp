@@ -101,7 +101,7 @@ void CPlayer::tick()
 	}
 
 
-
+	
 	if (KEY_PRESSED(KEY::DOWN))
 	{
 		m_RigidBody->AddForce(Vec2(0.f, 1000.f));

@@ -87,12 +87,11 @@ void CRigidBody::finaltick()
 			m_VelocityByGravity.Normalize();
 			m_VelocityByGravity *= m_MaxGravitySpeed;
 		}
-
 	}
 
-	Vec2 vFinalPos = m_Velocity + m_VelocityByGravity;
+	Vec2 vFinalVelocity = m_Velocity + m_VelocityByGravity;
 
-	vObjPos += vFinalPos * DT;
+	vObjPos += vFinalVelocity * DT;
 
 	GetOwner()->SetPos(vObjPos);
 	
