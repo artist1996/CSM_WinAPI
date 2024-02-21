@@ -14,8 +14,6 @@ private:
 
     CTexture*   m_PlayerImg;
 
-
-    CCollider*  m_HeadCol;
     CCollider*  m_BodyCol;
     CAnimator*  m_Animator;
     CRigidBody* m_RigidBody;

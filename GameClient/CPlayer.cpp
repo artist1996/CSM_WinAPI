@@ -21,16 +21,10 @@ CPlayer::CPlayer()
 	, m_PlayerImg(nullptr)
 {
 	// Player 의 컴포넌트 설정
-	m_HeadCol = (CCollider*)AddComponent(new CCollider);
 	m_BodyCol = (CCollider*)AddComponent(new CCollider);
 	m_Animator = (CAnimator*)AddComponent(new CAnimator);
 	m_RigidBody = (CRigidBody*)AddComponent(new CRigidBody);
 
-	m_HeadCol->SetName(L"Head Collider");
-	m_HeadCol->SetOffsetPos(Vec2(0.f, -40.f));
-	m_HeadCol->SetScale(Vec2(30.f, 30.f));
-	m_HeadCol->SetActive(true);
-	
 	m_BodyCol->SetName(L"Body Collider");
 	m_BodyCol->SetOffsetPos(Vec2(0.f, 20.f));
 	m_BodyCol->SetScale(Vec2(30.f, 60.f));
@@ -48,6 +42,8 @@ CPlayer::CPlayer()
 	m_RigidBody->SetMaxWalkSpeed(300.f);
 	m_RigidBody->SetInitWalkSpeed(200.f);
 	m_RigidBody->SetFriction(2000.f);
+	m_RigidBody->SetGround(false);
+	m_RigidBody->UseGravity(true);
 }
 
 CPlayer::~CPlayer()
