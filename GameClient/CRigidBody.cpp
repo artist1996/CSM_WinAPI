@@ -21,7 +21,7 @@ CRigidBody::~CRigidBody()
 void CRigidBody::Jump()
 {
 	m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
-	m_Ground = false;
+	SetGround(false);
 }
 
 void CRigidBody::finaltick()

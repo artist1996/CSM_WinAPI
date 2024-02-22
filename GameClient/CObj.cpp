@@ -29,7 +29,7 @@ void CObj::begin()
 
 void CObj::tick()
 {
-
+	m_PrevPos = m_Pos;
 }
 
 void CObj::finaltick()

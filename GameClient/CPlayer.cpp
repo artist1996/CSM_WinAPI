@@ -13,7 +13,15 @@
 #include "CMissile.h"
 #include "CGuidedMissile.h"
 
+void BeGround()
+{
+	LOG(LOG_TYPE::DBG_WARNING, L"Grounded");
+}
 
+void BeAir()
+{
+	LOG(LOG_TYPE::DBG_WARNING, L"Air");
+}
 
 
 CPlayer::CPlayer()
@@ -26,17 +34,34 @@ CPlayer::CPlayer()
 	m_RigidBody = (CRigidBody*)AddComponent(new CRigidBody);
 
 	m_BodyCol->SetName(L"Body Collider");
-	m_BodyCol->SetOffsetPos(Vec2(0.f, 20.f));
-	m_BodyCol->SetScale(Vec2(30.f, 60.f));
+	m_BodyCol->SetOffsetPos(Vec2(0.f, -48.f));
+	m_BodyCol->SetScale(Vec2(100.f, 100.f));
 	m_BodyCol->SetActive(true);
+
+	CTexture* pAtlas = CAssetMgr::GetInst()->LoadTexture(L"PlayerAtlasTex", L"texture\\link_32.bmp");
+	m_Animator->CreateAnimation(L"IDLE_DOWN", pAtlas, Vec2(0.f, 0.f), Vec2(120.f, 130.f), 3, 10);
+	m_Animator->CreateAnimation(L"IDLE_LEFT", pAtlas, Vec2(0.f, 130.f), Vec2(120.f, 130.f), 3, 10);
+	m_Animator->CreateAnimation(L"IDLE_UP", pAtlas, Vec2(0.f, 260.f), Vec2(120.f, 130.f), 1, 1);
+	m_Animator->CreateAnimation(L"IDLE_RIGHT", pAtlas, Vec2(0.f, 390.f), Vec2(120.f, 130.f), 3, 10);
+
+	m_Animator->CreateAnimation(L"WALK_DOWN", pAtlas, Vec2(0.f, 520.f), Vec2(120.f, 130.f), 10, 18);
+	m_Animator->CreateAnimation(L"WALK_LEFT", pAtlas, Vec2(0.f, 650.f), Vec2(120.f, 130.f), 10, 18);
+	m_Animator->CreateAnimation(L"WALK_UP", pAtlas, Vec2(0.f, 780.f), Vec2(120.f, 130.f), 10, 18);
+	m_Animator->CreateAnimation(L"WALK_RIGHT", pAtlas, Vec2(0.f, 910.f), Vec2(120.f, 130.f), 10, 18);
+
+	m_Animator->FindAnimation(L"WALK_DOWN")->Save(L"animation\\player\\");
+
+	m_Animator->LoadAnimation(L"animation\\player\\WALK_DOWN.anim");
+
+	m_Animator->Play(L"IDLE_RIGHT", true);
 
 	//CTexture* pAtlas = CAssetMgr::GetInst()->LoadTexture(L"PlayerAtlasTex", L"texture\\link_32.bmp");
 	//m_Animator->CreateAnimation(L"WALK_DOWN", pAtlas, Vec2(0.f, 520.f), Vec2(120.f, 130.f), 10, 18);
 	//m_Animator->FindAnimation(L"WALK_DOWN")->Save(L"animation\\player\\");
 	//
 	//m_Animator->Play(L"WALK_DOWN", true);
-	m_Animator->LoadAnimation(L"animation\\player\\WALK_DOWN.anim");
-	m_Animator->Play(L"WALK_DOWN", true);
+	//m_Animator->LoadAnimation(L"animation\\player\\WALK_DOWN.anim");
+	//m_Animator->Play(L"WALK_DOWN", true);
 
 	m_RigidBody->SetMass(1.f);
 	m_RigidBody->SetMaxWalkSpeed(300.f);
@@ -46,6 +71,10 @@ CPlayer::CPlayer()
 	m_RigidBody->UseGravity(true);
 	m_RigidBody->SetMaxGravitySpeed(1500.f);
 	m_RigidBody->SetJumpSpeed(600.f);
+
+
+	m_RigidBody->SetGroundFunc(&BeGround);
+	m_RigidBody->SetAirFunc(&BeAir);
 }
 
 CPlayer::~CPlayer()
@@ -59,12 +88,14 @@ void CPlayer::begin()
 
 void CPlayer::tick()
 {	
+	CObj::tick();
 	Vec2 vPos = GetPos();
 
 	// 왼쪽키가 눌린적이 있으면(눌려있으면) 왼쪽으로 1픽셀 이동	
 	if (KEY_PRESSED(KEY::LEFT))
 	{
 		m_RigidBody->AddForce(Vec2(-1000.f, 0.f));
+		//vPos += Vec2(-300.f, 0.f) * DT;
 	}
 	else if (KEY_TAP(KEY::LEFT))
 	{
@@ -74,6 +105,9 @@ void CPlayer::tick()
 	{
 		//m_Animator->Play(L"IDLE_LEFT", true);
 	}
+
+	
+
 
 
 	if (KEY_PRESSED(KEY::RIGHT))
@@ -91,7 +125,7 @@ void CPlayer::tick()
 
 	if (KEY_PRESSED(KEY::UP))
 	{
-		m_RigidBody->AddForce(Vec2(0.f, -1000.f));
+		//m_RigidBody->AddForce(Vec2(0.f, -1000.f));
 	}
 	else if (KEY_TAP(KEY::UP))
 	{
@@ -106,7 +140,7 @@ void CPlayer::tick()
 	
 	if (KEY_PRESSED(KEY::DOWN))
 	{
-		m_RigidBody->AddForce(Vec2(0.f, 1000.f));
+		//m_RigidBody->AddForce(Vec2(0.f, 1000.f));
 	}
 	else if (KEY_TAP(KEY::DOWN))
 	{
@@ -118,7 +152,7 @@ void CPlayer::tick()
 	}
 
 	// Space 키가 눌리면 점프한다.
-	if (KEY_TAP(KEY::SPACE))
+	if (KEY_TAP(KEY::X))
 	{
 		Jump();
 	}

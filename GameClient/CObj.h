@@ -19,6 +19,7 @@ class CObj :
 private:
     Vec2                m_Pos;      // 위치
     Vec2                m_Scale;    // 크기
+    Vec2                m_PrevPos;  // 이전 위치
     vector<CComponent*> m_vecCom;   // 보유 컴포넌트들
 
     CAnimator*          m_Animator;
@@ -35,6 +36,7 @@ public:
 
     Vec2 GetPos() { return m_Pos; }
     Vec2 GetScale() { return m_Scale; }
+    const Vec2& GetPrevPos() { return m_PrevPos; }
     LAYER_TYPE GetLayerType() { return m_Type; }
     bool IsDead() { return m_bDead; }
 

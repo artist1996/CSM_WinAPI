@@ -63,7 +63,7 @@ void CAnimation::render()
 	// 현재 프레임 이미지를 오브젝트 위치에 렌더링
 	TransparentBlt(	  DC
 					, vPos.x - frm.SliceSize.x / 2.f
-					, vPos.y - frm.SliceSize.y / 2.f
+					, vPos.y - frm.SliceSize.y
 					, frm.SliceSize.x, frm.SliceSize.y
 					, m_Atlas->GetDC()
 					, frm.StartPos.x, frm.StartPos.y
