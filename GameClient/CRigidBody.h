@@ -32,7 +32,7 @@ public:
     void SetInitWalkSpeed(float _Speed)    { m_InitWalkSpeed = _Speed; }
     void SetFriction(float _Friction) { m_Friction = _Friction; }
     void SetMaxGravitySpeed(float _MaxGravitySpeed) { m_MaxGravitySpeed = _MaxGravitySpeed; }
-
+    void SetJumpSpeed(float _JumpSpeed) { m_JumpSpeed = _JumpSpeed; }
 
     float GetMass() { return m_Mass; }
     float GetFriction() { return m_Friction; }
@@ -60,6 +60,8 @@ public:
     }
 
     bool IsGround() { return m_Ground; }
+    
+    void Jump();
   
 
 public:

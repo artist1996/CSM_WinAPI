@@ -42,8 +42,10 @@ CPlayer::CPlayer()
 	m_RigidBody->SetMaxWalkSpeed(300.f);
 	m_RigidBody->SetInitWalkSpeed(200.f);
 	m_RigidBody->SetFriction(2000.f);
-	m_RigidBody->SetGround(false);
+
 	m_RigidBody->UseGravity(true);
+	m_RigidBody->SetMaxGravitySpeed(1500.f);
+	m_RigidBody->SetJumpSpeed(600.f);
 }
 
 CPlayer::~CPlayer()
@@ -115,23 +117,10 @@ void CPlayer::tick()
 		//m_Animator->Play(L"IDLE_DOWN", true);
 	}
 
-
-
-	// Space 키가 눌리면 미사일을 쏜다.
+	// Space 키가 눌리면 점프한다.
 	if (KEY_TAP(KEY::SPACE))
 	{
-		CMissile * pMissile = new CGuidedMissile;
-		pMissile->SetName(L"Missile");
-
-		Vec2 vMissilePos = GetPos();
-		vMissilePos.y -= GetScale().y / 2.f;
-
-		pMissile->SetPos(vMissilePos);
-		pMissile->SetScale(Vec2(20.f, 20.f));
-
-		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::PLAYER_MISSILE, pMissile);
-
-		LOG(LOG_TYPE::DBG_WARNING, L"미사일 발사");
+		Jump();
 	}
 
 	SetPos(vPos);
@@ -150,6 +139,27 @@ void CPlayer::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _Ot
 void CPlayer::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
 	int a = 0;
+}
+
+void CPlayer::Jump()
+{
+	m_RigidBody->Jump();
+}
+
+void CPlayer::Shoot()
+{
+	CMissile * pMissile = new CGuidedMissile;
+	pMissile->SetName(L"Missile");
+	
+	Vec2 vMissilePos = GetPos();
+	vMissilePos.y -= GetScale().y / 2.f;
+	
+	pMissile->SetPos(vMissilePos);
+	pMissile->SetScale(Vec2(20.f, 20.f));
+	
+	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::PLAYER_MISSILE, pMissile);
+	
+	LOG(LOG_TYPE::DBG_WARNING, L"미사일 발사");
 }
 
 // Animation 추가

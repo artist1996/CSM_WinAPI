@@ -18,6 +18,12 @@ CRigidBody::~CRigidBody()
 {
 }
 
+void CRigidBody::Jump()
+{
+	m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
+	m_Ground = false;
+}
+
 void CRigidBody::finaltick()
 {
 	// F = M x A
@@ -35,7 +41,7 @@ void CRigidBody::finaltick()
 		m_Velocity += vAccel * DT * 1.f;
 	}
 
-	// 최대 속도 설정
+	// 최대 속도 제한
 	if (0.f != m_MaxWalkSpeed && m_MaxWalkSpeed < m_Velocity.Length())
 	{
 		m_Velocity.Normalize();
@@ -65,6 +71,7 @@ void CRigidBody::finaltick()
 		{
 			fSpeed -= m_Friction * DT;
 		}
+
 		// 마찰에 의해서 속도가 0보다 낮아질 수는 없기 때문에 속도를 0으로 고정
 		if (fSpeed < 0.f)
 		{
@@ -97,4 +104,5 @@ void CRigidBody::finaltick()
 	
 	m_Force = Vec2(0.f, 0.f);
 	m_AddVelocity = Vec2(0.f, 0.f);
+	
 }

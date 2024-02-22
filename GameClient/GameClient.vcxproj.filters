@@ -190,9 +190,6 @@
     <ClInclude Include="CAnimator.h">
       <Filter>03. Game\06. Component\02. Animator</Filter>
     </ClInclude>
-    <ClInclude Include="CRigidBody.h">
-      <Filter>03. Game\06. Component\03. Rigidbody</Filter>
-    </ClInclude>
     <ClInclude Include="CFSM.h">
       <Filter>03. Game\06. Component\04. FSM</Filter>
     </ClInclude>
@@ -231,6 +228,9 @@
     </ClInclude>
     <ClInclude Include="CPlatform.h">
       <Filter>03. Game\05. Object\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="CRigidBody.h">
+      <Filter>03. Game\06. Component\03. Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
