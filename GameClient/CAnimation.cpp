@@ -57,17 +57,17 @@ void CAnimation::render()
 	// Animation 을 재생하고있는 오브젝트
 	CObj* pOwnerObj = m_Animator->GetOwner();
 
-	// 오브젝트의 위치
-	Vec2 vPos = pOwnerObj->GetPos();
+	// 오브젝트의 렌더링 위치
+	Vec2 vRenderPos = pOwnerObj->GetRenderPos();
 
 	// 현재 프레임 이미지를 오브젝트 위치에 렌더링
 	TransparentBlt(	  DC
-					, vPos.x - frm.SliceSize.x / 2.f
-					, vPos.y - frm.SliceSize.y
-					, frm.SliceSize.x, frm.SliceSize.y
+					, (int)(vRenderPos.x - frm.SliceSize.x / 2.f + frm.Offset.x)
+					, (int)(vRenderPos.y - frm.SliceSize.y + frm.Offset.y)
+					, (int)frm.SliceSize.x, (int)frm.SliceSize.y
 					, m_Atlas->GetDC()
-					, frm.StartPos.x, frm.StartPos.y
-					, frm.SliceSize.x, frm.SliceSize.y
+					, (int)frm.StartPos.x, (int)frm.StartPos.y
+					, (int)frm.SliceSize.x, (int)frm.SliceSize.y
 					, RGB(255, 0, 255));
 }
 

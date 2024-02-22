@@ -4,6 +4,7 @@
 #include "CEngine.h"
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
+#include "CCamera.h"
 
 
 CDbgRender::CDbgRender()
@@ -34,25 +35,27 @@ void CDbgRender::render()
 	{
 		USE_BRUSH(DC, BRUSH_TYPE::BRUSH_HOLLOW);
 		CSelectObj SelectPen(DC, CEngine::GetInst()->GetPen(iter->Color));
+		
+		Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(iter->Position);
 
 		// DBG 가 Rect 면 사각형을 그린다.
 		if (m_bRender && DBG_SHAPE::RECT == iter->Shape)
 		{
 			Rectangle(DC
-				, (int)(iter->Position.x - iter->Scale.x / 2.f)
-				, (int)(iter->Position.y - iter->Scale.y / 2.f)
-				, (int)(iter->Position.x + iter->Scale.x / 2.f)
-				, (int)(iter->Position.y + iter->Scale.y / 2.f));
+				, (int)(vRenderPos.x - iter->Scale.x / 2.f)
+				, (int)(vRenderPos.y - iter->Scale.y / 2.f)
+				, (int)(vRenderPos.x + iter->Scale.x / 2.f)
+				, (int)(vRenderPos.y + iter->Scale.y / 2.f));
 		}
 		 
 		// DBG_SHAPE 가 Circle 이면 원을 그린다.
 		else if(m_bRender && DBG_SHAPE::CIRCLE == iter->Shape)
 		{
 			Ellipse(DC
-				, (int)(iter->Position.x - iter->Scale.x / 2.f)
-				, (int)(iter->Position.y - iter->Scale.y / 2.f)
-				, (int)(iter->Position.x + iter->Scale.x / 2.f)
-				, (int)(iter->Position.y + iter->Scale.y / 2.f));
+				, (int)(vRenderPos.x - iter->Scale.x / 2.f)
+				, (int)(vRenderPos.y - iter->Scale.y / 2.f)
+				, (int)(vRenderPos.x + iter->Scale.x / 2.f)
+				, (int)(vRenderPos.y + iter->Scale.y / 2.f));
 		}
 
 		// 해당 디버그렌더 정보가 수명을 다하면 리스트에서 제거한다.

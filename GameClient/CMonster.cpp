@@ -24,11 +24,12 @@ void CMonster::render()
 {
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
+	Vec2 vRenderPos = GetRenderPos();
 
-	Rectangle(DC, (int)(vPos.x - vScale.x * 0.5f)
-		, (int)(vPos.y - vScale.y * 0.5f)
-		, (int)(vPos.x + vScale.x * 0.5f)
-		, (int)(vPos.y + vScale.y * 0.5f));
+	Rectangle(DC, (int)(vRenderPos.x - vScale.x * 0.5f)
+		, (int)(vRenderPos.y - vScale.y * 0.5f)
+		, (int)(vRenderPos.x + vScale.x * 0.5f)
+		, (int)(vRenderPos.y + vScale.y * 0.5f));
 }
 
 void CMonster::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj

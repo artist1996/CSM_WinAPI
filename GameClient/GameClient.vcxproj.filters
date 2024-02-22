@@ -116,6 +116,9 @@
     <Filter Include="03. Game\05. Object\Platform">
       <UniqueIdentifier>{6ed30d0d-55b0-4a56-b14c-3a55c282c123}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\03. Manager\09. Camera">
+      <UniqueIdentifier>{f0391659-71a7-4a50-a813-4ff665a3f8ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -232,6 +235,9 @@
     <ClInclude Include="CRigidBody.h">
       <Filter>03. Game\06. Component\03. Rigidbody</Filter>
     </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>03. Game\03. Manager\09. Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -342,6 +348,9 @@
     </ClCompile>
     <ClCompile Include="CPlatform.cpp">
       <Filter>03. Game\05. Object\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>03. Game\03. Manager\09. Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
