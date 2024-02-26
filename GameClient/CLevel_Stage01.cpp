@@ -2,6 +2,7 @@
 #include "CLevel_Stage01.h"
 #include "CKeyMgr.h"
 #include "CForce.h"
+#include "CCamera.h"
 
 CLevel_Stage01::CLevel_Stage01()
 {
@@ -9,6 +10,11 @@ CLevel_Stage01::CLevel_Stage01()
 
 CLevel_Stage01::~CLevel_Stage01()
 {
+}
+
+void CLevel_Stage01::begin()
+{
+	CCamera::GetInst()->SetCameraEffect(CAM_EFFECT::FADE_IN, 5.f);
 }
 
 void CLevel_Stage01::tick()

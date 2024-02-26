@@ -7,6 +7,8 @@ CRigidBody::CRigidBody()
 	, m_MaxWalkSpeed(0.f)
 	, m_InitWalkSpeed(0.f)
 	, m_Ground(false)
+	, m_Climb(false)
+	, m_Air(false)
 	, m_GravityAccel(980.f)
 	, m_UseGravity(false)
 	, m_JumpSpeed(400.f)
@@ -20,8 +22,24 @@ CRigidBody::~CRigidBody()
 
 void CRigidBody::Jump()
 {
-	m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
-	SetGround(false);
+	if (m_Ground && m_Climb)
+	{
+		m_VelocityByGravity += Vec2(0.f, -0.1f) * m_JumpSpeed;
+		SetGround(false);
+		SetClimb(false);
+	}
+
+	else if (m_Ground && !m_Climb)
+	{
+		m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
+		SetGround(false);
+	}
+
+	else if (!m_Ground && m_Climb)
+	{
+		m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
+		SetClimb(false);
+	}
 }
 
 void CRigidBody::finaltick()
@@ -85,7 +103,7 @@ void CRigidBody::finaltick()
 	}
 
 	// 중력 가속도에 의한 속도 증가
-	if (m_UseGravity && !m_Ground)
+	if (m_UseGravity && !m_Ground && !m_Climb)
 	{
 		m_VelocityByGravity += Vec2(0.f, 1.f) * m_GravityAccel * DT;
 
@@ -95,6 +113,19 @@ void CRigidBody::finaltick()
 			m_VelocityByGravity *= m_MaxGravitySpeed;
 		}
 	}
+
+	else if (m_UseGravity && !m_Ground && m_Climb)
+	{
+		m_VelocityByGravity += Vec2(0.f, 0.1f) * m_GravityAccel * DT;
+
+		if (m_VelocityByGravity.Length() > 20.f)
+		{
+			m_VelocityByGravity.Normalize();
+			m_VelocityByGravity += Vec2(0.f, 0.1f) * m_GravityAccel * DT;
+		}
+	}
+
+	
 
 	Vec2 vFinalVelocity = m_Velocity + m_VelocityByGravity;
 

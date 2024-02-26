@@ -11,6 +11,7 @@ private:
 public:
 
 public:
+    virtual void begin() override;
     virtual void tick() override;
     virtual CLevel_Stage01* Clone() override { return new CLevel_Stage01(*this); }
 

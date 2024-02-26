@@ -1,7 +1,6 @@
 #pragma once
 #include "CObj.h"
 
-
 class CCollider;
 class CAnimator;
 class CRigidBody;
@@ -25,6 +24,8 @@ public:
     virtual void BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
     virtual void OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
     virtual void EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
+
+    float GetSpeed() { return m_Speed; }
 
 private:
     void Jump();

@@ -12,6 +12,7 @@
 
 #include "CMissile.h"
 #include "CGuidedMissile.h"
+#include "CCamera.h"
 
 void BeGround()
 {
@@ -75,11 +76,14 @@ CPlayer::CPlayer()
 
 	m_RigidBody->SetGroundFunc(&BeGround);
 	m_RigidBody->SetAirFunc(&BeAir);
+
+
+	// 카메라
+	CCamera::GetInst()->SetOwner(this);
 }
 
 CPlayer::~CPlayer()
 {
-	
 }
 
 void CPlayer::begin()
@@ -92,10 +96,11 @@ void CPlayer::tick()
 	Vec2 vPos = GetPos();
 
 	// 왼쪽키가 눌린적이 있으면(눌려있으면) 왼쪽으로 1픽셀 이동	
-	if (KEY_PRESSED(KEY::LEFT))
+	if (KEY_PRESSED(KEY::LEFT) && !m_RigidBody->IsWall())
 	{
-		m_RigidBody->AddForce(Vec2(-1000.f, 0.f));
+		//m_RigidBody->AddForce(Vec2(-1000.f, 0.f));
 		//vPos += Vec2(-300.f, 0.f) * DT;
+		vPos += Vec2(-300.f, 0.f) * DT;
 	}
 	else if (KEY_TAP(KEY::LEFT))
 	{
@@ -105,14 +110,24 @@ void CPlayer::tick()
 	{
 		//m_Animator->Play(L"IDLE_LEFT", true);
 	}
+	else if (KEY_TAP(KEY::X) && m_RigidBody->IsWall())
+	{
+		vPos += Vec2(-50.f, 0.f) * DT;
+		Jump();
+	}
 
+	else if (KEY_PRESSED(KEY::LEFT) && m_RigidBody->IsWall())
+	{
+		vPos += Vec2(-0.1f, 0.f) * DT;
+	}
 	
 
 
 
-	if (KEY_PRESSED(KEY::RIGHT))
+	if (KEY_PRESSED(KEY::RIGHT) && !m_RigidBody->IsWall())
 	{
-		m_RigidBody->AddForce(Vec2(1000.f, 0.f));
+		//m_RigidBody->AddForce(Vec2(1000.f, 0.f));
+		vPos += Vec2(300.f, 0.f) * DT;
 	}
 	else if (KEY_TAP(KEY::RIGHT))
 	{
@@ -121,6 +136,12 @@ void CPlayer::tick()
 	else if (KEY_RELEASED(KEY::RIGHT))
 	{
 		//m_Animator->Play(L"IDLE_RIGHT", true);
+	}
+
+	else if (KEY_PRESSED(KEY::RIGHT) && KEY_TAP(KEY::X) && m_RigidBody->IsWall())
+	{ 
+		vPos += Vec2(50.f, 0.f) * DT;
+		Jump();
 	}
 
 	if (KEY_PRESSED(KEY::UP))

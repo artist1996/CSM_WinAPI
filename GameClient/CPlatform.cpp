@@ -34,12 +34,68 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 	if (L"Player" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
-		pRB->SetGround(true);
+		Vec2 PrevPos = _OtherObj->GetPrevPos();
+		Vec2 vOtherObjPos = _OtherObj->GetPos();
+		Vec2 vOtherObjScale = _OtherObj->GetScale();
+		Vec2 vPos = GetPos();
+		Vec2 vScale = GetScale();
+		if(PrevPos.y < vPos.y - vScale.y * 0.5f
+			&& vOtherObjPos.x + vOtherObjScale.x * 0.5f >= vPos.x - vScale.x * 0.5f
+			&& vOtherObjPos.x - vOtherObjScale.x * 0.5f <= vPos.x + vScale.x * 0.5f)
+		{ 
+			pRB->SetGround(true);
+			pRB->SetClimb(false);
+			_OtherObj->SetPos(vOtherObjPos.x, vPos.y - vScale.y * 0.5f);
+		}
+
+		else if (PrevPos.y > vPos.y - vScale.y * 0.5f
+			&& vOtherObjPos.x + vOtherObjScale.x * 0.5f > vPos.x - vScale.x * 0.5f
+			&& !pRB->IsGround())
+		{
+			_OtherObj->SetPos(Vec2((vPos.x - vScale.x * 0.5f) - vOtherObjScale.x * 0.5f, vOtherObjPos.y));
+			pRB->SetClimb(true);
+		}
+
+		else if (PrevPos.y > vPos.y - vScale.y * 0.5f
+			&& vOtherObjPos.x - vOtherObjScale.x * 0.5f < vPos.x + vScale.x * 0.5f
+			&& !pRB->IsGround())
+		{
+			_OtherObj->SetPos(Vec2((vPos.x + vScale.x * 0.5f) + vOtherObjScale.x * 0.5f, vOtherObjPos.y));
+			pRB->SetClimb(true);
+		}
+
 	}
 }
 
 void CPlatform::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
+	if (L"Player" == _OtherObj->GetName())
+	{
+		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		Vec2 PrevPos = _OtherObj->GetPrevPos();
+		Vec2 vOtherObjPos = _OtherObj->GetPos();
+		Vec2 vOtherObjScale = _OtherObj->GetScale();
+		Vec2 vPos = GetPos();
+		Vec2 vScale = GetScale();
+
+	if (
+		PrevPos.y > vPos.y - vScale.y * 0.5f
+		&& vOtherObjPos.x - vOtherObjScale.x * 0.5f < vPos.x + vScale.x * 0.5f
+		&& !pRB->IsGround())
+	{
+		_OtherObj->SetPos(Vec2((vPos.x - vScale.x * 0.5f) - vOtherObjScale.x * 0.5f, vOtherObjPos.y));
+		pRB->SetClimb(true);
+	}
+
+	else if 
+		(PrevPos.y > vPos.y - vScale.y * 0.5f
+			&& vOtherObjPos.x - vOtherObjScale.x * 0.5f > vPos.x + vScale.x * 0.5f
+		&& !pRB->IsGround())
+	 {
+		_OtherObj->SetPos(Vec2((vPos.x + vScale.x * 0.5f) + vOtherObjScale.x * 0.5f, vOtherObjPos.y));
+		pRB->SetClimb(true);
+	 }
+	}
 }
 
 void CPlatform::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
@@ -47,7 +103,30 @@ void CPlatform::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* 
 	if (L"Player" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		Vec2 PrevPos = _OtherObj->GetPrevPos();
+		Vec2 vOtherObjPos = _OtherObj->GetPos();
+		Vec2 vOtherObjScale = _OtherObj->GetScale();
+		Vec2 vPos = GetPos();
+		Vec2 vScale = GetScale();
 
-		pRB->SetGround(false);
+		if (pRB->IsGround() && pRB->IsWall())
+		{
+			pRB->SetClimb(false);
+		}
+		
+		else if (!pRB->IsGround() && pRB->IsWall())
+		{
+			pRB->SetClimb(false);
+		}
+
+		else if (pRB->IsGround())
+		{
+			pRB->SetGround(true);
+		}
+
+		else if (pRB->IsGround() && !pRB->IsWall())
+		{
+			pRB->SetGround(false);
+		}
 	}
 }

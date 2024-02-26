@@ -1,20 +1,46 @@
 #pragma once
+
+enum class CAM_EFFECT
+{
+	FADE_IN,
+	FADE_OUT,
+	NONE,
+};
+
+class CObj;
+class CTexture;
+
 class CCamera
 {
 	SINGLE(CCamera)
 private:
-	Vec2 m_LookAt;
-	Vec2 m_Diff;
+	CObj*	   m_Owner;
+	CTexture*  m_FadeTex;
 
-	float m_CamSpeed;
+	Vec2	   m_LookAt;
+	Vec2	   m_Diff;
+	float	   m_CamSpeed;
+	
+	CAM_EFFECT m_Effect;
+	float	   m_Duration;
+	float	   m_Time;
+	float      m_Alpha;
 
 public:
 	Vec2 GetRenderPos(Vec2 _RealPos) { return _RealPos - m_Diff; }
 	Vec2 GetRealPos(Vec2 _RenderPos) { return _RenderPos + m_Diff; }
 
+	void SetOwner(CObj* _Owner) { m_Owner = _Owner; }
+	
+	void SetCameraEffect(CAM_EFFECT _Effect, float _Duration);
 
 public:
 	void init();
 	void tick();
+	void render();
+
+private:
+	void Move();
+	void CameraEffect();
 };
 

@@ -25,7 +25,9 @@ private:
     bool    m_UseGravity;        // 중력 체크
     bool    m_Ground;            // 땅 위에 서있는지 체크
 
-    bool    m_Wall;              // 벽에 부딪혔는지 체크
+    bool    m_Climb;              // 벽에 부딪혔는지 체크
+
+    bool    m_Air;                // 공중에 있는지 체크
                                  
     float   m_JumpSpeed;         // 점프 속력
 
@@ -38,6 +40,7 @@ private:
     CObj*    m_AirInst;
     DELEGATE m_AirDelegate;
 
+    
 
 public:
     virtual void finaltick() override;
@@ -57,7 +60,7 @@ public:
     float GetMaxWalkSpeed() { return m_MaxWalkSpeed; }
     float GetJumpSpeed() { return m_JumpSpeed; }
     Vec2  GetGravityVelocity() { return m_VelocityByGravity; }
-
+    
     void SetGroundFunc(void (*_pFunc)(void)) { m_GroundFunc = _pFunc; }
     void SetAirFunc(void(*_pFunc)(void)) { m_AirFunc = _pFunc; }
 
@@ -66,7 +69,7 @@ public:
         m_GroundInst = _Inst;
         m_GroundDelegate = _MemFunc;
     }
-
+    
     void SetAirDelegate(CObj* _Inst, DELEGATE _MemFunc)
     {
         m_AirInst = _Inst;
@@ -101,16 +104,31 @@ public:
         }
     }
 
+    void SetClimb(bool _Climb)
+    {
+        if (m_Climb == _Climb)
+            return;
+
+        m_Climb = _Climb;
+        
+        if (m_Climb)
+        {
+            m_VelocityByGravity = Vec2(0.f, -100.f);
+            //m_Force = Vec2(0.f, 0.f);
+            SetGround(false);
+        }
+    }
+
     void UseGravity(bool _UseGravity)
     {
         m_UseGravity = _UseGravity;
         if (!m_UseGravity)
         {
-            m_VelocityByGravity = Vec2(0.f, 0.f);
+            m_VelocityByGravity = Vec2(0.f, 0.f);   
         }
     }
 
-    bool IsWall() { return m_Wall; }
+    bool IsWall() { return m_Climb; }
 
     bool IsGround() { return m_Ground; }
     
