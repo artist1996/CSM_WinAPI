@@ -28,3 +28,9 @@ using std::wstring;
 #include "func.h"
 
 #include "CSelectObj.h"
+
+// png 로딩 관련 추가
+#include <objidl.h>
+#include <gdiplus.h>
+#pragma comment(lib, "GdiPlus.lib")
+using namespace Gdiplus;

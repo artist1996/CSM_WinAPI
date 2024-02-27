@@ -7,6 +7,14 @@ enum class CAM_EFFECT
 	NONE,
 };
 
+struct CAM_EFFECT_INFO
+{
+	CAM_EFFECT	Effect;
+	float		Duration;
+	float		Time;
+	float		Alpha;
+};
+
 class CObj;
 class CTexture;
 
@@ -14,17 +22,13 @@ class CCamera
 {
 	SINGLE(CCamera)
 private:
-	CObj*	   m_Owner;
-	CTexture*  m_FadeTex;
+	CObj*					m_Owner;
+	CTexture*				m_FadeTex;
+	list<CAM_EFFECT_INFO>	m_EffectList;
 
 	Vec2	   m_LookAt;
 	Vec2	   m_Diff;
 	float	   m_CamSpeed;
-	
-	CAM_EFFECT m_Effect;
-	float	   m_Duration;
-	float	   m_Time;
-	float      m_Alpha;
 
 public:
 	Vec2 GetRenderPos(Vec2 _RealPos) { return _RealPos - m_Diff; }

@@ -120,9 +120,6 @@ void CPlayer::tick()
 	{
 		vPos += Vec2(-0.1f, 0.f) * DT;
 	}
-	
-
-
 
 	if (KEY_PRESSED(KEY::RIGHT) && !m_RigidBody->IsWall())
 	{

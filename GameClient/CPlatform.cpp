@@ -63,7 +63,6 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 			_OtherObj->SetPos(Vec2((vPos.x + vScale.x * 0.5f) + vOtherObjScale.x * 0.5f, vOtherObjPos.y));
 			pRB->SetClimb(true);
 		}
-
 	}
 }
 
@@ -78,8 +77,7 @@ void CPlatform::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _
 		Vec2 vPos = GetPos();
 		Vec2 vScale = GetScale();
 
-	if (
-		PrevPos.y > vPos.y - vScale.y * 0.5f
+	if (PrevPos.y > vPos.y - vScale.y * 0.5f
 		&& vOtherObjPos.x - vOtherObjScale.x * 0.5f < vPos.x + vScale.x * 0.5f
 		&& !pRB->IsGround())
 	{
