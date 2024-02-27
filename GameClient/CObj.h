@@ -79,6 +79,7 @@ public:
 
 public:
     CObj();
+    CObj(const CObj& _Other);
     ~CObj();
 
     friend class CLevel;

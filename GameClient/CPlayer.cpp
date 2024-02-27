@@ -82,6 +82,19 @@ CPlayer::CPlayer()
 	CCamera::GetInst()->SetOwner(this);
 }
 
+CPlayer::CPlayer(const CPlayer& _Other)
+	: CObj(_Other)
+	, m_Speed(_Other.m_Speed)
+	, m_PlayerImg(_Other.m_PlayerImg)
+	, m_BodyCol(nullptr)
+	, m_Animator(nullptr)
+	, m_RigidBody(nullptr)
+{
+	m_BodyCol = GetComponent<CCollider>();
+	m_Animator = GetComponent<CAnimator>();
+	m_RigidBody = GetComponent<CRigidBody>();
+}
+
 CPlayer::~CPlayer()
 {
 }

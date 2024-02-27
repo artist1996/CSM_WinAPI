@@ -36,6 +36,7 @@ public:
 
 public:
     CPlayer();
+    CPlayer(const CPlayer& _Other);
     ~CPlayer();
 };
 
