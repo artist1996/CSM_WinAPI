@@ -74,10 +74,6 @@ CPlayer::CPlayer()
 	m_RigidBody->SetJumpSpeed(600.f);
 
 
-	m_RigidBody->SetGroundFunc(&BeGround);
-	m_RigidBody->SetAirFunc(&BeAir);
-
-
 	// Ä«¸Þ¶ó
 	CCamera::GetInst()->SetOwner(this);
 }
@@ -101,6 +97,8 @@ CPlayer::~CPlayer()
 
 void CPlayer::begin()
 {
+	m_RigidBody->SetGroundFunc(&BeGround);
+	m_RigidBody->SetAirFunc(&BeAir);
 }
 
 void CPlayer::tick()

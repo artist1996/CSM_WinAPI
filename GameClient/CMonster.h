@@ -8,6 +8,7 @@ private:
     int         m_HP;
 
     CCollider*  m_Collider;
+    CFSM*       m_FSM;
 
 public:
     virtual void tick() override;

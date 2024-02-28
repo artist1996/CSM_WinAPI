@@ -119,6 +119,12 @@
     <Filter Include="03. Game\03. Manager\09. Camera">
       <UniqueIdentifier>{f0391659-71a7-4a50-a813-4ff665a3f8ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\08. Module\State">
+      <UniqueIdentifier>{960cbf8e-cb8f-4cca-82c1-a5c7edaa8620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\MonsterState">
+      <UniqueIdentifier>{9b4ea930-9f85-4388-815d-12dc82dfa27c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -238,6 +244,15 @@
     <ClInclude Include="CCamera.h">
       <Filter>03. Game\03. Manager\09. Camera</Filter>
     </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>03. Game\08. Module\State</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterIDLE.h">
+      <Filter>03. Game\08. Module\State\MonsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterTrace.h">
+      <Filter>03. Game\08. Module\State\MonsterState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -351,6 +366,15 @@
     </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>03. Game\03. Manager\09. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CState.cpp">
+      <Filter>03. Game\08. Module\State</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterIDLE.cpp">
+      <Filter>03. Game\08. Module\State\MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterTrace.cpp">
+      <Filter>03. Game\08. Module\State\MonsterState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

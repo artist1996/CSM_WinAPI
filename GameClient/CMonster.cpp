@@ -3,11 +3,13 @@
 
 #include "CCollider.h"
 #include "CMissile.h"
+#include "CFSM.h"
 
 CMonster::CMonster()
 	: m_HP(5)
 {
 	m_Collider = (CCollider*)AddComponent(new CCollider);
+	m_FSM = (CFSM*)AddComponent(new CFSM);
 	m_Collider->SetScale(Vec2(120.f, 120.f));
 }
 
