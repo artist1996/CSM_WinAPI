@@ -141,6 +141,7 @@ public:
     CLONE(CRigidBody)
 
     CRigidBody();
+    CRigidBody(const CRigidBody& _Other);
     ~CRigidBody();
 };
 

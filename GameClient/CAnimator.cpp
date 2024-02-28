@@ -8,6 +8,23 @@ CAnimator::CAnimator()
 {
 }
 
+CAnimator::CAnimator(const CAnimator& _Other)
+	: CComponent(_Other)
+	, m_CurAnim(nullptr)
+	, m_Repeat(_Other.m_Repeat)
+{
+	for (const auto& pair : _Other.m_mapAnim)
+	{
+		CAnimation* pAnim = pair.second->Clone();
+		pAnim->m_Animator = this;
+		
+		m_mapAnim.insert(make_pair(pair.first, pAnim));
+	}
+
+	if (nullptr != _Other.m_CurAnim)
+		m_CurAnim = FindAnimation(_Other.m_CurAnim->GetName());
+}
+
 CAnimator::~CAnimator()
 {
 	Safe_Del_Map(m_mapAnim);

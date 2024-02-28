@@ -11,6 +11,14 @@ CCollider::CCollider()
 {
 }
 
+CCollider::CCollider(const CCollider& _Other)
+	: CComponent(_Other)
+	, m_CollisionCount(0)
+	, m_Active(_Other.m_Active)
+	, m_bRegister(_Other.m_bRegister)
+{
+}
+
 CCollider::~CCollider()
 {
 }

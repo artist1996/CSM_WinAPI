@@ -50,6 +50,7 @@ public:
 
 public:
     CCollider();
+    CCollider(const CCollider& _Other);
     ~CCollider();
 
     friend class CCollisionMgr;
