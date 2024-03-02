@@ -9,6 +9,7 @@ CFSM::CFSM()
 
 CFSM::~CFSM()
 {
+    Safe_Del_Map(m_mapState);
 }
 
 void CFSM::finaltick()
@@ -40,7 +41,7 @@ CState* CFSM::FindState(const wstring& _strStateName)
 
 void CFSM::ChangeState(const wstring& _strNextStateName)
 {
-    if (!m_CurState && (_strNextStateName) == m_CurState->GetName())
+    if (m_CurState && (_strNextStateName) == m_CurState->GetName())
         return;
 
     if (nullptr != m_CurState)
@@ -51,4 +52,10 @@ void CFSM::ChangeState(const wstring& _strNextStateName)
     assert(m_CurState);
 
     m_CurState->Enter();
+}
+
+void CFSM::SetBlackboardData(const wstring& _strKey, DATA_TYPE _Type, void* _pData)
+{
+    tBlackboardData data = { _Type, _pData };
+    m_mapData.insert(make_pair(_strKey, data));
 }

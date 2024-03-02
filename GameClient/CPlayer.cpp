@@ -97,6 +97,10 @@ CPlayer::~CPlayer()
 
 void CPlayer::begin()
 {
+	// * << 포인터가 젤 생각을 많이 해야하는?
+	// CTexture* Asset은 하나로 돌려쓸려고
+	// CObj* m_Owner << 이런거는 깊은 복사를 해야하는데 AddComponent 함수에서 어차피 this를 넣어주니까 nullptr로 초기화
+	// vector<CComponent*> <<
 	m_RigidBody->SetGroundFunc(&BeGround);
 	m_RigidBody->SetAirFunc(&BeAir);
 }

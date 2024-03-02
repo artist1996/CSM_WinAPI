@@ -33,6 +33,10 @@ public:
     void AddState(const wstring& _strStateName, CState* _State);
     CState* FindState(const wstring& _strStateName);
     void ChangeState(const wstring& _strNextStateName);
+    void SetBlackboardData(const wstring& _strKey, DATA_TYPE _Type, void* _pData);
+    
+    template<typename T>
+    T GetBlackboardData(const wstring& _DataKey);
 
 public:
     virtual void finaltick() override;
@@ -43,3 +47,39 @@ public:
     ~CFSM();
 };
 
+template<typename T>
+inline T CFSM::GetBlackboardData(const wstring& _DataKey)
+{
+    map<wstring, tBlackboardData>::iterator iter = m_mapData.find(_DataKey);
+
+    assert(iter != m_mapData.end());
+
+    if (std::is_same_v<int, T>)
+    {
+        assert(iter->second.Type == DATA_TYPE::INT);
+
+        return *((T*)iter->second.pData);
+    }
+
+    if (std::is_same_v<float, T>)
+    {
+        assert(iter->second.Type == DATA_TYPE::FLOAT);
+
+        return *((T*)iter->second.pData);
+    }
+
+    if (std::is_same_v<Vec2, T>)
+    {
+        assert(iter->second.Type == DATA_TYPE::VEC2);
+
+        return *((T*)iter->second.pData);
+    }
+
+    if constexpr (std::is_same_v<CObj*, T>)
+    {
+        assert(iter->second.Type == DATA_TYPE::OBJECT);
+
+        return (T)iter->second.pData;
+    }
+    
+}

@@ -14,6 +14,7 @@ CLevel_Stage01::~CLevel_Stage01()
 
 void CLevel_Stage01::begin()
 {
+	CLevel::begin();
 	CCamera::GetInst()->SetCameraEffect(CAM_EFFECT::FADE_IN, 5.f);
 }
 

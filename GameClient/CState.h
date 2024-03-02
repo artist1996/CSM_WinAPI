@@ -12,7 +12,8 @@ protected:
     CObj* GetObj() { return m_Owner->GetOwner(); }
     CFSM* GetFSM() { return m_Owner; }
     
-    void* GetBlackboardData(const wstring& _strDataName) {}
+    template <typename T>
+    T GetBlackboardData(const wstring& _strDataName) { return m_Owner->GetBlackboardData<T>(_strDataName); }
 
 public:
     virtual void Enter() PURE;

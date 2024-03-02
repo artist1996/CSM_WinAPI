@@ -1,25 +1,45 @@
 #include "pch.h"
 #include "CMonster.h"
+#include "CLevelMgr.h"
 
 #include "CCollider.h"
 #include "CMissile.h"
 #include "CFSM.h"
+#include "CMonsterIDLE.h"
+#include "CMonsterTrace.h"
+
 
 CMonster::CMonster()
 	: m_HP(5)
+	, m_DetectRange(300.f)
+	, m_Speed(100.f)
 {
 	m_Collider = (CCollider*)AddComponent(new CCollider);
 	m_FSM = (CFSM*)AddComponent(new CFSM);
 	m_Collider->SetScale(Vec2(120.f, 120.f));
+
+	m_FSM->AddState(L"IDLE", new CMonsterIDLE);
+	m_FSM->AddState(L"Trace", new CMonsterTrace);
 }
 
 CMonster::~CMonster()
 {
 }
 
+void CMonster::begin()
+{
+	m_FSM->SetBlackboardData(L"DetectRange", DATA_TYPE::FLOAT, &m_DetectRange);
+	m_FSM->SetBlackboardData(L"Speed", DATA_TYPE::FLOAT, &m_Speed);
+	m_FSM->SetBlackboardData(L"Self", DATA_TYPE::OBJECT, this);
+	
+	CObj* pPlayer = CLevelMgr::GetInst()->FindObjectByName(L"Player");
+	m_FSM->SetBlackboardData(L"Target", DATA_TYPE::OBJECT, pPlayer);
+
+	m_FSM->ChangeState(L"IDLE");
+}
+
 void CMonster::tick()
 {
-
 }
 
 void CMonster::render()

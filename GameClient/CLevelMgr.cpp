@@ -95,3 +95,8 @@ void CLevelMgr::render()
 {
 	m_pCurrentLevel->render();
 }
+
+CObj* CLevelMgr::FindObjectByName(const wstring& _strName)
+{
+	return m_pCurrentLevel->FindObjectByName(_strName);
+}
