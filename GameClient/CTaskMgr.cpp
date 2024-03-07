@@ -27,6 +27,9 @@ void CTaskMgr::ClearGC()
 
 void CTaskMgr::ExecuteTask()
 {
+	static bool bChangeLevel = false;
+	bChangeLevel = false;
+
 	for (size_t i = 0; i < m_vecTask.size(); ++i)
 	{
 		switch (m_vecTask[i].Type)
@@ -58,11 +61,15 @@ void CTaskMgr::ExecuteTask()
 		}
 		break;
 		case TASK_TYPE::CHANGE_LEVEL:
-
+		{
+			assert(!bChangeLevel);
+			bChangeLevel = true;
+			LEVEL_TYPE NextType = (LEVEL_TYPE)m_vecTask[i].Param1;
+			CLevelMgr::GetInst()->ChangeLevel(NextType);
+		}
 			break;
 		}
 	}
-
 
 	m_vecTask.clear();
 }

@@ -14,10 +14,15 @@ public:
 	void progress();
 	void render();
 
+private:
+	void ChangeLevel(LEVEL_TYPE _NextLevelType);
+
 public:
 	CObj* FindObjectByName(const wstring& _strName);
 
 public:
 	CLevel* GetCurrentLevel() { return m_pCurrentLevel; }
+
+	friend class CTaskMgr;
 };
 

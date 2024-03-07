@@ -19,6 +19,9 @@ public:
     virtual void finaltick(); // 매 프레임마다 호출
     virtual void render();  // 매프레임마다 호출
 
+    virtual void Enter() PURE;
+    virtual void Exit() PURE;
+
 public:
     void AddObject(LAYER_TYPE _Layer, CObj* _Obj);
     void RegisterCollider(CCollider* _Collider);
@@ -27,6 +30,10 @@ public:
 
     const vector<CObj*>& GetObjects(LAYER_TYPE _Type) { return m_arrObj[(UINT)_Type]; }
     const vector<CCollider*>& GetColliders(LAYER_TYPE _Layer) {  return m_arrCollider[(UINT)_Layer];  }
+
+protected:
+    void DeleteAllObjects();
+    void DeleteObjects(LAYER_TYPE _Type);
 
 public:
     virtual CLevel* Clone() = 0;
