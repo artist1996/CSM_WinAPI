@@ -36,9 +36,7 @@ protected:
     void DeleteObjects(LAYER_TYPE _Type);
 
 public:
-    virtual CLevel* Clone() = 0;
-
-public:
+    CLONE_DISABLE(CLevel)
     CLevel();
     ~CLevel();
 };

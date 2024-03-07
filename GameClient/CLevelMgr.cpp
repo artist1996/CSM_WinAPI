@@ -5,10 +5,7 @@
 
 #include "CLevel.h"
 #include "CLevel_Stage01.h"
-
-#include "CPlayer.h"
-#include "CMonster.h"
-#include "CPlatform.h"
+#include "CLevel_Editor.h"
 
 CLevelMgr::CLevelMgr()
 	: m_arrLevel{}
@@ -34,11 +31,12 @@ void CLevelMgr::init()
 {
 	// 모든 레벨 생성
 	m_arrLevel[(UINT)LEVEL_TYPE::STAGE_01] = new CLevel_Stage01;
+	m_arrLevel[(UINT)LEVEL_TYPE::EDITOR] = new CLevel_Editor;
 
 	// 현재 레벨 지정
 	//m_pCurrentLevel = m_arrLevel[(UINT)LEVEL_TYPE::STAGE_01];
 	
-	::ChangeLevel(LEVEL_TYPE::STAGE_01);
+	::ChangeLevel(LEVEL_TYPE::EDITOR);
 	
 	//m_pCurrentLevel->begin();
 }

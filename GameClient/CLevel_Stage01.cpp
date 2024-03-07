@@ -37,6 +37,11 @@ void CLevel_Stage01::tick()
 		pForce->SetForce(500.f, 300.f, 0.3f);
 		SpawnObject(this, LAYER_TYPE::FORCE, pForce);
 	}
+
+	if (KEY_TAP(KEY::ENTER))
+	{
+		ChangeLevel(LEVEL_TYPE::EDITOR);
+	}
 }
 
 void CLevel_Stage01::Enter()
@@ -76,6 +81,7 @@ void CLevel_Stage01::Enter()
 
 
 	// 레벨 충돌 설정하기
+	CCollisionMgr::GetInst()->CollisionCheckClear();
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLATFORM, LAYER_TYPE::PLAYER);
