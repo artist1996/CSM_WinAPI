@@ -60,10 +60,10 @@ void CCamera::render()
 
 void CCamera::Move()
 {
-	if (nullptr != m_Owner)
-	{
-		m_LookAt.x = m_Owner->GetPos().x;
-	}
+	//if (nullptr != m_Owner)
+	//{
+	//	m_LookAt.x = m_Owner->GetPos().x;
+	//}
 }
 
 void CCamera::CameraEffect()

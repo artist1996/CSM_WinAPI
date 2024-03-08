@@ -4,12 +4,21 @@
 #include "CLevel.h"
 #include "CCollider.h"
 #include "CRigidBody.h"
+#include "CPlatformMap.h"
 
 CPlatform::CPlatform()
 {
-	SetScale(Vec2(500.f, 100.f));
-	m_Collider = (CCollider*)AddComponent(new CCollider);
-	m_Collider->SetScale(GetScale());
+	//SetScale(Vec2(500.f, 100.f));
+	m_PlatMap = (CPlatformMap*)AddComponent(new CPlatformMap);
+	//m_Collider->SetScale(GetScale());
+}
+
+CPlatform::CPlatform(Vec2 _StartPos, Vec2 _EndPos)
+{
+	SetPos(_StartPos);
+	SetScale(_EndPos);
+	//m_Collider = (CCollider*)AddComponent(new CCollider);
+	//m_Collider->SetScale(GetScale());
 }
 
 CPlatform::CPlatform(Vec2 _Pos, Vec2 _Scale, LAYER_TYPE _type)
@@ -24,10 +33,41 @@ CPlatform::~CPlatform()
 {
 }
 
+void CPlatform::begin()
+{
+}
+
 void CPlatform::tick()
 {
 	
 }
+
+void CPlatform::render()
+{
+	Rectangle(DC, (int)GetPos().x, (int)GetPos().y
+		, (int)GetScale().x, (int)GetScale().y);
+}
+
+//void CPlatform::Clicked(Vec2 _vMousePos)
+//{
+//	_vMousePos = CCamera::GetInst()->GetRealPos(_vMousePos);
+//
+//	m_PlatInfo.StartPos = _vMousePos;
+//}
+
+//void CPlatform::ReleasedClicked(Vec2 _vMousePos)
+//{
+//	_vMousePos = CCamera::GetInst()->GetRealPos(_vMousePos);
+//	m_PlatInfo.EndPos = _vMousePos;
+//	m_vecPlatInfo.push_back(m_PlatInfo);
+//
+//	CPlatform* pPlat = new CPlatform;
+//	pPlat->SetPos(m_PlatInfo.StartPos);
+//	pPlat->SetScale(m_PlatInfo.EndPos);
+//
+//	m_vecPlat.push_back(pPlat);
+//	m_vecPlatInfo.clear();
+//}
 
 void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
