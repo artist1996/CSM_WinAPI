@@ -25,4 +25,3 @@ public:
 
 	friend class CTaskMgr;
 };
-

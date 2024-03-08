@@ -38,4 +38,4 @@
 						swprintf_s(szLog, L"{%s : %d} : %s", strFuncName.c_str(), __LINE__, Msg);\
 						DebugLog(TYPE, szLog);
 
-
+#define TILE_SIZE 64

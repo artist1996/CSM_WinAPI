@@ -125,6 +125,9 @@
     <Filter Include="03. Game\08. Module\State\MonsterState">
       <UniqueIdentifier>{9b4ea930-9f85-4388-815d-12dc82dfa27c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\06. Component\05. TileMap">
+      <UniqueIdentifier>{131c4757-28f9-42bc-af67-4c86771ac61c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -256,6 +259,12 @@
     <ClInclude Include="CLevel_Editor.h">
       <Filter>03. Game\04. Level\02. Editor</Filter>
     </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>03. Game\05. Object\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CTileMap.h">
+      <Filter>03. Game\06. Component\05. TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -381,6 +390,12 @@
     </ClCompile>
     <ClCompile Include="CLevel_Editor.cpp">
       <Filter>03. Game\04. Level\02. Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>03. Game\05. Object\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileMap.cpp">
+      <Filter>03. Game\06. Component\05. TileMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,14 +16,6 @@ CLevelMgr::CLevelMgr()
 CLevelMgr::~CLevelMgr()
 {
 	Safe_Del_Arr(m_arrLevel);
-
-	//for (UINT i = 0; i < (UINT)LEVEL_TYPE::END; ++i)
-	//{
-	//	if (nullptr != m_arrLevel[i])
-	//	{
-	//		delete m_arrLevel[i];
-	//	}
-	//}
 }
 
 
@@ -32,13 +24,9 @@ void CLevelMgr::init()
 	// 모든 레벨 생성
 	m_arrLevel[(UINT)LEVEL_TYPE::STAGE_01] = new CLevel_Stage01;
 	m_arrLevel[(UINT)LEVEL_TYPE::EDITOR] = new CLevel_Editor;
-
-	// 현재 레벨 지정
-	//m_pCurrentLevel = m_arrLevel[(UINT)LEVEL_TYPE::STAGE_01];
 	
+	// 초기 레벨 지정
 	::ChangeLevel(LEVEL_TYPE::EDITOR);
-	
-	//m_pCurrentLevel->begin();
 }
 
 void CLevelMgr::progress()
