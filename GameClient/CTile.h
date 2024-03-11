@@ -24,6 +24,10 @@ public:
     void Clicked(Vec2 _MousePos);
 
 public:
+    void SaveToFile(const wstring& _RelativePath);
+    void LoadFromFile(const wstring& _RelativePath);
+
+public:
     CLONE(CTile)
     CTile();
     ~CTile();

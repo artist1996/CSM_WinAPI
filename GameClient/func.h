@@ -53,6 +53,10 @@ class CLevel;
 bool IsValid(CObj*& _Object);
 
 
+void SaveWString(const wstring& _str, FILE* _File);
+void LoadWString(wstring& _str, FILE* _File);
+
+
 // =============
 // Task 관련 함수
 // =============

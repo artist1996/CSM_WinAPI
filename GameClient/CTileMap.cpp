@@ -164,3 +164,46 @@ void CTileMap::Clicked(Vec2 _MousePos)
 		m_vecTileInfo[TileIdx].ImgIdx = 0;
 	}
 }
+
+void CTileMap::SaveToFile(FILE* _File)
+{
+	fwrite(&m_Row, sizeof(UINT), 1, _File);
+	fwrite(&m_Col, sizeof(UINT), 1, _File);
+	fwrite(&m_TileSize, sizeof(Vec2), 1, _File);
+	fwrite(m_vecTileInfo.data(), sizeof(tTileInfo), m_vecTileInfo.size(), _File);
+
+	bool bAtlasTex = m_AtlasTex;
+	fwrite(&bAtlasTex, sizeof(bool), 1, _File);
+
+	if (bAtlasTex)
+	{
+		wstring strKey = m_AtlasTex->GetKey();
+		wstring strRelativePath = m_AtlasTex->GetRelativePath();
+
+		SaveWString(strKey, _File);
+		SaveWString(strRelativePath, _File);
+	}
+}
+
+void CTileMap::LoadFromFile(FILE* _File)
+{
+	fread(&m_Row, sizeof(UINT), 1, _File);
+	fread(&m_Col, sizeof(UINT), 1, _File);
+	fread(&m_TileSize, sizeof(Vec2), 1, _File);
+	SetRowCol(m_Row, m_Col);
+	fread(m_vecTileInfo.data(), sizeof(tTileInfo), m_vecTileInfo.size(), _File);
+	
+	bool bAtlasTex = false;
+	fread(&bAtlasTex, sizeof(bool), 1, _File);
+
+	if (bAtlasTex)
+	{
+		wstring strKey, strRelativePath;
+		
+		LoadWString(strKey, _File);
+		LoadWString(strRelativePath, _File);
+		m_AtlasTex = CAssetMgr::GetInst()->LoadTexture(strKey, strRelativePath);
+
+		SetAtlasTex(m_AtlasTex);
+	}
+}

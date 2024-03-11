@@ -9,7 +9,7 @@
 CPlatform::CPlatform()
 {
 	//SetScale(Vec2(500.f, 100.f));
-	m_PlatMap = (CPlatformMap*)AddComponent(new CPlatformMap);
+	//m_PlatMap = (CPlatformMap*)AddComponent(new CPlatformMap);
 	//m_Collider->SetScale(GetScale());
 }
 
