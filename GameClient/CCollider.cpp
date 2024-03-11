@@ -45,14 +45,17 @@ void CCollider::finaltick()
 	if (!m_Active)
 		return;
 
+	
 	if (0 != m_CollisionCount)
 	{
 		DrawDebugRect(PEN_TYPE::PEN_RED, m_FinalPos, m_Scale, 0.f);
 	}
+
 	else
 	{
 		DrawDebugRect(PEN_TYPE::PEN_GREEN, m_FinalPos, m_Scale, 0.f);
 	}
+	
 }
 
 void CCollider::BeginOverlap(CCollider* _OtherCollider)

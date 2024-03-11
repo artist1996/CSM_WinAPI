@@ -1,11 +1,14 @@
 #pragma once
 #include "CLevel.h"
 
+class CPlatform;
+
 class CLevel_Stage01 :
     public CLevel
 {
 private:
-
+    vector<CPlatform*> m_vecEditPlat;
+    CPlatform*         m_Platform;
 
 public:
 
@@ -15,6 +18,9 @@ public:
     virtual void Enter() override;
     virtual void Exit() override;
     
+private:
+    virtual void LoadFromFile(const wstring& _strRelativePath);
+
 public:
     CLevel_Stage01();
     ~CLevel_Stage01();

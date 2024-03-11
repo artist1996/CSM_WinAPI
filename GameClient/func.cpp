@@ -37,6 +37,19 @@ void DebugLog(LOG_TYPE _Type, const wchar_t* _LogMgs)
 	CDbgRender::GetInst()->AddDbgLog(log);
 }
 
+void DrawDebugPlatform(PEN_TYPE _Type, Vec2 _Pos, Vec2 _Scale, float _Time)
+{
+	tDbgRenderInfo info{};
+	info.Shape = DBG_SHAPE::PLATFORM;
+	info.Color = _Type;
+	info.Position = _Pos;
+	info.Scale = _Scale;
+	info.Duration = _Time;
+	info.Age = 0.f;
+
+	CDbgRender::GetInst()->AddDbgRenderInfo(info);
+}
+
 #include "CObj.h"
 float Saturate(float _Ratio)
 {

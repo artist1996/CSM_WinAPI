@@ -34,6 +34,7 @@ public:
 protected:
     void DeleteAllObjects();
     void DeleteObjects(LAYER_TYPE _Type);
+    virtual void LoadFromFile(const wstring& _strRelativePath) {};
 
 public:
     CLONE_DISABLE(CLevel)

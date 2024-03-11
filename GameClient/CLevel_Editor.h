@@ -3,8 +3,9 @@
 
 class CPlatform;
 class CTile;
+class CPlatformMap;
 
-struct tPlatformInfo
+struct tInfo
 {
     Vec2 StartPos;
     Vec2 EndPos;
@@ -14,17 +15,20 @@ class CLevel_Editor :
     public CLevel
 {
 private:
-    CPlatform* m_EditPlat;
-    CTile*     m_EditTile;
-
-    tPlatformInfo m_PlatInfo;
-
+    CTile*             m_EditTile;
+    vector<CPlatform*> m_vecEditPlat;
+    CPlatform*         m_Platform;
+    tInfo              m_Info;
+    
 public:
     virtual void begin() override;
     virtual void tick() override;
     virtual void Enter() override;
     virtual void Exit() override;
 
+private:
+    void SaveToFile(const wstring& _strRelativePath);
+    virtual void LoadFromFile(const wstring& _strRelativePath);
 
 public:
     CLevel_Editor();

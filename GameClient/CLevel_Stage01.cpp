@@ -7,6 +7,7 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 #include "CPlatform.h"
+#include "CPathMgr.h"
 
 
 CLevel_Stage01::CLevel_Stage01()
@@ -53,41 +54,53 @@ void CLevel_Stage01::Enter()
 	pObject->SetScale(100.f, 100.f);
 	AddObject(LAYER_TYPE::PLAYER, pObject);
 
-	pObject = new CMonster;
-	pObject->SetName(L"Monster");
-	pObject->SetPos(800.f, 200.f);
-	pObject->SetScale(100.f, 100.f);
-	AddObject(LAYER_TYPE::MONSTER, pObject);
+	//pObject = new CMonster;
+	//pObject->SetName(L"Monster");
+	//pObject->SetPos(800.f, 200.f);
+	//pObject->SetScale(100.f, 100.f);
+	//AddObject(LAYER_TYPE::MONSTER, pObject);
+	//
+	//pObject = new CMonster;
+	//pObject->SetName(L"Monster");
+	//pObject->SetPos(100.f, 100.f);
+	//pObject->SetScale(100.f, 100.f);
+	//AddObject(LAYER_TYPE::MONSTER, pObject);
 
-	pObject = new CMonster;
-	pObject->SetName(L"Monster");
-	pObject->SetPos(100.f, 100.f);
-	pObject->SetScale(100.f, 100.f);
-	AddObject(LAYER_TYPE::MONSTER, pObject);
-
-	//pObject = new CPlatform;
-	//pObject->SetName(L"Platform");
-	//pObject->SetPos(Vec2(640.f, 568.f));
-	//pObject->SetScale(Vec2(500.f, 100.f));
-	//m_pCurrentLevel->AddObject(LAYER_TYPE::PLATFORM, pObject);
-	pObject = new CPlatform(Vec2(250.f, 718.f), Vec2(500.f, 100.f), LAYER_TYPE::PLATFORM);
-	AddObject(LAYER_TYPE::PLATFORM, pObject);
-
-	pObject = new CPlatform(Vec2(550.f, 718.f), Vec2(100.f, 500.f), LAYER_TYPE::PLATFORM);
-	AddObject(LAYER_TYPE::PLATFORM, pObject);
-
-	pObject = new CPlatform(Vec2(900.f, 718.f), Vec2(600.f, 100.f), LAYER_TYPE::PLATFORM);
-	AddObject(LAYER_TYPE::PLATFORM, pObject);
-
+	LoadFromFile(L"platform\\platform.plat");
 
 	// 레벨 충돌 설정하기
 	CCollisionMgr::GetInst()->CollisionCheckClear();
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::MONSTER);
-	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLATFORM, LAYER_TYPE::PLAYER);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::PLATFORM);
 }
 
 void CLevel_Stage01::Exit()
 {
 	DeleteAllObjects();
+}
+
+void CLevel_Stage01::LoadFromFile(const wstring& _strRelativePath)
+{
+	m_vecEditPlat.clear();
+	wstring strPath = CPathMgr::GetInst()->GetContehtPath();
+	strPath += _strRelativePath;
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, strPath.c_str(), L"rb");
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		Vec2 vPos;
+		Vec2 vScale;
+		fread(&vPos, sizeof(Vec2), 1, pFile);
+		fread(&vScale, sizeof(Vec2), 1, pFile);
+		m_Platform = new CPlatform(vPos, vScale);
+		m_vecEditPlat.push_back(m_Platform);
+		AddObject(LAYER_TYPE::PLATFORM, m_vecEditPlat[i]);
+	}
+
+	fclose(pFile);
 }

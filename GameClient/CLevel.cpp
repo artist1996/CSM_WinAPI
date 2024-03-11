@@ -3,6 +3,7 @@
 
 #include "CObj.h"
 #include "CCollider.h"
+#include "CPathMgr.h"
 
 CLevel::CLevel()
 {
@@ -131,8 +132,8 @@ void CLevel::DeleteObjects(LAYER_TYPE _Type)
 	// 해당 레이어 타입의 오브젝트만 삭제 해준다.
 	vector<CObj*>& vecObj = m_arrObj[(UINT)_Type];
 
-	if (vecObj.empty())
-		return;
+	//if (vecObj.empty())
+	//	return;
 
 	for (size_t i = 0; i < vecObj.size(); ++i)
 	{

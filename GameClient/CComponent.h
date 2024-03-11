@@ -19,7 +19,7 @@ public:
 public:
     CComponent();
     CComponent(const CComponent& _Other);
-    ~CComponent();
+    virtual ~CComponent();
 
     friend class CObj;
 };

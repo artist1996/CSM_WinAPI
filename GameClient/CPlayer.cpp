@@ -35,8 +35,8 @@ CPlayer::CPlayer()
 	m_RigidBody = (CRigidBody*)AddComponent(new CRigidBody);
 
 	m_BodyCol->SetName(L"Body Collider");
-	m_BodyCol->SetOffsetPos(Vec2(0.f, -48.f));
-	m_BodyCol->SetScale(Vec2(100.f, 100.f));
+	m_BodyCol->SetOffsetPos(Vec2(0.f, 0.f));
+	m_BodyCol->SetScale(Vec2(100.f,100.f));
 	m_BodyCol->SetActive(true);
 
 	CTexture* pAtlas = CAssetMgr::GetInst()->LoadTexture(L"PlayerAtlasTex", L"texture\\link_32.bmp");
