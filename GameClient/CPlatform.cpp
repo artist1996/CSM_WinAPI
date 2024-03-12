@@ -7,7 +7,7 @@
 
 CPlatform::CPlatform()
 {
-	SetScale(Vec2(500.f, 100.f));
+	//SetScale(Vec2(500.f, 100.f));
 	m_Collider = (CCollider*)AddComponent(new CCollider);
 	m_Collider->SetScale(GetScale());
 }
@@ -43,7 +43,18 @@ void CPlatform::tick()
 
 void CPlatform::render()
 {
+	if (L"Test" == GetName())
+	{
+		USE_PEN(DC, PEN_TYPE::PEN_GREEN);
+		USE_BRUSH(DC, BRUSH_TYPE::BRUSH_HOLLOW);
 
+		Vec2 vPos = GetPos();
+		Vec2 vScale = GetScale();
+		Rectangle(DC, (int)vPos.x, (int)vPos.y, (int)vScale.x, (int)vScale.y);
+	}
+
+	else
+		return;
 }
 
 void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
@@ -109,6 +120,7 @@ void CPlatform::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _
 		_OtherObj->SetPos(Vec2((vPos.x + vScale.x * 0.5f) + vOtherObjScale.x * 0.5f, vOtherObjPos.y));
 		pRB->SetClimb(true);
 	 }
+
 	}
 }
 

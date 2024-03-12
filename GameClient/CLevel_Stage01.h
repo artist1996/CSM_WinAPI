@@ -17,9 +17,7 @@ public:
     virtual void tick() override;
     virtual void Enter() override;
     virtual void Exit() override;
-    
-private:
-    virtual void LoadFromFile(const wstring& _strRelativePath);
+
 
 public:
     CLevel_Stage01();

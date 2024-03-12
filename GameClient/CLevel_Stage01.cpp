@@ -79,28 +79,3 @@ void CLevel_Stage01::Exit()
 {
 	DeleteAllObjects();
 }
-
-void CLevel_Stage01::LoadFromFile(const wstring& _strRelativePath)
-{
-	m_vecEditPlat.clear();
-	wstring strPath = CPathMgr::GetInst()->GetContehtPath();
-	strPath += _strRelativePath;
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strPath.c_str(), L"rb");
-
-	size_t len = 0;
-	fread(&len, sizeof(size_t), 1, pFile);
-
-	for (size_t i = 0; i < len; ++i)
-	{
-		Vec2 vPos;
-		Vec2 vScale;
-		fread(&vPos, sizeof(Vec2), 1, pFile);
-		fread(&vScale, sizeof(Vec2), 1, pFile);
-		m_Platform = new CPlatform(vPos, vScale);
-		m_vecEditPlat.push_back(m_Platform);
-		AddObject(LAYER_TYPE::PLATFORM, m_vecEditPlat[i]);
-	}
-
-	fclose(pFile);
-}

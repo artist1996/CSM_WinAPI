@@ -3,6 +3,7 @@
 
 class CObj;
 class CCollider;
+class CPlatform;
 
 class CLevel :
     public CEntity
@@ -11,6 +12,10 @@ private:
     vector<CObj*>       m_arrObj[(UINT)LAYER_TYPE::END];
     vector<CCollider*>  m_arrCollider[(UINT)LAYER_TYPE::END];
 
+protected:
+    vector<CPlatform*> m_vecEditPlat;
+    CPlatform*         m_Platform;
+    tInfo              m_Info;
 
 public:
     // 시점 함수
@@ -34,7 +39,7 @@ public:
 protected:
     void DeleteAllObjects();
     void DeleteObjects(LAYER_TYPE _Type);
-    virtual void LoadFromFile(const wstring& _strRelativePath) {};
+    void LoadFromFile(const wstring& _strRelativePath);
 
 public:
     CLONE_DISABLE(CLevel)

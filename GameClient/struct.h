@@ -140,3 +140,9 @@ struct tTask
 	DWORD_PTR	Param2;
 	DWORD_PTR	Param3;
 };
+
+struct tInfo
+{
+	Vec2 StartPos;
+	Vec2 EndPos;
+};

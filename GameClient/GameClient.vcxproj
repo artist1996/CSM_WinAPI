@@ -158,6 +158,7 @@
     <ClInclude Include="CLevelMgr.h" />
     <ClInclude Include="CLevel_Editor.h" />
     <ClInclude Include="CLevel_Stage01.h" />
+    <ClInclude Include="CLine.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMonsterIDLE.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="CLevelMgr.cpp" />
     <ClCompile Include="CLevel_Editor.cpp" />
     <ClCompile Include="CLevel_Stage01.cpp" />
+    <ClCompile Include="CLine.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CMonsterIDLE.cpp" />

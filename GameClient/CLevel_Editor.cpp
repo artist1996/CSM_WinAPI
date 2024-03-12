@@ -8,7 +8,7 @@
 
 CLevel_Editor::CLevel_Editor()
 	: m_EditTile(nullptr)
-	, m_Platform(nullptr)
+	, m_TestPlatform(nullptr)
 {
 }
 
@@ -39,20 +39,23 @@ void CLevel_Editor::tick()
 
 	if(KEY_TAP(KEY::LBTN))
 	{
+		m_TestPlatform = new CPlatform;
 		m_Info.StartPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-		//m_Info.StartPos = CKeyMgr::GetInst()->GetMousePos();
+		m_TestInfo.StartPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+		m_TestPlatform->SetPos(m_TestInfo.StartPos);
+		m_TestPlatform->SetName(L"Test");
+		AddObject(LAYER_TYPE::PLATFORM, m_TestPlatform);
 	}
 	
 	else if (KEY_PRESSED(KEY::LBTN))
 	{
-		m_Info.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-		//m_Info.EndPos = CKeyMgr::GetInst()->GetMousePos();
-		Rectangle(DC, (int)m_Info.StartPos.x, (int)m_Info.StartPos.y,
-					  (int)m_Info.EndPos.x, (int)m_Info.EndPos.y);
+		m_TestInfo.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+		m_TestPlatform->SetScale(m_TestInfo.EndPos);
 	}
 	
 	else if (KEY_RELEASED(KEY::LBTN))
 	{
+		m_TestPlatform->Destroy();
 		m_Info.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
 		float x = (m_Info.StartPos.x + m_Info.EndPos.x) * 0.5f;
 		float y = (m_Info.StartPos.y + m_Info.EndPos.y) * 0.5f;

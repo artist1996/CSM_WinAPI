@@ -3,22 +3,15 @@
 
 class CPlatform;
 class CTile;
-class CPlatformMap;
-
-struct tInfo
-{
-    Vec2 StartPos;
-    Vec2 EndPos;
-};
 
 class CLevel_Editor :
     public CLevel
 {
 private:
     CTile*             m_EditTile;
-    vector<CPlatform*> m_vecEditPlat;
-    CPlatform*         m_Platform;
-    tInfo              m_Info;
+    
+    CPlatform*         m_TestPlatform;
+    tInfo              m_TestInfo;
     
 public:
     virtual void begin() override;
