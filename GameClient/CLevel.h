@@ -4,6 +4,7 @@
 class CObj;
 class CCollider;
 class CPlatform;
+class CLine;
 
 class CLevel :
     public CEntity
@@ -17,6 +18,9 @@ protected:
     CPlatform*         m_Platform;
     tInfo              m_Info;
 
+    vector<CLine*>     m_vecEditLine;
+    CLine*             m_Line;
+    
 public:
     // 시점 함수
     virtual void begin(); // 레벨이 시작될 때
@@ -39,7 +43,8 @@ public:
 protected:
     void DeleteAllObjects();
     void DeleteObjects(LAYER_TYPE _Type);
-    void LoadFromFile(const wstring& _strRelativePath);
+    void LoadFromPlatform(const wstring& _strRelativePath);
+    void LoadFromLine(const wstring& _strRelativePath);
 
 public:
     CLONE_DISABLE(CLevel)

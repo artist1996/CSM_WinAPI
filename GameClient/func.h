@@ -3,9 +3,9 @@
 
 void DrawDebugRect(PEN_TYPE _Type, Vec2 _Pos, Vec2 _Scale, float _Time);
 void DrawDebugCircle(PEN_TYPE _Type, Vec2 _Pos, Vec2 _Scale, float _Time);
+void DrawDebugLine(PEN_TYPE _Type, Vec2 _StartPos, Vec2 _EndPos, float _Time);
 void DebugLog(LOG_TYPE _Type, const wchar_t* _LogMgs);
 
-void DrawDebugPlatform(PEN_TYPE _Type, Vec2 _Pos, Vec2 _Scale, float _Time);
 
 
 template<typename T1, typename T2>

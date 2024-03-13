@@ -35,7 +35,7 @@ CPlayer::CPlayer()
 	m_RigidBody = (CRigidBody*)AddComponent(new CRigidBody);
 
 	m_BodyCol->SetName(L"Body Collider");
-	m_BodyCol->SetOffsetPos(Vec2(0.f, 0.f));
+	m_BodyCol->SetOffsetPos(Vec2(0.f, -40.f));
 	m_BodyCol->SetScale(Vec2(100.f,100.f));
 	m_BodyCol->SetActive(true);
 
@@ -103,6 +103,7 @@ void CPlayer::begin()
 	// vector<CComponent*> <<
 	m_RigidBody->SetGroundFunc(&BeGround);
 	m_RigidBody->SetAirFunc(&BeAir);
+	CCamera::GetInst()->SetOwner(this);
 }
 
 void CPlayer::tick()

@@ -5,6 +5,7 @@
 #include "CLevel.h"
 
 #include "CCollider.h"
+#include "CRigidBody.h"
 
 CCollisionMgr::CCollisionMgr()
 	: m_Matrix{}
@@ -143,11 +144,30 @@ bool CCollisionMgr::IsCollision(CCollider* _Left, CCollider* _Right)
 	Vec2 vRightPos = _Right->GetFinalPos();
 	Vec2 vRightScale = _Right->GetScale();
 
-	if (abs(vLeftPos.x - vRightPos.x) <= (vLeftScale.x + vRightScale.x) * 0.5f
-		&& abs(vLeftPos.y - vRightPos.y) <= (vLeftScale.y + vRightScale.y) * 0.5f)
+	if (LAYER_TYPE::LINE == _Left->GetOwner()->GetLayerType())
 	{
-		return true;
-	}	
+		if (vRightPos.x >= vLeftPos.x && vRightPos.x <= vLeftScale.x)
+		{
+			float fInclination = (vLeftScale.y - vLeftPos.y) / (vLeftScale.x - vLeftPos.x);
+			float fIntercept = vLeftPos.y - fInclination * vLeftPos.x;
+			float fLineY = fInclination * vRightPos.x + fIntercept;
+
+			if (vRightPos.y >= fLineY)
+			{
+				_Right->GetOwner()->SetPos(vRightPos.x, fLineY - vRightScale.y);
+				return true;
+			}
+		}
+	}
+
+	else
+	{
+		if (abs(vLeftPos.x - vRightPos.x) <= (vLeftScale.x + vRightScale.x) * 0.5f
+			&& abs(vLeftPos.y - vRightPos.y) <= (vLeftScale.y + vRightScale.y) * 0.5f)
+		{
+			return true;
+		}
+	}
 
 	return false;
 }

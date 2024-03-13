@@ -5,9 +5,11 @@
 #include "CCollider.h"
 #include "CPathMgr.h"
 #include "CPlatform.h"
+#include "CLine.h"
 
 CLevel::CLevel()
 	: m_Platform(nullptr)
+	, m_Line(nullptr)
 {
 }
 
@@ -145,7 +147,7 @@ void CLevel::DeleteObjects(LAYER_TYPE _Type)
 	vecObj.clear();
 }
 
-void CLevel::LoadFromFile(const wstring& _strRelativePath)
+void CLevel::LoadFromPlatform(const wstring& _strRelativePath)
 {
 	m_vecEditPlat.clear();
 	wstring strPath = CPathMgr::GetInst()->GetContehtPath();
@@ -165,6 +167,35 @@ void CLevel::LoadFromFile(const wstring& _strRelativePath)
 		m_Platform = new CPlatform(vPos, vScale);
 		m_vecEditPlat.push_back(m_Platform);
 		AddObject(LAYER_TYPE::PLATFORM, m_vecEditPlat[i]);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadFromLine(const wstring& _strRelativePath)
+{
+	m_vecEditLine.clear();
+	wstring strPath = CPathMgr::GetInst()->GetContehtPath();
+	strPath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+	
+	_wfopen_s(&pFile, strPath.c_str(), L"rb");
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		Vec2 vStartPos;
+		Vec2 vEndPos;
+
+		fread(&vStartPos, sizeof(Vec2), 1, pFile);
+		fread(&vEndPos, sizeof(Vec2), 1, pFile);
+
+		m_Line = new CLine(vStartPos, vEndPos);
+		m_vecEditLine.push_back(m_Line);
+		AddObject(LAYER_TYPE::LINE, m_vecEditLine[i]);
 	}
 
 	fclose(pFile);

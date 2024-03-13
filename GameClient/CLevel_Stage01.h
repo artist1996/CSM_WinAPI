@@ -6,10 +6,6 @@ class CPlatform;
 class CLevel_Stage01 :
     public CLevel
 {
-private:
-    vector<CPlatform*> m_vecEditPlat;
-    CPlatform*         m_Platform;
-
 public:
 
 public:

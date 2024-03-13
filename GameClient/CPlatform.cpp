@@ -48,8 +48,8 @@ void CPlatform::render()
 		USE_PEN(DC, PEN_TYPE::PEN_GREEN);
 		USE_BRUSH(DC, BRUSH_TYPE::BRUSH_HOLLOW);
 
-		Vec2 vPos = GetPos();
-		Vec2 vScale = GetScale();
+		Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+		Vec2 vScale = CCamera::GetInst()->GetRealPos(GetScale());
 		Rectangle(DC, (int)vPos.x, (int)vPos.y, (int)vScale.x, (int)vScale.y);
 	}
 

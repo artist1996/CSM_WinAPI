@@ -46,12 +46,8 @@ int CEngine::init(HINSTANCE _hInst, HWND _hWnd, POINT _Resolution)
 	m_hMainWnd = _hWnd;
 	m_Resolution = _Resolution;
 
-	// 입력된 해상도를 가져가기 위한 실제 윈도우의 크기를 계산
-	RECT rt = {0, 0, m_Resolution.x, m_Resolution.y};
-	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
-
 	// 윈도우 크기를 변경
-	SetWindowPos(m_hMainWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
+	ChangeWindowSize(_Resolution, false);
 
 	// DC 및 펜, 브러쉬 생성
 	CreateDefaultGDIObject();	
@@ -133,4 +129,12 @@ void CEngine::CreateDefaultGDIObject()
 HDC CEngine::GetSubDC()
 {
 	return m_SubTex->GetDC();
+}
+
+void CEngine::ChangeWindowSize(Vec2 _Resoultion, bool _bMenu)
+{
+	RECT rt = { 0,0,_Resoultion.x, _Resoultion.y };
+	AdjustWindowRect(&rt, WS_OVERLAPPED, _bMenu);
+	
+	SetWindowPos(m_hMainWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 }

@@ -31,7 +31,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 메모리 누수 관련, 디버그 출력
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     //_CrtSetBreakAlloc(350);
-
+     
     // 윈도우 클래스 등록
     MyRegisterClass(hInstance);
         
@@ -62,7 +62,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 리소스(단축키 테이블 핸들 얻기)
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_GAMECLIENT));
-
+    
     // 메세지 루프
     // 메세지 정보를 받을 구조체 변수
     MSG msg;    

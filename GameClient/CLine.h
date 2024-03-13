@@ -8,11 +8,13 @@ private:
 
 
 public:
-    //virtual void render() override;
+    virtual void begin() override;
+    virtual void tick() override;
+    virtual void render() override;
     
-
 public:
     CLONE(CLine)
     CLine();
+    CLine(Vec2 _StartPos, Vec2 _EndPos);
     ~CLine();
 };

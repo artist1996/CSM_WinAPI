@@ -131,6 +131,21 @@
     <Filter Include="03. Game\05. Object\Line">
       <UniqueIdentifier>{0aaeef2b-27a6-4ee0-b892-907976837c6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\03. Manager\10. CUIMgr">
+      <UniqueIdentifier>{0716cf1c-b649-4028-ae64-3c813bdde7d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\BackGround">
+      <UniqueIdentifier>{34e37779-d915-423c-8766-22b1baa9024f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\BackGround\Stage01">
+      <UniqueIdentifier>{6f236aa7-b022-4bda-af15-bfc7ef56cee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\UI\PanelUI">
+      <UniqueIdentifier>{85758bc2-1361-4c6f-965b-f6297a952e9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\UI\ButtonUI">
+      <UniqueIdentifier>{c9051e7b-bc81-4c0f-92d9-cce9c41c77f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -271,6 +286,24 @@
     <ClInclude Include="CLine.h">
       <Filter>03. Game\05. Object\Line</Filter>
     </ClInclude>
+    <ClInclude Include="CUI.h">
+      <Filter>03. Game\05. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIMgr.h">
+      <Filter>03. Game\03. Manager\10. CUIMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CBackGround.h">
+      <Filter>03. Game\05. Object\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="CStage01.h">
+      <Filter>03. Game\05. Object\BackGround\Stage01</Filter>
+    </ClInclude>
+    <ClInclude Include="CPanel.h">
+      <Filter>03. Game\05. Object\UI\PanelUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CButton.h">
+      <Filter>03. Game\05. Object\UI\ButtonUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -405,6 +438,24 @@
     </ClCompile>
     <ClCompile Include="CLine.cpp">
       <Filter>03. Game\05. Object\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI.cpp">
+      <Filter>03. Game\05. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIMgr.cpp">
+      <Filter>03. Game\03. Manager\10. CUIMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CBackGround.cpp">
+      <Filter>03. Game\05. Object\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage01.cpp">
+      <Filter>03. Game\05. Object\BackGround\Stage01</Filter>
+    </ClCompile>
+    <ClCompile Include="CPanel.cpp">
+      <Filter>03. Game\05. Object\UI\PanelUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CButton.cpp">
+      <Filter>03. Game\05. Object\UI\ButtonUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,8 @@ public:
 	HBRUSH GetBrush(BRUSH_TYPE _type) { return m_arrBrush[(UINT)_type]; }
 
 	Vec2 GetResolution() { return m_Resolution; }
+
+	void ChangeWindowSize(Vec2 _Resoultion, bool _bMenu);
 };
 
 

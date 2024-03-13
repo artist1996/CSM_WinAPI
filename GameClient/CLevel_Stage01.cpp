@@ -7,6 +7,7 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 #include "CPlatform.h"
+#include "CLine.h"
 #include "CPathMgr.h"
 
 
@@ -50,7 +51,7 @@ void CLevel_Stage01::Enter()
 	// 레벨에 물체 추가하기
 	CObj* pObject = new CPlayer;
 	pObject->SetName(L"Player");
-	pObject->SetPos(100.f, 384.f);
+	pObject->SetPos(0.f, 0.f);
 	pObject->SetScale(100.f, 100.f);
 	AddObject(LAYER_TYPE::PLAYER, pObject);
 
@@ -66,13 +67,15 @@ void CLevel_Stage01::Enter()
 	//pObject->SetScale(100.f, 100.f);
 	//AddObject(LAYER_TYPE::MONSTER, pObject);
 
-	LoadFromFile(L"platform\\platform.plat");
+	LoadFromPlatform(L"platform\\platform.plat");
+	LoadFromLine(L"line\\line.dat");
 
 	// 레벨 충돌 설정하기
 	CCollisionMgr::GetInst()->CollisionCheckClear();
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::PLATFORM);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::PLAYER);
 }
 
 void CLevel_Stage01::Exit()

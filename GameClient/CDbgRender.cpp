@@ -58,6 +58,13 @@ void CDbgRender::render()
 				, (int)(vRenderPos.y + iter->Scale.y / 2.f));
 		}
 
+		else if (m_bRender && DBG_SHAPE::LINE == iter->Shape)
+		{
+			Vec2 vEndPos = CCamera::GetInst()->GetRenderPos(iter->Scale);
+			MoveToEx(DC, (int)vRenderPos.x, (int)vRenderPos.y, nullptr);
+			LineTo(DC, (int)vEndPos.x, (int)vEndPos.y);
+		}
+
 		// 해당 디버그렌더 정보가 수명을 다하면 리스트에서 제거한다.
 		(*iter).Age += DT;
 		if (iter->Duration < iter->Age)

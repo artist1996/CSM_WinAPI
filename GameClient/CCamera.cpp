@@ -60,10 +60,30 @@ void CCamera::render()
 
 void CCamera::Move()
 {
-	//if (nullptr != m_Owner)
-	//{
-	//	m_LookAt.x = m_Owner->GetPos().x;
-	//}
+	//if (KEY_PRESSED(KEY::W))
+	//	m_LookAt.y -= DT * m_CamSpeed;
+	//if (KEY_PRESSED(KEY::S))
+	//	m_LookAt.y += DT * m_CamSpeed;
+	//if (KEY_PRESSED(KEY::A))
+	//	m_LookAt.x -= DT * m_CamSpeed;
+	//if (KEY_PRESSED(KEY::D))
+	//	m_LookAt.x += DT * m_CamSpeed;
+	if (m_Owner)
+	{
+		m_LookAt.x = m_Owner->GetPos().x;
+	}
+
+	else
+	{
+		if (KEY_PRESSED(KEY::W))
+			m_LookAt.y -= DT * m_CamSpeed;
+		if (KEY_PRESSED(KEY::S))
+			m_LookAt.y += DT * m_CamSpeed;
+		if (KEY_PRESSED(KEY::A))
+			m_LookAt.x -= DT * m_CamSpeed;
+		if (KEY_PRESSED(KEY::D))
+			m_LookAt.x += DT * m_CamSpeed;
+	}
 }
 
 void CCamera::CameraEffect()
