@@ -6,10 +6,9 @@
 #include "CPathMgr.h"
 #include "CPlatform.h"
 #include "CLine.h"
+#include "CMonster.h"
 
 CLevel::CLevel()
-	: m_Platform(nullptr)
-	, m_Line(nullptr)
 {
 }
 
@@ -18,7 +17,7 @@ CLevel::~CLevel()
 	for (UINT i = 0; i < (UINT)LAYER_TYPE::END; ++i)
 	{
 		Safe_Del_Vec(m_arrObj[i]);
-	}	
+	}
 }
 
 void CLevel::begin()
@@ -147,13 +146,182 @@ void CLevel::DeleteObjects(LAYER_TYPE _Type)
 	vecObj.clear();
 }
 
-void CLevel::LoadFromPlatform(const wstring& _strRelativePath)
+void CLevel::SavePlatform(const wstring& _strRelativePath)
 {
-	m_vecEditPlat.clear();
-	wstring strPath = CPathMgr::GetInst()->GetContehtPath();
-	strPath += _strRelativePath;
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+
+	strFullPath += _strRelativePath;
+
 	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strPath.c_str(), L"rb");
+	
+	
+	_wfopen_s(&pFile, strFullPath.c_str(), L"wb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"파일 개방 실패", L"Error", MB_OK);
+		return;
+	}
+
+	size_t len = m_arrObj[(UINT)LAYER_TYPE::PLATFORM].size();
+	
+	fwrite(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::PLATFORM].size(); ++i)
+	{
+		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::PLATFORM][i]->GetPos();
+		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::PLATFORM][i]->GetScale();
+		fwrite(&vPos, sizeof(Vec2), 1, pFile);
+		fwrite(&vScale, sizeof(Vec2), 1, pFile);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::SaveLine(const wstring& _strRelativePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+
+	strFullPath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"wb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"파일 개방 실패", L"Error", MB_OK);
+		return;
+	}
+
+	size_t len = m_arrObj[(UINT)LAYER_TYPE::LINE].size();
+
+	fwrite(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::LINE].size(); ++i)
+	{
+		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::LINE][i]->GetPos();
+		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::LINE][i]->GetScale();
+		fwrite(&vPos, sizeof(Vec2), 1, pFile);
+		fwrite(&vScale, sizeof(Vec2), 1, pFile);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::SaveMonster(const wstring& _strRelativePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+	strFullPath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"wb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"파일 개방 실패", L"Error", MB_OK);
+		return;
+	}
+
+	size_t len = m_arrObj[(UINT)LAYER_TYPE::MONSTER].size();
+
+	fwrite(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::MONSTER].size(); ++i)
+	{
+		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::MONSTER][i]->GetPos();
+		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::MONSTER][i]->GetScale();
+		fwrite(&vPos, sizeof(Vec2), 1, pFile);
+		fwrite(&vScale, sizeof(Vec2), 1, pFile);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::SaveTrap(const wstring& _strRelativePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+	strFullPath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"wb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"파일 개방 실패", L"Error", MB_OK);
+		return;
+	}
+
+	size_t len = m_arrObj[(UINT)LAYER_TYPE::TRAP].size();
+
+	fwrite(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::TRAP].size(); ++i)
+	{
+		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetPos();
+		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetScale();
+		fwrite(&vPos, sizeof(Vec2), 1, pFile);
+		fwrite(&vScale, sizeof(Vec2), 1, pFile);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadPlatform(const wstring& _strRelativePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+	strFullPath += _strRelativePath;
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
 
 	size_t len = 0;
 	fread(&len, sizeof(size_t), 1, pFile);
@@ -164,23 +332,30 @@ void CLevel::LoadFromPlatform(const wstring& _strRelativePath)
 		Vec2 vScale;
 		fread(&vPos, sizeof(Vec2), 1, pFile);
 		fread(&vScale, sizeof(Vec2), 1, pFile);
-		m_Platform = new CPlatform(vPos, vScale);
-		m_vecEditPlat.push_back(m_Platform);
-		AddObject(LAYER_TYPE::PLATFORM, m_vecEditPlat[i]);
+		CPlatform* pPlatform = new CPlatform(vPos, vScale);
+		AddObject(LAYER_TYPE::PLATFORM, pPlatform);
 	}
 
 	fclose(pFile);
 }
 
-void CLevel::LoadFromLine(const wstring& _strRelativePath)
+void CLevel::LoadLine(const wstring& _strRelativePath)
 {
-	m_vecEditLine.clear();
-	wstring strPath = CPathMgr::GetInst()->GetContehtPath();
-	strPath += _strRelativePath;
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+	strFullPath += _strRelativePath;
 
 	FILE* pFile = nullptr;
 	
-	_wfopen_s(&pFile, strPath.c_str(), L"rb");
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
 
 	size_t len = 0;
 	fread(&len, sizeof(size_t), 1, pFile);
@@ -193,9 +368,84 @@ void CLevel::LoadFromLine(const wstring& _strRelativePath)
 		fread(&vStartPos, sizeof(Vec2), 1, pFile);
 		fread(&vEndPos, sizeof(Vec2), 1, pFile);
 
-		m_Line = new CLine(vStartPos, vEndPos);
-		m_vecEditLine.push_back(m_Line);
-		AddObject(LAYER_TYPE::LINE, m_vecEditLine[i]);
+		CLine* pLine = new CLine(vStartPos, vEndPos);
+		AddObject(LAYER_TYPE::LINE, pLine);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadMonster(const wstring& _strRelativePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+	
+	strFullPath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		Vec2 vPos;
+		Vec2 vScale;
+
+		fread(&vPos, sizeof(Vec2), 1, pFile);
+		fread(&vScale, sizeof(Vec2), 1, pFile);
+
+		CMonster* pMonster = new CMonster(vPos, vScale);
+		AddObject(LAYER_TYPE::MONSTER, pMonster);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadTrap(const wstring& _strRelativePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+
+	strFullPath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		Vec2 vPos;
+		Vec2 vScale;
+
+		fread(&vPos, sizeof(Vec2), 1, pFile);
+		fread(&vScale, sizeof(Vec2), 1, pFile);
+
+		CMonster* pMonster = new CMonster(vPos, vScale);
+		AddObject(LAYER_TYPE::MONSTER, pMonster);
 	}
 
 	fclose(pFile);

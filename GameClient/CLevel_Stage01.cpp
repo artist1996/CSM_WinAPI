@@ -9,10 +9,13 @@
 #include "CPlatform.h"
 #include "CLine.h"
 #include "CPathMgr.h"
+#include "CTexture.h"
+#include "CStage01.h"
 
 
 CLevel_Stage01::CLevel_Stage01()
 {
+	SetName(L"Stage01");
 }
 
 CLevel_Stage01::~CLevel_Stage01()
@@ -51,10 +54,12 @@ void CLevel_Stage01::Enter()
 	// 레벨에 물체 추가하기
 	CObj* pObject = new CPlayer;
 	pObject->SetName(L"Player");
-	pObject->SetPos(0.f, 0.f);
+	pObject->SetPos(0.f, 384.f);
 	pObject->SetScale(100.f, 100.f);
 	AddObject(LAYER_TYPE::PLAYER, pObject);
 
+	CObj* pBackGround = new CStage01;
+	AddObject(LAYER_TYPE::BACKGROUND, pBackGround);
 	//pObject = new CMonster;
 	//pObject->SetName(L"Monster");
 	//pObject->SetPos(800.f, 200.f);
@@ -67,8 +72,8 @@ void CLevel_Stage01::Enter()
 	//pObject->SetScale(100.f, 100.f);
 	//AddObject(LAYER_TYPE::MONSTER, pObject);
 
-	LoadFromPlatform(L"platform\\platform.plat");
-	LoadFromLine(L"line\\line.dat");
+	LoadPlatform(L"platform\\platform.dat");
+	LoadLine(L"line\\line.dat");
 
 	// 레벨 충돌 설정하기
 	CCollisionMgr::GetInst()->CollisionCheckClear();

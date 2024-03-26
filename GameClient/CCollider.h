@@ -18,7 +18,6 @@ private:
     bool    m_Active;       // 충돌체 활성화, 비활성화 상태
     bool    m_bRegister;    // 충돌체를 레벨에 등록할지 말지의 상태
     
-
 public:
     void SetOffsetPos(Vec2 _Offset) { m_OffsetPos = _Offset; }
     void SetScale(Vec2 _Scale) { m_Scale = _Scale; }

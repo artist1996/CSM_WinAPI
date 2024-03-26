@@ -7,7 +7,6 @@
 #include "Resource.h"
 #include "CEngine.h"
 
-
 // 전역 변수:
 HINSTANCE   hInst;                       // 현재 인스턴스입니다.
 HWND        g_hWnd;                     // 메인 윈도우 핸들
@@ -21,7 +20,6 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-
 // SAL : 주석 언어
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -31,7 +29,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 메모리 누수 관련, 디버그 출력
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     //_CrtSetBreakAlloc(350);
-     
+
     // 윈도우 클래스 등록
     MyRegisterClass(hInstance);
         
@@ -56,7 +54,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (FAILED(CEngine::GetInst()->init(hInst, g_hWnd, POINT{1280, 768})))
     {
         // Engine 초기화 실패 ==> 프로그램 종료
-        MessageBox(nullptr, L"엔진 초기화 실패", L"에러 발생", MB_OK);        
+        MessageBox(nullptr, L"엔진 초기화 실패", L"에러 발생", MB_OK);
         return 0;
     }
 
@@ -124,6 +122,13 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 // 메인 윈도우는 MyRegisterClass 함수 안에서 윈도우 정보를 만들때 호출함 함수의 주소를 등록해둠
 // 도움말 윈도우는 다이얼로그 형태로서, DialogBox 함수를 호출할때 사용할 
 // 프로시저 함수의 주소를 입력으로 넣어줬다.
+
+#include "CLevelMgr.h"
+#include "CLevel_AnimTool.h"
+
+INT_PTR CALLBACK AnimInfoProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+INT_PTR CALLBACK TextureSelectProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -135,10 +140,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             case IDM_ABOUT:
-                // 윈도우 생성 함수
-                // 
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
+            case ID_MENU_SETTING:
+                CreateDialog(hInst, MAKEINTRESOURCE(IDD_ANIMATION_TOOL), hWnd, AnimInfoProc);
+                break;
+            case ID_SAVE:
+            {
+                CLevel_AnimTool* pTool = dynamic_cast<CLevel_AnimTool*>(CLevelMgr::GetInst()->GetCurrentLevel());
+                pTool->SaveAnimation();
+            }
+                break;
+            case ID_LOAD:
+            {
+                CLevel_AnimTool* pTool = dynamic_cast<CLevel_AnimTool*>(CLevelMgr::GetInst()->GetCurrentLevel());
+                pTool->LoadAnimation();
+            }
+            break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
@@ -157,12 +175,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_TIMER:
-    {
-        int a = 0;
-    }
         break;
-
-
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

@@ -7,7 +7,7 @@ CStage01::CStage01()
 {
 	CTexture* pTex = CAssetMgr::GetInst()->LoadTexture(L"VOLCANO_01", L"texture\\Volcano_01.png");
 	SetImg(pTex);
-	SetScale(pTex->GetWidth(), pTex->GetHeight());
+	SetScale((float)pTex->GetWidth(), (float)pTex->GetHeight());
 }
 
 CStage01::~CStage01()

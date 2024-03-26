@@ -13,6 +13,8 @@
 #include "CStage01.h"
 #include "CPanel.h"
 #include "CButton.h"
+#include "CEditorUI.h"
+#include "CMonster.h"
 
 void ButtonCallBackFunc()
 {
@@ -23,17 +25,12 @@ void ButtonCallBackFunc()
 		return;
 }
 
-
-
-
-
-
 CLevel_Editor::CLevel_Editor()
 	: m_EditTile(nullptr)
-	, m_TestPlatform(nullptr)
-	, m_Type(MAP_TYPE::PLATFORM)
+	, m_UI(nullptr)
 	, m_CurImg(nullptr)
 	, m_BackGround(nullptr)
+	, m_Type(MAP_TYPE::PLATFORM)
 {
 }
 
@@ -43,17 +40,50 @@ CLevel_Editor::~CLevel_Editor()
 
 void CLevel_Editor::begin()
 {
+	CLevel::begin();
 	m_CurImg = CAssetMgr::GetInst()->FindTexture(L"VOLCANO_01");
 }
 
 void CLevel_Editor::tick()
 {
+	CLevel::tick();
 
-	if (KEY_TAP(KEY::_0))
+	if (KEY_TAP(KEY::_1))
 	{
 		m_BackGround = new CStage01;
 		m_BackGround->SetPos(Vec2(0.f, 0.f));
 		AddObject(LAYER_TYPE::BACKGROUND, m_BackGround);
+		SetName(L"Stage01");
+	}
+
+	else if (KEY_TAP(KEY::_2))
+	{
+		//m_BackGround = new CStage02;
+		SetName(L"Stage02");
+	}
+
+	if (KEY_TAP(KEY::_9))
+	{
+		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"radien_editor", L"texture\\raiden_editor.png"));
+	}
+
+	if (KEY_TAP(KEY::_8))
+	{
+		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"gigadeath_editor", L"texture\\gigadeath_editor.png"));
+	}
+
+	if (KEY_TAP(KEY::_7))
+	{
+		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"mettool_editor", L"texture\\mettool_editor.png"));
+	}
+
+	if(KEY_TAP(KEY::_6))
+	{
+		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"batton_editor", L"texture\\batton_editor.png"));
 	}
 
 	if (KEY_TAP(KEY::P))
@@ -70,80 +100,45 @@ void CLevel_Editor::tick()
 		MessageBox(CEngine::GetInst()->GetMainWnd(), L"LINE", L"Type", MB_OK);
 	}
 
+	else if (KEY_TAP(KEY::M))
+	{
+		SetType(MAP_TYPE::MONSTER);
+		ResetInfo();
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"MONSERT", L"Type", MB_OK);
+	}
+
 	if (MAP_TYPE::PLATFORM == m_Type)
 	{
-		if (KEY_TAP(KEY::LBTN))
-		{
-			m_TestPlatform = new CPlatform;
-			m_Info.StartPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-			m_TestInfo.StartPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-			m_TestPlatform->SetPos(m_TestInfo.StartPos);
-			m_TestPlatform->SetName(L"Test");
-			AddObject(LAYER_TYPE::PLATFORM, m_TestPlatform);
-		}
-
-		else if (KEY_PRESSED(KEY::LBTN))
-		{
-			m_TestInfo.EndPos = CCamera::GetInst()->GetRenderPos(CKeyMgr::GetInst()->GetMousePos());
-			m_TestPlatform->SetScale(m_TestInfo.EndPos);
-		}
-
-		else if (KEY_RELEASED(KEY::LBTN))
-		{
-			m_TestPlatform->Destroy();
-			m_Info.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-			float x = (m_Info.StartPos.x + m_Info.EndPos.x) * 0.5f;
-			float y = (m_Info.StartPos.y + m_Info.EndPos.y) * 0.5f;
-			float width = fabs(m_Info.EndPos.x - m_Info.StartPos.x);
-			float height = fabs(m_Info.EndPos.y - m_Info.StartPos.y);
-			m_Platform = new CPlatform(Vec2(x, y), Vec2(width, height));
-			m_vecEditPlat.push_back(m_Platform);
-			AddObject(LAYER_TYPE::PLATFORM, m_Platform);
-		}
+		Platform();
 	}
 	
 	else if (MAP_TYPE::LINE == m_Type)
 	{
-		if (KEY_TAP(KEY::LBTN))
-		{
-			Vec2 vStartPos = CCamera::GetInst()->GetRenderPos(CKeyMgr::GetInst()->GetMousePos());
-			m_Info.StartPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-			m_TestLine = new CLine;
-			m_TestLine->SetPos(vStartPos);
-			m_TestLine->SetName(L"Test");
-			AddObject(LAYER_TYPE::LINE, m_TestLine);
-		}
+		Line();
+	}
 
-		else if (KEY_PRESSED(KEY::LBTN))
-		{
-			Vec2 vEndPos = CCamera::GetInst()->GetRenderPos(CKeyMgr::GetInst()->GetMousePos());
-			m_TestLine->SetScale(vEndPos);
-		}
-
-		else if (KEY_RELEASED(KEY::LBTN))
-		{
-			m_TestLine->Destroy();
-			m_Info.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-			m_Line = new CLine(m_Info.StartPos, m_Info.EndPos);
-			m_vecEditLine.push_back(m_Line);
-			AddObject(LAYER_TYPE::LINE, m_Line);
-		}
+	else if (MAP_TYPE::MONSTER == m_Type)
+	{
+		Monster();
 	}
 	 
 	if (KEY_TAP(KEY::T))
 	{
-		SaveToPlatformFile(L"platform\\platform.plat");
-		SaveToLineFile(L"line\\line.dat");
+		SavePlatform(L"platform\\platform.dat");
+		SaveLine(L"line\\line.dat");
+		SaveMonster(L"monster\\monster.dat");
+		SaveTrap(L"trap\\trap.dat");
 	}
 
 	else if (KEY_TAP(KEY::Y))
 	{
-		m_vecEditPlat.clear();
-		LoadFromPlatform(L"platform\\platform.plat");
-		LoadFromLine(L"line\\line.dat");
+		LoadPlatform(L"platform\\platform.dat");
+		LoadLine(L"line\\line.dat");
+		LoadMonster(L"monster\\monster.dat");
+		LoadTrap(L"trap\\trap.dat");
 	}
 
-	if (KEY_TAP(KEY::ENTER))
+	if (KEY_TAP(KEY::_5))
 	{
 		ChangeLevel(LEVEL_TYPE::STAGE_01);
 	}
@@ -152,60 +147,77 @@ void CLevel_Editor::tick()
 void CLevel_Editor::Enter()
 {
 	CCamera::GetInst()->SetOwner(nullptr);
+	m_UI = new CEditorUI;//(Vec2(CEngine::GetInst()->GetResolution().x - 200.f, 0.f), Vec2(400.f, 200.f));
+	m_UI->SetScale(Vec2(150.f, 150.f));
+	m_UI->SetPos(CEngine::GetInst()->GetResolution().x - 150.f, 0.f);
+	AddObject(LAYER_TYPE::UI, m_UI);
 }
 
 void CLevel_Editor::Exit()
 {
 	DeleteAllObjects();
-	m_vecEditPlat.clear();
 }
 
-void CLevel_Editor::SaveToPlatformFile(const wstring& _strRelativePath)
+void CLevel_Editor::Platform()
 {
-	wstring strPath = CPathMgr::GetInst()->GetContehtPath();
-	strPath += _strRelativePath;
-
-	FILE* pFile = nullptr;
-	
-	_wfopen_s(&pFile, strPath.c_str(), L"wb");
-	
-	size_t len = m_vecEditPlat.size();
-
-	fwrite(&len, sizeof(size_t), 1, pFile);
-
-	for (size_t i = 0; i < m_vecEditPlat.size(); ++i)
+	if (KEY_TAP(KEY::LBTN))
 	{
-		Vec2 vPos = m_vecEditPlat[i]->GetPos();
-		Vec2 vScale = m_vecEditPlat[i]->GetScale();
-		fwrite(&vPos, sizeof(Vec2), 1, pFile);
-		fwrite(&vScale, sizeof(Vec2), 1, pFile);
+		m_tInfo.StartPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
 	}
 
-	fclose(pFile);
+	else if (KEY_PRESSED(KEY::LBTN))
+	{
+		m_tInfo.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+	}
+
+	else if (KEY_RELEASED(KEY::LBTN))
+	{
+		m_tInfo.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+		float x = (m_tInfo.StartPos.x + m_tInfo.EndPos.x) * 0.5f;
+		float y = (m_tInfo.StartPos.y + m_tInfo.EndPos.y) * 0.5f;
+		float width = m_tInfo.EndPos.x - m_tInfo.StartPos.x;
+		float height = m_tInfo.EndPos.y - m_tInfo.StartPos.y;
+		CPlatform* pPlatform = new CPlatform(Vec2(x, y), Vec2(width, height));
+		AddObject(LAYER_TYPE::PLATFORM, pPlatform);
+		memset(&m_tInfo, 0, sizeof(tInfo));
+	}
 }
 
-void CLevel_Editor::SaveToLineFile(const wstring& _strRelativePath)
+void CLevel_Editor::Line()
 {
-	wstring strPath = CPathMgr::GetInst()->GetContehtPath();
-	strPath += _strRelativePath;
-	
-	FILE* pFile = nullptr;
-	
-	_wfopen_s(&pFile, strPath.c_str(), L"wb");
-	
-	size_t len = m_vecEditLine.size();
-	fwrite(&len, sizeof(size_t), 1, pFile);
-
-	for (size_t i = 0; i < m_vecEditLine.size(); ++i)
+	if (KEY_TAP(KEY::LBTN))
 	{
-		Vec2 vStartPos = m_vecEditLine[i]->GetPos();
-		Vec2 vEndPos = m_vecEditLine[i]->GetScale();
-
-		fwrite(&vStartPos, sizeof(Vec2), 1, pFile);
-		fwrite(&vEndPos, sizeof(Vec2), 1, pFile);
+		m_tInfo.StartPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+	}
+	
+	else if (KEY_PRESSED(KEY::LBTN))
+	{
+		m_tInfo.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
 	}
 
-	fclose(pFile);
+	else if (KEY_RELEASED(KEY::LBTN))
+	{
+		m_tInfo.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+		CLine* pLine = new CLine(m_tInfo.StartPos, m_tInfo.EndPos);
+		AddObject(LAYER_TYPE::LINE, pLine);
+		memset(&m_tInfo, 0, sizeof(tInfo));
+	}
+}
+
+void CLevel_Editor::Monster()
+{
+	if (KEY_TAP(KEY::LBTN))
+	{
+		Vec2 vPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+		CMonster* pMonster = new CMonster;
+		pMonster->SetPos(vPos);
+		pMonster->SetScale(100.f, 100.f);
+		AddObject(LAYER_TYPE::MONSTER, pMonster);
+	}
+}
+
+void CLevel_Editor::Trap()
+{
 }
 
 void CLevel_Editor::CreateUI()
@@ -221,5 +233,31 @@ void CLevel_Editor::CreateUI()
 	CButton* pUI = new CButton;
 	
 	pUI->SetCallBack(&ButtonCallBackFunc);
+}
 
+void CLevel_Editor::render()
+{
+	CLevel::render();
+
+	if (m_Type == MAP_TYPE::PLATFORM)
+	{
+		USE_PEN(DC, PEN_TYPE::PEN_GREEN);
+		USE_BRUSH(DC, BRUSH_TYPE::BRUSH_HOLLOW);
+
+		Vec2 Start = CCamera::GetInst()->GetRenderPos(m_tInfo.StartPos);
+		Vec2 End = CCamera::GetInst()->GetRenderPos(m_tInfo.EndPos);
+
+		Rectangle(DC, (int)Start.x, (int)Start.y, (int)End.x, (int)End.y);
+	}
+
+	if (m_Type == MAP_TYPE::LINE)
+	{
+		USE_PEN(DC, PEN_TYPE::PEN_GREEN);
+		
+		Vec2 Start = CCamera::GetInst()->GetRenderPos(m_tInfo.StartPos);
+		Vec2 End = CCamera::GetInst()->GetRenderPos(m_tInfo.EndPos);
+
+		MoveToEx(DC, (int)Start.x, (int)Start.y, nullptr);
+		LineTo(DC, (int)End.x, (int)End.y);
+	}
 }

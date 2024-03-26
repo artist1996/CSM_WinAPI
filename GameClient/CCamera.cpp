@@ -12,7 +12,7 @@
 CCamera::CCamera()
 	: m_Owner(nullptr)
 	, m_FadeTex(nullptr)
-	, m_CamSpeed(400.f)
+	, m_CamSpeed(1000.f)
 {}
 
 CCamera::~CCamera()
@@ -22,7 +22,9 @@ void CCamera::init()
 {	
 	Vec2 vResol = CEngine::GetInst()->GetResolution();
 	m_LookAt = Vec2(vResol.x / 2.f, vResol.y / 2.f);
-
+	//m_LookAt = Vec2(640.f / 2.f, vResol.y / 2.f);
+	
+	
 	m_FadeTex = CAssetMgr::GetInst()->CreateTexture(L"CameraEffect", (UINT)vResol.x, (UINT)vResol.y);
 }
 
@@ -42,13 +44,13 @@ void CCamera::render()
 		return;
 
 	CAM_EFFECT_INFO& info = m_EffectList.front();
-
+	
 	BLENDFUNCTION bf = {};
 	bf.BlendOp = AC_SRC_OVER;
 	bf.BlendFlags = 0;
 	bf.SourceConstantAlpha = (int)info.Alpha;
 	bf.AlphaFormat = 0;
-
+	
 	AlphaBlend(DC
 			   , 0, 0
 			   , m_FadeTex->GetWidth(), m_FadeTex->GetHeight()
@@ -56,21 +58,43 @@ void CCamera::render()
 			   , 0, 0
 			   , m_FadeTex->GetWidth(), m_FadeTex->GetHeight()
 			   , bf);
+
 }
 
 void CCamera::Move()
 {
-	//if (KEY_PRESSED(KEY::W))
-	//	m_LookAt.y -= DT * m_CamSpeed;
-	//if (KEY_PRESSED(KEY::S))
-	//	m_LookAt.y += DT * m_CamSpeed;
-	//if (KEY_PRESSED(KEY::A))
-	//	m_LookAt.x -= DT * m_CamSpeed;
-	//if (KEY_PRESSED(KEY::D))
-	//	m_LookAt.x += DT * m_CamSpeed;
 	if (m_Owner)
 	{
-		m_LookAt.x = m_Owner->GetPos().x;
+		float fDist = m_LookAt.y - m_Owner->GetPos().y;
+		Vec2 vDir = m_Owner->GetPos();
+		
+		if (m_Owner->GetPos().x <= 640.f)
+		{
+			m_LookAt.x = 640.f;
+		}
+
+		else
+		{
+			m_LookAt.x = m_Owner->GetPos().x;
+		}
+		
+		if (fDist < -220.f)
+		{
+			if (!vDir.IsZero())
+			{
+				vDir.Normalize();
+			}
+			m_LookAt.y += vDir.y * 1000.f * DT;
+		}
+
+		else if (fDist > 150.f)
+		{
+			if (!vDir.IsZero())
+			{
+				vDir.Normalize();
+			}
+			m_LookAt.y -= vDir.y * 1000.f * DT;
+		}
 	}
 
 	else

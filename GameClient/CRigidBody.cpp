@@ -42,24 +42,28 @@ CRigidBody::~CRigidBody()
 
 void CRigidBody::Jump()
 {
-	if (m_Ground && m_Climb)
-	{
-		m_VelocityByGravity += Vec2(0.f, -0.1f) * m_JumpSpeed;
-		SetGround(false);
-		SetClimb(false);
-	}
-
-	else if (m_Ground && !m_Climb)
-	{
-		m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
-		SetGround(false);
-	}
-
-	else if (!m_Ground && m_Climb)
-	{
-		m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
-		SetClimb(false);
-	}
+	//if (m_Ground && m_Climb)
+	//{
+	//	m_VelocityByGravity += Vec2(0.f, -0.1f) * m_JumpSpeed;
+	//	SetGround(false);
+	//	SetClimb(false);
+	//}
+	//
+	//else if (m_Ground && !m_Climb)
+	//{
+	//	m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
+	//	SetGround(false);
+	//}
+	//
+	//else if (!m_Ground && m_Climb)
+	//{
+	//	m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
+	//	SetClimb(false);
+	//}
+	m_LineGround = false;
+	m_VelocityByGravity += Vec2(0.f, -1.f) * m_JumpSpeed;
+	SetGround(false);
+	SetClimb(false);
 }
 
 void CRigidBody::finaltick()
@@ -145,7 +149,10 @@ void CRigidBody::finaltick()
 		}
 	}
 
-	
+	if (m_UseGravity && m_LineGround)
+	{
+		m_VelocityByGravity = Vec2(0.f, 0.0f);
+	}
 
 	Vec2 vFinalVelocity = m_Velocity + m_VelocityByGravity;
 
@@ -155,5 +162,4 @@ void CRigidBody::finaltick()
 	
 	m_Force = Vec2(0.f, 0.f);
 	m_AddVelocity = Vec2(0.f, 0.f);
-	
 }

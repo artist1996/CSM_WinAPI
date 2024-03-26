@@ -20,9 +20,6 @@
     <Filter Include="03. Game\03. Manager">
       <UniqueIdentifier>{16f870f7-0599-48b8-8d4d-c8817160748e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\04. Level">
-      <UniqueIdentifier>{e9c418e1-7eb7-4383-b0e5-9f3d3bb90912}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\05. Object">
       <UniqueIdentifier>{f8d9e644-b88f-49c5-ae14-f18d16a78744}</UniqueIdentifier>
     </Filter>
@@ -31,18 +28,6 @@
     </Filter>
     <Filter Include="03. Game\07. Asset">
       <UniqueIdentifier>{a6b396b5-f19c-47f1-ade0-6c5c22cc7448}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\08. Module">
-      <UniqueIdentifier>{2f78e29c-9336-486c-b36c-65d0169925a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\04. Level\01. Start_Logo">
-      <UniqueIdentifier>{24b02be6-25e0-471d-a61f-a2219e7a4903}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\04. Level\02. Editor">
-      <UniqueIdentifier>{67f9392a-1b0a-47e9-adfc-bb693d504c19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\04. Level\03. Stage01">
-      <UniqueIdentifier>{61999925-329b-48b8-a34f-589870b1a65a}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Game\05. Object\Player">
       <UniqueIdentifier>{58bf1ef3-134d-4d7a-9269-8ec6f998b76e}</UniqueIdentifier>
@@ -104,9 +89,6 @@
     <Filter Include="03. Game\05. Object\Missile\GuidedMissile">
       <UniqueIdentifier>{63987223-8861-4318-9501-fc898885db58}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\08. Module\Animation">
-      <UniqueIdentifier>{530b1910-5da7-42b6-9f47-652606dbfefb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\05. Object\Effect">
       <UniqueIdentifier>{b73471f7-b9f1-4a2e-9743-4a52dcc3b6ac}</UniqueIdentifier>
     </Filter>
@@ -119,20 +101,11 @@
     <Filter Include="03. Game\03. Manager\09. Camera">
       <UniqueIdentifier>{f0391659-71a7-4a50-a813-4ff665a3f8ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\08. Module\State">
-      <UniqueIdentifier>{960cbf8e-cb8f-4cca-82c1-a5c7edaa8620}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\08. Module\State\MonsterState">
-      <UniqueIdentifier>{9b4ea930-9f85-4388-815d-12dc82dfa27c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\06. Component\05. TileMap">
       <UniqueIdentifier>{131c4757-28f9-42bc-af67-4c86771ac61c}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Game\05. Object\Line">
       <UniqueIdentifier>{0aaeef2b-27a6-4ee0-b892-907976837c6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\03. Manager\10. CUIMgr">
-      <UniqueIdentifier>{0716cf1c-b649-4028-ae64-3c813bdde7d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Game\05. Object\BackGround">
       <UniqueIdentifier>{34e37779-d915-423c-8766-22b1baa9024f}</UniqueIdentifier>
@@ -145,6 +118,69 @@
     </Filter>
     <Filter Include="03. Game\05. Object\UI\ButtonUI">
       <UniqueIdentifier>{c9051e7b-bc81-4c0f-92d9-cce9c41c77f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\04. Level">
+      <UniqueIdentifier>{e9c418e1-7eb7-4383-b0e5-9f3d3bb90912}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\04. Level\01. Start_Logo">
+      <UniqueIdentifier>{24b02be6-25e0-471d-a61f-a2219e7a4903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\04. Level\02. Editor">
+      <UniqueIdentifier>{67f9392a-1b0a-47e9-adfc-bb693d504c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\03. Manager\11. SoundMgr">
+      <UniqueIdentifier>{71d71fe0-8b1c-447b-ae30-7afe60589c7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\03. Manager\10. UIMgr">
+      <UniqueIdentifier>{0716cf1c-b649-4028-ae64-3c813bdde7d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\BackGround\Logo">
+      <UniqueIdentifier>{ac614a74-12a4-42e0-89e0-714c3ec07d62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\04. Level\03. Animation Tool">
+      <UniqueIdentifier>{848e8236-fa17-42f6-85fd-32b4c3a2cd8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\04. Level\04. Stage01">
+      <UniqueIdentifier>{61999925-329b-48b8-a34f-589870b1a65a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\UI\Animation UI">
+      <UniqueIdentifier>{1e7e75e6-765b-46fb-822d-6bfa86cb5ef5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\UI\Frame UI">
+      <UniqueIdentifier>{9fdbffb1-dcf4-4a41-8e4a-b7a059ed08d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\UI\Atlas UI">
+      <UniqueIdentifier>{1840c539-4c49-4049-a4a5-d1388a0be22a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\AnimationDummy">
+      <UniqueIdentifier>{5ce48f0b-c73a-4c2a-b481-7c4be99c3db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module">
+      <UniqueIdentifier>{2f78e29c-9336-486c-b36c-65d0169925a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\Animation">
+      <UniqueIdentifier>{530b1910-5da7-42b6-9f47-652606dbfefb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State">
+      <UniqueIdentifier>{960cbf8e-cb8f-4cca-82c1-a5c7edaa8620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\MonsterState">
+      <UniqueIdentifier>{9b4ea930-9f85-4388-815d-12dc82dfa27c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState">
+      <UniqueIdentifier>{00d877af-baf4-4d11-8bc4-0e02f49f152a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\Animation">
+      <UniqueIdentifier>{f2cf33db-adcf-4791-94c7-58be6f1bebfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\State">
+      <UniqueIdentifier>{8786adcd-f64e-48e6-8334-dd0ec69680fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\UI\Editor UI">
+      <UniqueIdentifier>{75bf19f0-4b3f-4d19-b790-68c743d74940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\EditorDummy">
+      <UniqueIdentifier>{7c9b9015-79e4-49da-9138-62be1b55a68c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +224,7 @@
       <Filter>03. Game\03. Manager\05. LevelMgr</Filter>
     </ClInclude>
     <ClInclude Include="CLevel_Stage01.h">
-      <Filter>03. Game\04. Level\03. Stage01</Filter>
+      <Filter>03. Game\04. Level\04. Stage01</Filter>
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>03. Game\01. Header</Filter>
@@ -290,7 +326,7 @@
       <Filter>03. Game\05. Object\UI</Filter>
     </ClInclude>
     <ClInclude Include="CUIMgr.h">
-      <Filter>03. Game\03. Manager\10. CUIMgr</Filter>
+      <Filter>03. Game\03. Manager\10. UIMgr</Filter>
     </ClInclude>
     <ClInclude Include="CBackGround.h">
       <Filter>03. Game\05. Object\BackGround</Filter>
@@ -303,6 +339,42 @@
     </ClInclude>
     <ClInclude Include="CButton.h">
       <Filter>03. Game\05. Object\UI\ButtonUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CSoundMgr.h">
+      <Filter>03. Game\03. Manager\11. SoundMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CLevel_Logo.h">
+      <Filter>03. Game\04. Level\01. Start_Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="CLogo.h">
+      <Filter>03. Game\05. Object\BackGround\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Player.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_PlayerAnim.h">
+      <Filter>03. Game\08. Module\State\PlayerState\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="CLevel_AnimTool.h">
+      <Filter>03. Game\04. Level\03. Animation Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CAtlasUI.h">
+      <Filter>03. Game\05. Object\UI\Atlas UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimationUI.h">
+      <Filter>03. Game\05. Object\UI\Animation UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrameUI.h">
+      <Filter>03. Game\05. Object\UI\Frame UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CDummy.h">
+      <Filter>03. Game\05. Object\AnimationDummy</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditorUI.h">
+      <Filter>03. Game\05. Object\UI\Editor UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditor_Dummy.h">
+      <Filter>03. Game\05. Object\EditorDummy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -344,7 +416,7 @@
       <Filter>03. Game\03. Manager\05. LevelMgr</Filter>
     </ClCompile>
     <ClCompile Include="CLevel_Stage01.cpp">
-      <Filter>03. Game\04. Level\03. Stage01</Filter>
+      <Filter>03. Game\04. Level\04. Stage01</Filter>
     </ClCompile>
     <ClCompile Include="CTimeMgr.cpp">
       <Filter>03. Game\03. Manager\01. TimeMgr</Filter>
@@ -443,7 +515,7 @@
       <Filter>03. Game\05. Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="CUIMgr.cpp">
-      <Filter>03. Game\03. Manager\10. CUIMgr</Filter>
+      <Filter>03. Game\03. Manager\10. UIMgr</Filter>
     </ClCompile>
     <ClCompile Include="CBackGround.cpp">
       <Filter>03. Game\05. Object\BackGround</Filter>
@@ -456,6 +528,42 @@
     </ClCompile>
     <ClCompile Include="CButton.cpp">
       <Filter>03. Game\05. Object\UI\ButtonUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundMgr.cpp">
+      <Filter>03. Game\03. Manager\11. SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CLevel_Logo.cpp">
+      <Filter>03. Game\04. Level\01. Start_Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="CLogo.cpp">
+      <Filter>03. Game\05. Object\BackGround\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Player.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_PlayerAnim.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="CLevel_AnimTool.cpp">
+      <Filter>03. Game\04. Level\03. Animation Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="CAtlasUI.cpp">
+      <Filter>03. Game\05. Object\UI\Atlas UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimationUI.cpp">
+      <Filter>03. Game\05. Object\UI\Animation UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CFrameUI.cpp">
+      <Filter>03. Game\05. Object\UI\Frame UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CDummy.cpp">
+      <Filter>03. Game\05. Object\AnimationDummy</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorUI.cpp">
+      <Filter>03. Game\05. Object\UI\Editor UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditor_Dummy.cpp">
+      <Filter>03. Game\05. Object\EditorDummy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

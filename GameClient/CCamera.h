@@ -32,8 +32,8 @@ private:
 
 public:
 	Vec2 GetRenderPos(Vec2 _RealPos) { return _RealPos - m_Diff; }
-	Vec2 GetRealPos(Vec2 _RenderPos) { return _RenderPos + m_Diff; }
-
+	Vec2 GetRealPos(Vec2 _RenderPos) { return m_Diff + _RenderPos; }
+	
 	void SetOwner(CObj* _Owner) { m_Owner = _Owner; }
 	
 	void SetCameraEffect(CAM_EFFECT _Effect, float _Duration);

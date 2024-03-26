@@ -146,3 +146,32 @@ struct tInfo
 	Vec2 StartPos;
 	Vec2 EndPos;
 };
+
+struct tAnimFrm
+{
+	Vec2    StartPos;
+	Vec2    SliceSize;
+	Vec2    Offset;
+	float   Duration;
+
+	tAnimFrm()
+		: Duration(0.f)
+	{}
+};
+
+struct CUT_INFO
+{
+	Vec2 Start;
+	Vec2 End;
+
+	CUT_INFO()
+		: Start{}
+		, End{}
+	{}
+
+	CUT_INFO(Vec2 _Start, Vec2 _End)
+		: Start(_Start)
+		, End(_End)
+	{}
+
+};

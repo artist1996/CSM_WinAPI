@@ -11,7 +11,7 @@ CBackGround::~CBackGround()
 }
 
 void CBackGround::tick()
-{
+{                                                                                                                                                                                                                                                                                                                                                                                                         
 }
 
 void CBackGround::render()
@@ -20,15 +20,18 @@ void CBackGround::render()
 	Vec2 vScale = GetScale();
 
 	// AlphaBlending
-	BLENDFUNCTION bf = {};
+	// BLENDFUNCTION bf = {};
 
-	bf.BlendOp = AC_SRC_OVER;
-	bf.BlendFlags = 0;
-	bf.SourceConstantAlpha = 255;
-	bf.AlphaFormat = AC_SRC_ALPHA;
+	//bf.BlendOp = AC_SRC_OVER;
+	//bf.BlendFlags = 0;
+	//bf.SourceConstantAlpha = 255;
+	//bf.AlphaFormat = AC_SRC_ALPHA;
+	//
+	//AlphaBlend(DC, (int)(vPos.x)
+	//	, (int)(vPos.y)
+	//	, GetImg()->GetWidth(), GetImg()->GetHeight()
+	//	, GetImg()->GetDC(), 0, 0, GetImg()->GetWidth(), GetImg()->GetHeight(), bf);
 
-	AlphaBlend(DC, (int)(vPos.x)
-		, (int)(vPos.y)
-		, GetImg()->GetWidth() * 2, GetImg()->GetHeight() * 2
-		, GetImg()->GetDC(), 0, 0, GetImg()->GetWidth(), GetImg()->GetHeight(), bf);
+	StretchBlt(DC, (int)vPos.x, (int)vPos.y, GetImg()->GetWidth() * 5, (UINT)(GetImg()->GetHeight() * 2), GetImg()->GetDC(), 0, 0, GetImg()->GetWidth(),
+		GetImg()->GetHeight(), SRCCOPY);
 }

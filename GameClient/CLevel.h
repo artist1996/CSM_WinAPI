@@ -12,14 +12,6 @@ class CLevel :
 private:
     vector<CObj*>       m_arrObj[(UINT)LAYER_TYPE::END];
     vector<CCollider*>  m_arrCollider[(UINT)LAYER_TYPE::END];
-
-protected:
-    vector<CPlatform*> m_vecEditPlat;
-    CPlatform*         m_Platform;
-    tInfo              m_Info;
-
-    vector<CLine*>     m_vecEditLine;
-    CLine*             m_Line;
     
 public:
     // 시점 함수
@@ -43,12 +35,22 @@ public:
 protected:
     void DeleteAllObjects();
     void DeleteObjects(LAYER_TYPE _Type);
-    void LoadFromPlatform(const wstring& _strRelativePath);
-    void LoadFromLine(const wstring& _strRelativePath);
+
+    void SavePlatform(const wstring& _strRelativePath);
+    void SaveLine(const wstring& _strRelativePath);
+    void SaveMonster(const wstring& _strRelativePath);
+    void SaveTrap(const wstring& _strRelativePath);
+
+    void LoadPlatform(const wstring& _strRelativePath);
+    void LoadLine(const wstring& _strRelativePath);
+    void LoadMonster(const wstring& _strRelativePath);
+    void LoadTrap(const wstring& _strRelativePath);
 
 public:
     CLONE_DISABLE(CLevel)
     CLevel();
     ~CLevel();
+
+    friend class CUIMgr;
 };
 

@@ -10,6 +10,7 @@
 #include "CAssetMgr.h"
 #include "CTaskMgr.h"
 #include "CCamera.h"
+#include "CSoundMgr.h"
 #include "CTexture.h"
 
 CEngine::CEngine()
@@ -47,7 +48,7 @@ int CEngine::init(HINSTANCE _hInst, HWND _hWnd, POINT _Resolution)
 	m_Resolution = _Resolution;
 
 	// 윈도우 크기를 변경
-	ChangeWindowSize(_Resolution, false);
+	ChangeWindowSize(m_Resolution, false);
 
 	// DC 및 펜, 브러쉬 생성
 	CreateDefaultGDIObject();	
@@ -62,6 +63,7 @@ int CEngine::init(HINSTANCE _hInst, HWND _hWnd, POINT _Resolution)
 
 
 	CCamera::GetInst()->init();
+	CSoundMgr::GetInst()->init();
 
 
 	return S_OK;
@@ -112,11 +114,14 @@ void CEngine::CreateDefaultGDIObject()
 	
 	m_SubTex = CAssetMgr::GetInst()->CreateTexture(L"SubTexture", (UINT)m_Resolution.x, (UINT)m_Resolution.y);
 
+	//m_SubTex = CAssetMgr::GetInst()->CreateTexture(L"SubTexture", (UINT)640, (UINT)480);
+
 	// 자주 사용할 펜 생성
 	m_arrPen[(UINT)PEN_TYPE::PEN_RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_arrPen[(UINT)PEN_TYPE::PEN_GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_arrPen[(UINT)PEN_TYPE::PEN_BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
-
+	m_arrPen[(UINT)PEN_TYPE::PEN_BLACK] = CreatePen(PS_SOLID, 2, RGB(0, 0, 0));
+	
 	// 자주 사용할 브러쉬 생성
 	m_arrBrush[(UINT)BRUSH_TYPE::BRUSH_RED] = CreateSolidBrush(RGB(255, 0, 0));
 	m_arrBrush[(UINT)BRUSH_TYPE::BRUSH_GREEN] = CreateSolidBrush(RGB(0, 255, 0));
@@ -131,10 +136,12 @@ HDC CEngine::GetSubDC()
 	return m_SubTex->GetDC();
 }
 
-void CEngine::ChangeWindowSize(Vec2 _Resoultion, bool _bMenu)
+void CEngine::ChangeWindowSize(Vec2 _Resolution, bool _bMenu)
 {
-	RECT rt = { 0,0,_Resoultion.x, _Resoultion.y };
-	AdjustWindowRect(&rt, WS_OVERLAPPED, _bMenu);
-	
+	// 입력된 해상도를 가져가기 위한 실제 윈도우의 크기를 계산
+	RECT rt = { 0, 0, _Resolution.x, _Resolution.y };
+	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, _bMenu);
+
+	// 윈도우 크기를 변경
 	SetWindowPos(m_hMainWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 }

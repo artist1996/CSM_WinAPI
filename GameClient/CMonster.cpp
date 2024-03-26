@@ -22,6 +22,19 @@ CMonster::CMonster()
 	m_FSM->AddState(L"Trace", new CMonsterTrace);
 }
 
+CMonster::CMonster(Vec2 _Pos, Vec2 _Scale)
+{
+	SetPos(_Pos);
+	SetScale(_Scale);
+
+	m_Collider = (CCollider*)AddComponent(new CCollider);
+	m_FSM = (CFSM*)AddComponent(new CFSM);
+	m_Collider->SetScale(Vec2(120.f, 120.f));
+
+	m_FSM->AddState(L"IDLE", new CMonsterIDLE);
+	m_FSM->AddState(L"Trace", new CMonsterTrace);
+}
+
 CMonster::~CMonster()
 {
 }

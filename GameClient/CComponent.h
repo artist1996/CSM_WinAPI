@@ -23,4 +23,3 @@ public:
 
     friend class CObj;
 };
-

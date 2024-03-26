@@ -36,27 +36,6 @@ void CPlatform::begin()
 {
 }
 
-void CPlatform::tick()
-{
-	
-}
-
-void CPlatform::render()
-{
-	if (L"Test" == GetName())
-	{
-		USE_PEN(DC, PEN_TYPE::PEN_GREEN);
-		USE_BRUSH(DC, BRUSH_TYPE::BRUSH_HOLLOW);
-
-		Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
-		Vec2 vScale = CCamera::GetInst()->GetRealPos(GetScale());
-		Rectangle(DC, (int)vPos.x, (int)vPos.y, (int)vScale.x, (int)vScale.y);
-	}
-
-	else
-		return;
-}
-
 void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
 	if (L"Player" == _OtherObj->GetName())

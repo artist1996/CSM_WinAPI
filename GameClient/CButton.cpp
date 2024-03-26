@@ -13,7 +13,6 @@ CButton::~CButton()
 {
 }
 
-
 void CButton::tick_ui()
 {
 }

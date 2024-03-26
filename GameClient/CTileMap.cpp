@@ -65,8 +65,8 @@ void CTileMap::SetAtlasTex(CTexture* _Atlas)
 	{
 		// 내 최대 행 열 계산
 		// TileSize를 64 x 64로 맞춰놨기 때문에 해당 Tile의 Atlas 가로 세로 위치에 64를 나누어주면 최대 행열 개수가 나오게된다.
-		m_MaxImgRow = m_AtlasTex->GetHeight() / m_TileSize.y;
-		m_MaxImgCol = m_AtlasTex->GetWidth() / m_TileSize.x;
+		m_MaxImgRow = m_AtlasTex->GetHeight() / (int)m_TileSize.y;
+		m_MaxImgCol = m_AtlasTex->GetWidth() / (int)m_TileSize.x;
 	}
 }
 
@@ -119,10 +119,10 @@ void CTileMap::render_tile()
 
 			BitBlt(DC, (int)(vRenderPos.x + m_TileSize.x * j)	// 좌상단
 				     , (int)(vRenderPos.y + m_TileSize.y * i)	
-					 , m_TileSize.x, m_TileSize.y				// 우하단
+					 , (int)m_TileSize.x, (int)m_TileSize.y				// 우하단
 					 , m_AtlasTex->GetDC()
-					 , TileImgCol * m_TileSize.x				// 만약 ImgCol, Row가 1이면
-					 , TileImgRow * m_TileSize.y				// 64만큼 떨어진 행 열로 가서 복사해줘야 하기 때문에
+					 , TileImgCol * (int)m_TileSize.x				// 만약 ImgCol, Row가 1이면
+					 , TileImgRow * (int)m_TileSize.y				// 64만큼 떨어진 행 열로 가서 복사해줘야 하기 때문에
 				     , SRCCOPY);							    // TileSize를 곱한 위치 값을 복사 위치로 잡아준다.
 		}
 	}
@@ -148,8 +148,8 @@ void CTileMap::Clicked(Vec2 _MousePos)
 	_MousePos -= vObjPos;
 
 	// 마우스가 클릭한 지점이 몇행 몇열인지 계산한다.
-	int ClickCol = (int)_MousePos.x / m_TileSize.x;
-	int ClickRow = (int)_MousePos.y / m_TileSize.y;
+	int ClickCol = (int)_MousePos.x / (int)m_TileSize.x;
+	int ClickRow = (int)_MousePos.y / (int)m_TileSize.y;
 	
 	// 클릭한 지점의 타일을 1차원 인덱스로 변경해서 타일 벡터에서 해당 정보에 접근한다.
 	int TileIdx = m_Col * ClickRow + ClickCol;
@@ -159,7 +159,7 @@ void CTileMap::Clicked(Vec2 _MousePos)
 
 	// 만약 이미지 인덱스가, 아틀라스에서 제공하는 이미지 개수를 초과해서 참조하게 되면
 	// 다시 첫번째 이미지를 참조하도록 이미지 인덱스를 0 으로 설정한다.
-	if (m_MaxImgCol * m_MaxImgRow <= m_vecTileInfo[TileIdx].ImgIdx)
+	if (m_MaxImgCol * m_MaxImgRow <= (UINT)m_vecTileInfo[TileIdx].ImgIdx)
 	{
 		m_vecTileInfo[TileIdx].ImgIdx = 0;
 	}

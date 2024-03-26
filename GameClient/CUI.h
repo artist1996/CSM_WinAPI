@@ -9,7 +9,7 @@ private:
     vector<CUI*> m_vecChildUI;
 
     Vec2         m_vFinalPos;
-
+    
     bool         m_MouseOn;
     bool         m_MouseOnPrev;
     bool         m_MouseLbtnDown;
@@ -26,6 +26,8 @@ public:
         m_vecChildUI.push_back(_UI);
         m_ParentUI = this;
     }
+    
+    const vector<CUI*>& GetChildUI() { return m_vecChildUI; }
 
 public:
     virtual void tick() final;
@@ -43,7 +45,9 @@ private:
     virtual void CheckMouseOn();
 
 public:
+    CUI* Clone() PURE;
     CUI();
+    CUI(const CUI& _Origin);
     virtual ~CUI();
 
     friend class CTaskMgr;

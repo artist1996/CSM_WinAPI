@@ -9,13 +9,16 @@ class CPlayer :
     public CObj
 {
 private:
-    float       m_Speed;
+    CTexture*       m_PlayerImg;
 
-    CTexture*   m_PlayerImg;
+    CCollider*      m_BodyCol;
+    CAnimator*      m_Animator;
+    CRigidBody*     m_RigidBody;
 
-    CCollider*  m_BodyCol;
-    CAnimator*  m_Animator;
-    CRigidBody* m_RigidBody;
+    float           m_Speed;
+    float           fTime;
+
+    PLAYER_STATE    m_eState;
 
 public:
     virtual void begin();
@@ -25,7 +28,10 @@ public:
     virtual void OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
     virtual void EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
 
-    float GetSpeed() { return m_Speed; }
+    float GetSpeed()                    { return m_Speed; }
+
+    void SetState(PLAYER_STATE _eState) { m_eState = _eState; }
+    PLAYER_STATE GetState()             { return m_eState; }
 
 private:
     void Jump();
@@ -38,5 +44,8 @@ public:
     CPlayer();
     CPlayer(const CPlayer& _Other);
     ~CPlayer();
+
+    friend class CState_Player;
+    friend class CState_PlayerAnim;
 };
 

@@ -1,14 +1,6 @@
 #pragma once
 #include "CEntity.h"
 
-struct tAnimFrm
-{
-    Vec2    StartPos;
-    Vec2    SliceSize;
-    Vec2    Offset;
-    float   Duration;
-};
-
 class CAnimator;
 class CTexture;
 
@@ -29,12 +21,19 @@ public:
     void finaltick();
     void render();
     void Create(CTexture* _AtlasTex, Vec2 _StartPos, Vec2 _SliceSize, int _FrameCount, int _FPS);
+    void Create(CTexture* _AtlasTex, vector<tAnimFrm> _vecFrm);
     bool IsFinish() { return m_bFinish; }
 
     void Save(const wstring& _strRelativeFolderPath);
+
     int  Load(const wstring& _strRelativeFilePath);
 
-    tAnimFrm& GetFrame(int _Frame) { return m_vecFrm[_Frame]; }     // Frame 정보 반환 함수
+    int LoadAnimation(const wstring& _strFullPath);
+
+    tAnimFrm& GetFrame(int _Frame)        { return m_vecFrm[_Frame]; }     // Frame 정보 반환 함수
+    const vector<tAnimFrm>& GetVecFrame() { return m_vecFrm; };
+    
+    CTexture* GetImg() { return m_Atlas; }
 
     void Reset()
     {

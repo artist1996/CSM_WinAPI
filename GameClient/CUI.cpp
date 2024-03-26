@@ -10,6 +10,19 @@ CUI::CUI()
 {
 }
 
+CUI::CUI(const CUI& _Origin)
+	: CObj(_Origin)
+	, m_ParentUI(nullptr)
+	, m_MouseOn(false)
+	, m_MouseOnPrev(false)
+	, m_MouseLbtnDown(false)
+{
+	for (size_t i = 0; i < _Origin.m_vecChildUI.size(); ++i)
+	{
+		AddChildUI(_Origin.m_vecChildUI[i]->Clone());
+	}
+}
+
 CUI::~CUI()
 {
 }
@@ -36,7 +49,6 @@ void CUI::tick()
 	{
 		m_vecChildUI[i]->tick();
 	}
-
 }
 
 void CUI::render()
@@ -52,14 +64,14 @@ void CUI::render()
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
 
-	Rectangle(DC, (int)vPos.x, (int)vPos.y, (int)(vPos.x + vScale.x), (int)(vPos.y + vScale.y));
+	//Rectangle(DC, (int)vPos.x, (int)vPos.y, (int)(vPos.x + vScale.x), (int)(vPos.y + vScale.y));
 }
 
 void CUI::render_ui()
 {
 	Vec2 vPos = GetFinalPos();
 	Vec2 vScale = GetScale();
-	Rectangle(DC, (int)vPos.x, (int)vPos.y, (int)(vPos.x + vScale.x), (int)(vPos.y + vScale.y));
+	//Rectangle(DC, (int)vPos.x, (int)vPos.y, (int)(vPos.x + vScale.x), (int)(vPos.y + vScale.y));
 }
 
 void CUI::LButtonDown()

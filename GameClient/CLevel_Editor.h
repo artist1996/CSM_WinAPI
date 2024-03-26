@@ -7,21 +7,18 @@ class CLine;
 class CTile;
 class CBackGround;
 
+class CUI;
+
 class CLevel_Editor :
     public CLevel
 {
 private:
     CTile*             m_EditTile;
+    CUI*               m_UI;
     
-    CPlatform*         m_TestPlatform;
-    tInfo              m_TestInfo;
-
-    CLine*             m_TestLine;
-
+    tInfo              m_tInfo;
     MAP_TYPE           m_Type;
-
     CTexture*          m_CurImg;
-    
     CBackGround*       m_BackGround;
 
 public:
@@ -31,16 +28,21 @@ public:
     virtual void Exit() override;
 
 private:
-    void SaveToPlatformFile(const wstring& _strRelativePath);
-    void SaveToLineFile(const wstring& _strRelativePath);
+    void Platform();
+    void Line();
+    void Monster();
+    void Trap();
+    
     void ResetInfo()
     {
-        memset(&m_Info, sizeof(tInfo), 0);
-        memset(&m_TestInfo, sizeof(tInfo), 0);
+        memset(&m_tInfo, sizeof(tInfo), 0);
     }
     void SetType(MAP_TYPE _Type) { m_Type = _Type; }
 
     void CreateUI();
+
+public:
+    virtual void render() override;
 
 public:
     CLevel_Editor();

@@ -144,20 +144,18 @@ bool CCollisionMgr::IsCollision(CCollider* _Left, CCollider* _Right)
 	Vec2 vRightPos = _Right->GetFinalPos();
 	Vec2 vRightScale = _Right->GetScale();
 
-	if (LAYER_TYPE::LINE == _Left->GetOwner()->GetLayerType())
+	if (_Left->GetOwner()->GetLayerType() == LAYER_TYPE::LINE)
 	{
-		if (vRightPos.x >= vLeftPos.x && vRightPos.x <= vLeftScale.x)
+		Vec2 vLeftLinePos = _Left->GetOwner()->GetPos();
+		Vec2 vRightLinePos = _Left->GetOwner()->GetScale();
+		Vec2 vPlayerPos = _Right->GetOwner()->GetPos();
+		Vec2 vPlayerScale = _Right->GetOwner()->GetScale();
+		if (vPlayerPos.x >= vLeftLinePos.x && vPlayerPos.x <= vRightLinePos.x)
+			//&& vPlayerPos.y <= vRightLinePos.y && vPlayerPos.y >= vLeftLinePos.y)
 		{
-			float fInclination = (vLeftScale.y - vLeftPos.y) / (vLeftScale.x - vLeftPos.x);
-			float fIntercept = vLeftPos.y - fInclination * vLeftPos.x;
-			float fLineY = fInclination * vRightPos.x + fIntercept;
-
-			if (vRightPos.y >= fLineY)
-			{
-				_Right->GetOwner()->SetPos(vRightPos.x, fLineY - vRightScale.y);
-				return true;
-			}
+			return true;	
 		}
+		return false;
 	}
 
 	else

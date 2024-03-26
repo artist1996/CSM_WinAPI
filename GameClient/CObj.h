@@ -26,22 +26,28 @@ private:
     CAnimator*          m_Animator;
 
     LAYER_TYPE          m_Type;     // 소속 레이어
+
+    DIRECTION           m_eDir;     // 오브젝트의 방향
+
     bool                m_bDead;    // 삭제 예정상태
 
 public:
-    void SetPos(Vec2 _Pos) { m_Pos = _Pos; }
-    void SetScale(Vec2 _Scale) { m_Scale = _Scale; }
+    void SetPos(Vec2 _Pos)      { m_Pos = _Pos; }
+    void SetScale(Vec2 _Scale)  { m_Scale = _Scale; }
 
-    void SetPos(float _x, float _y) { m_Pos.x = _x; m_Pos.y = _y; }
-    void SetScale(float _width, float _height) { m_Scale.x = _width; m_Scale.y = _height; }
+    void SetPos(float _x, float _y)             { m_Pos.x = _x; m_Pos.y = _y; }
+    void SetScale(float _width, float _height)  { m_Scale.x = _width; m_Scale.y = _height; }
 
-    Vec2 GetPos() { return m_Pos; }
-    Vec2 GetScale() { return m_Scale; }
-    const Vec2& GetPrevPos() { return m_PrevPos; }
-    LAYER_TYPE GetLayerType() { return m_Type; }
-    Vec2 GetRenderPos() { return CCamera::GetInst()->GetRenderPos(m_Pos); }
+    Vec2 GetPos()               { return m_Pos; }
+    Vec2 GetScale()             { return m_Scale; }
+    const Vec2& GetPrevPos()    { return m_PrevPos; }
+    LAYER_TYPE GetLayerType()   { return m_Type; }
+    Vec2 GetRenderPos()         { return CCamera::GetInst()->GetRenderPos(m_Pos); }
 
-    bool IsDead() { return m_bDead; }
+    void SetDirection(DIRECTION _eDir)  { m_eDir = _eDir; }
+    DIRECTION GetDirection()            { return m_eDir; }
+
+    bool IsDead()                       { return m_bDead; }
 
     void Destroy();
 

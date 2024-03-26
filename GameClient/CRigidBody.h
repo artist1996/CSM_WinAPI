@@ -24,6 +24,7 @@ private:
                                  
     bool    m_UseGravity;        // 중력 체크
     bool    m_Ground;            // 땅 위에 서있는지 체크
+    bool    m_LineGround;
 
     bool    m_Climb;              // 벽에 부딪혔는지 체크
 
@@ -117,6 +118,11 @@ public:
             //m_Force = Vec2(0.f, 0.f);
             SetGround(false);
         }
+    }
+
+    void SetLineGround(bool _LineGround)
+    {
+        m_LineGround = _LineGround;
     }
 
     void UseGravity(bool _UseGravity)

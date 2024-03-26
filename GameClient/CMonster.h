@@ -27,6 +27,7 @@ public:
     virtual CMonster* Clone() { return new CMonster(*this); }
 public:
     CMonster();
+    CMonster(Vec2 _Pos, Vec2 _Scale);
     ~CMonster();
 };
 

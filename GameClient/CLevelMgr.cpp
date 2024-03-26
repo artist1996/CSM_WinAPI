@@ -4,8 +4,10 @@
 #include "CCollisionMgr.h"
 
 #include "CLevel.h"
-#include "CLevel_Stage01.h"
+#include "CLevel_Logo.h"
 #include "CLevel_Editor.h"
+#include "CLevel_AnimTool.h"
+#include "CLevel_Stage01.h"
 
 CLevelMgr::CLevelMgr()
 	: m_arrLevel{}
@@ -22,11 +24,14 @@ CLevelMgr::~CLevelMgr()
 void CLevelMgr::init()
 {
 	// 모든 레벨 생성
-	m_arrLevel[(UINT)LEVEL_TYPE::STAGE_01] = new CLevel_Stage01;
+	m_arrLevel[(UINT)LEVEL_TYPE::LOGO_START] = new CLevel_Logo;
 	m_arrLevel[(UINT)LEVEL_TYPE::EDITOR] = new CLevel_Editor;
+	m_arrLevel[(UINT)LEVEL_TYPE::STAGE_01] = new CLevel_Stage01;
+	m_arrLevel[(UINT)LEVEL_TYPE::TOOL] = new CLevel_AnimTool;
+	m_arrLevel[(UINT)LEVEL_TYPE::TOOL]->SetName(L"TOOL");
 	
 	// 초기 레벨 지정
-	::ChangeLevel(LEVEL_TYPE::EDITOR);
+	::ChangeLevel(LEVEL_TYPE::LOGO_START);
 }
 
 void CLevelMgr::progress()

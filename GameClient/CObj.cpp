@@ -14,6 +14,7 @@ CObj::CObj()
 	: m_Type(LAYER_TYPE::NONE)
 	, m_bDead(false)
 	, m_Animator(nullptr)
+	, m_eDir(DIRECTION::RIGHT)
 {
 }
 
@@ -25,6 +26,7 @@ CObj::CObj(const CObj& _Other)
 	, m_Animator(nullptr)
 	, m_Type(LAYER_TYPE::NONE)
 	, m_bDead(false)
+	, m_eDir(_Other.m_eDir)
 {
 	for (size_t i = 0; i < _Other.m_vecCom.size(); ++i)
 	{

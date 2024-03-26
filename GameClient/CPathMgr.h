@@ -8,6 +8,8 @@ private:
 	wstring		m_Solution;
 	wstring		m_Proj;
 
+	wstring		m_FileName;
+
 public:
 	void init();
 	void render();

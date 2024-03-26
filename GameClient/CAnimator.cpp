@@ -5,6 +5,7 @@
 
 CAnimator::CAnimator()
 	: m_CurAnim(nullptr)
+	, m_Repeat(false)
 {
 }
 
@@ -71,6 +72,27 @@ void CAnimator::CreateAnimation(  const wstring& _AnimName
 	m_mapAnim.insert(make_pair(_AnimName, pAnim));
 }
 
+void CAnimator::CreateAnimation(const wstring& _AnimName, CTexture* _Atlas, vector<tAnimFrm> _vecFrame)
+{
+	CAnimation* pAnim = FindAnimation(_AnimName);
+
+	if (nullptr != pAnim)
+	{
+		m_mapAnim.erase(pAnim->GetName());
+		delete pAnim;
+	}
+	
+	pAnim = new CAnimation;
+	pAnim->Create(_Atlas, _vecFrame);
+	
+	pAnim->SetName(_AnimName);
+	
+	pAnim->m_Animator = this;
+
+	m_mapAnim.insert(make_pair(_AnimName, pAnim));
+	m_CurAnim = pAnim;
+}
+
 void CAnimator::LoadAnimation(const wstring& _strRelativeFilePath)
 {
 	// LoadAnimation 함수 개선
@@ -92,6 +114,26 @@ void CAnimator::LoadAnimation(const wstring& _strRelativeFilePath)
 	m_mapAnim.insert(make_pair(pAnim->GetName(), pAnim));
 }
 
+void CAnimator::LoadToolAnimation(const wstring& _strFullPath)
+{
+	CAnimation* pAnim = new CAnimation;
+	if (FAILED(pAnim->LoadAnimation(_strFullPath)))
+	{
+		delete pAnim;
+		return;
+	}
+
+	if (nullptr != FindByAnimationName(pAnim->GetName()))
+	{
+		delete pAnim;
+		return;
+	}
+
+	pAnim->m_Animator = this;
+	m_mapAnim.insert(make_pair(pAnim->GetName(), pAnim));
+	m_CurAnim = pAnim;
+}
+
 
 CAnimation* CAnimator::FindAnimation(const wstring& _AnimName)
 {
@@ -100,6 +142,18 @@ CAnimation* CAnimator::FindAnimation(const wstring& _AnimName)
 	if (iter == m_mapAnim.end())
 		return nullptr;
 	
+	return iter->second;
+}
+
+CAnimation* CAnimator::FindByAnimationName(const wstring& _AnimName)
+{
+	map<wstring, CAnimation*>::iterator iter = m_mapAnim.find(_AnimName);
+	
+	if (iter == m_mapAnim.end())
+		return nullptr;
+
+	m_CurAnim = iter->second;
+
 	return iter->second;
 }
 

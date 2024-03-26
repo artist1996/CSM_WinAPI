@@ -6,6 +6,7 @@ enum class PEN_TYPE
 	PEN_RED,
 	PEN_GREEN,
 	PEN_BLUE,	
+	PEN_BLACK,
 
 	END,
 };
@@ -26,6 +27,8 @@ enum class BRUSH_TYPE
 enum class LEVEL_TYPE
 {
 	LOGO_START,
+
+	TOOL,
 	EDITOR,
 
 	STAGE_01,
@@ -40,13 +43,39 @@ enum class LEVEL_TYPE
 enum class PLAYER_STATE
 {
 	IDLE,
-	RUN,
+	IDLE_HEART,
+
 	MOVE,
+
 	DASH,
-	ATTACK,
+
+	JUMP,
+	JUMP_ATTACK,
+
+	WALL,
+	WALL_ATTACK,
+
+	FALL,
+
+	ATTACK_01,
+	ATTACK_02,
+	ATTACK_03,
+
+	SKILL_01,
+	SKILL_02,
+	SKILL_03,
+
 	HIT,
 	DEAD,
 
+	END,
+};
+
+enum class DIRECTION
+{
+	LEFT,
+	RIGHT,
+	
 	END,
 };
 
@@ -65,16 +94,15 @@ enum class LAYER_TYPE
 	PLATFORM,
 	LINE,
 	PLAYER,
-	MONSTER,	
+	MONSTER,
+	TRAP,
 	PLAYER_MISSILE,
 	MONSTER_MISSILE,
 	FORCE,
 
-
-
-
 	UI	= 15,
-	END = 16,
+	DUMMY = 16,
+	END = 17,
 
 	NONE = -1,
 };

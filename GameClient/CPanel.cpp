@@ -9,7 +9,6 @@ CPanel::~CPanel()
 {
 }
 
-
 void CPanel::tick_ui()
 {
 	if (IsLbtnDowned())
