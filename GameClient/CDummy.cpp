@@ -218,11 +218,25 @@ void CDummy::render()
 	Vec2 vPos = GetPos();
 	
 	AlphaBlend(DC, (int)(vPos.x - frm.SliceSize.x * 0.5f + frm.Offset.x)
-				 , (int)(vPos.y - frm.SliceSize.y * 0.5f + frm.Offset.y)
+				 , (int)(vPos.y - frm.SliceSize.y + frm.Offset.y)
 				 , (int)frm.SliceSize.x, (int)frm.SliceSize.y
 				 , m_Img->GetDC()
 				 , (int)frm.StartPos.x, (int)frm.StartPos.y
 				 , (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+
+	
+	if (L"FrameUI" == m_UI->GetName())
+	{
+		Vec2 UIPos = m_UI->GetPos();
+		Vec2 vScale = m_UI->GetScale();
+		USE_PEN(DC, PEN_TYPE::PEN_BLACK);
+
+		MoveToEx(DC, (int)(UIPos.x), (int)(UIPos.y + vScale.y * 0.5f), nullptr);
+		LineTo(DC, (int)(UIPos.x + vScale.x), (int)(UIPos.y + vScale.y * 0.5f));
+
+		MoveToEx(DC, (int)(UIPos.x + vScale.x * 0.5f), (int)UIPos.y, nullptr);
+		LineTo(DC, (int)(UIPos.x + vScale.x * 0.5f), (int)(UIPos.y + vScale.y));
+	}
 }
 
 void CDummy::PlayAnimation(const wstring& _strName, bool _Repeat)

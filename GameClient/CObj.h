@@ -31,6 +31,8 @@ private:
 
     bool                m_bDead;    // 삭제 예정상태
 
+    float               m_Speed;    // Object 속력
+
 public:
     void SetPos(Vec2 _Pos)      { m_Pos = _Pos; }
     void SetScale(Vec2 _Scale)  { m_Scale = _Scale; }
@@ -47,7 +49,13 @@ public:
     void SetDirection(DIRECTION _eDir)  { m_eDir = _eDir; }
     DIRECTION GetDirection()            { return m_eDir; }
 
+    void SetSpeed(float _Speed) { m_Speed = _Speed; }
+    float GetSpeed()            { return m_Speed; }
+
+
     bool IsDead()                       { return m_bDead; }
+
+
 
     void Destroy();
 

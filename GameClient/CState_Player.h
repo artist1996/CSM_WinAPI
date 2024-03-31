@@ -1,34 +1,43 @@
 #pragma once
 #include "CState.h"
+#include "CRigidBody.h"
+#include "CAnimator.h"
+#include "CAnimation.h"
+#include "CCollider.h"
+
+class CRigidBody;
+class CAnimator;
+class CCollider;
 
 class CState_Player :
     public CState
 {
 private:
-    
-    
-public:
-    virtual void Enter() override;
-    virtual void FinalTick() override;
-    virtual void Exit() override;
+    CRigidBody* m_Rigidbody;
+    CAnimator*  m_Animator;
+    CCollider*  m_Collider;
 
-private:
-    void Idle();
-    void Idle_Heart();
-    void Hit();
-    void Move();
-    void Jump();
-    void Dash();
-    void Attack();
-    void Fall();
-    void Wall();
-    void WallKick();
-    void Fire();
-    void Ice();
-    void GigaAttack();
-    
+protected:
+    CRigidBody* GetRigidBody() { return m_Rigidbody; }
+    CAnimator* GetAnimator()   { return m_Animator; }
+    CCollider* GetCollider()   { return m_Collider; }
+
 public:
-    CLONE(CState_Player);
+    void Initialize()
+    {
+        if (nullptr == m_Rigidbody && nullptr == m_Animator && nullptr == m_Collider)
+        {
+            m_Rigidbody = GetObj()->GetComponent<CRigidBody>();
+            m_Animator = GetObj()->GetComponent<CAnimator>();
+            m_Collider = GetObj()->GetComponent<CCollider>();
+        }
+    }
+    virtual void Enter() PURE;
+    virtual void FinalTick() PURE;
+    virtual void Exit() PURE;
+
+public:
+    CLONE_DISABLE(CState_Player);
     CState_Player();
     ~CState_Player();
 };

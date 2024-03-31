@@ -35,10 +35,20 @@ public:
     
     CTexture* GetImg() { return m_Atlas; }
 
+    void SetCurFrameIdx(int _Idx) { m_CurFrmIdx = _Idx; }
+    int GetCurFrameIdx()          { return m_CurFrmIdx; }
+
     void Reset()
     {
         m_Time = 0.f;
         m_CurFrmIdx = 0;
+        m_bFinish = false;
+    }
+
+    void Reset(int _Idx)
+    {
+        m_Time = 0.f;
+        m_CurFrmIdx = _Idx;
         m_bFinish = false;
     }
 

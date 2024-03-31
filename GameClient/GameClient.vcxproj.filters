@@ -68,9 +68,6 @@
     <Filter Include="03. Game\03. Manager\01. TimeMgr">
       <UniqueIdentifier>{88e779ad-7d15-47a0-ad5d-2aca22406e57}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\03. Manager\02. KeyMgr">
-      <UniqueIdentifier>{b91c806f-165a-4cbe-b98b-445800dafa01}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\03. Manager\03. AssetMgr">
       <UniqueIdentifier>{08273e21-fb16-46aa-84e9-ef60c0e7907e}</UniqueIdentifier>
     </Filter>
@@ -152,9 +149,6 @@
     <Filter Include="03. Game\05. Object\UI\Atlas UI">
       <UniqueIdentifier>{1840c539-4c49-4049-a4a5-d1388a0be22a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\05. Object\AnimationDummy">
-      <UniqueIdentifier>{5ce48f0b-c73a-4c2a-b481-7c4be99c3db3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\08. Module">
       <UniqueIdentifier>{2f78e29c-9336-486c-b36c-65d0169925a9}</UniqueIdentifier>
     </Filter>
@@ -170,17 +164,56 @@
     <Filter Include="03. Game\08. Module\State\PlayerState">
       <UniqueIdentifier>{00d877af-baf4-4d11-8bc4-0e02f49f152a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\08. Module\State\PlayerState\Animation">
-      <UniqueIdentifier>{f2cf33db-adcf-4791-94c7-58be6f1bebfe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\08. Module\State\PlayerState\State">
       <UniqueIdentifier>{8786adcd-f64e-48e6-8334-dd0ec69680fd}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Game\05. Object\UI\Editor UI">
       <UniqueIdentifier>{75bf19f0-4b3f-4d19-b790-68c743d74940}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\05. Object\EditorDummy">
+    <Filter Include="03. Game\05. Object\Dummy">
+      <UniqueIdentifier>{790bca30-efde-4ead-ab76-1315283e8a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\Dummy\EditorDummy">
       <UniqueIdentifier>{7c9b9015-79e4-49da-9138-62be1b55a68c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\Dummy\AnimationDummy">
+      <UniqueIdentifier>{5ce48f0b-c73a-4c2a-b481-7c4be99c3db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\04. Level\05. Stage02">
+      <UniqueIdentifier>{65688c43-348b-4505-b01b-35ba2441e950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\State\06. Attack">
+      <UniqueIdentifier>{40b148f2-8c8b-4d2d-92ec-deeb5e5711fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\State\01. Start">
+      <UniqueIdentifier>{f50e2091-34cf-4f49-a955-4398b56f22b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\State\02. Idle">
+      <UniqueIdentifier>{6dfb9e55-f7f4-41e3-bd1e-5881c6e91f5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\State\03. Move">
+      <UniqueIdentifier>{72234b49-d3a4-4177-951c-40159316b461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\State\04. Jump">
+      <UniqueIdentifier>{df5942ec-096a-4ba5-aacd-97752de790b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\State\05. Wall">
+      <UniqueIdentifier>{0cd9c81c-bad7-4482-8840-61a22306be0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\PlayerState\State\07. Block">
+      <UniqueIdentifier>{91649966-4300-4a17-8433-ed82fce1e07d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\03. Manager\02. KeyMgr">
+      <UniqueIdentifier>{b91c806f-165a-4cbe-b98b-445800dafa01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\PlayerAttack">
+      <UniqueIdentifier>{16811734-494f-45a4-a7f8-8dd4772ded5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\PlayerAttack\Normal">
+      <UniqueIdentifier>{ce4f6311-e207-4a18-aad4-a74d2658161c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\PlayerAttack\JumpAttack">
+      <UniqueIdentifier>{87ae4165-3eb2-4dfd-8a06-bf79ce932366}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -295,9 +328,6 @@
     <ClInclude Include="CPlatform.h">
       <Filter>03. Game\05. Object\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="CRigidBody.h">
-      <Filter>03. Game\06. Component\03. Rigidbody</Filter>
-    </ClInclude>
     <ClInclude Include="CCamera.h">
       <Filter>03. Game\03. Manager\09. Camera</Filter>
     </ClInclude>
@@ -349,12 +379,6 @@
     <ClInclude Include="CLogo.h">
       <Filter>03. Game\05. Object\BackGround\Logo</Filter>
     </ClInclude>
-    <ClInclude Include="CState_Player.h">
-      <Filter>03. Game\08. Module\State\PlayerState\State</Filter>
-    </ClInclude>
-    <ClInclude Include="CState_PlayerAnim.h">
-      <Filter>03. Game\08. Module\State\PlayerState\Animation</Filter>
-    </ClInclude>
     <ClInclude Include="CLevel_AnimTool.h">
       <Filter>03. Game\04. Level\03. Animation Tool</Filter>
     </ClInclude>
@@ -368,13 +392,76 @@
       <Filter>03. Game\05. Object\UI\Frame UI</Filter>
     </ClInclude>
     <ClInclude Include="CDummy.h">
-      <Filter>03. Game\05. Object\AnimationDummy</Filter>
+      <Filter>03. Game\05. Object\Dummy\AnimationDummy</Filter>
     </ClInclude>
     <ClInclude Include="CEditorUI.h">
       <Filter>03. Game\05. Object\UI\Editor UI</Filter>
     </ClInclude>
     <ClInclude Include="CEditor_Dummy.h">
-      <Filter>03. Game\05. Object\EditorDummy</Filter>
+      <Filter>03. Game\05. Object\Dummy\EditorDummy</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Player.h">
+      <Filter>03. Game\08. Module\State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Attack01.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\06. Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Attack03.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\06. Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Fall.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\04. Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Fastfall.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\04. Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Jump.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\04. Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Landing.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\04. Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Enter.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\01. Start</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Start.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\01. Start</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Rakuouha.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\06. Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_WallIdle.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\05. Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Dash.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\03. Move</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Move.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\03. Move</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Idle.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\02. Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Block.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\07. Block</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_WallKick.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\05. Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="CRigidBody.h">
+      <Filter>03. Game\06. Component\03. Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_WallEnter.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\05. Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer_Attack.h">
+      <Filter>03. Game\05. Object\PlayerAttack\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer_JumpAttack.h">
+      <Filter>03. Game\05. Object\PlayerAttack\JumpAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Attack02.h">
+      <Filter>03. Game\08. Module\State\PlayerState\State\06. Attack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -538,12 +625,6 @@
     <ClCompile Include="CLogo.cpp">
       <Filter>03. Game\05. Object\BackGround\Logo</Filter>
     </ClCompile>
-    <ClCompile Include="CState_Player.cpp">
-      <Filter>03. Game\08. Module\State\PlayerState\State</Filter>
-    </ClCompile>
-    <ClCompile Include="CState_PlayerAnim.cpp">
-      <Filter>03. Game\08. Module\State\PlayerState\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="CLevel_AnimTool.cpp">
       <Filter>03. Game\04. Level\03. Animation Tool</Filter>
     </ClCompile>
@@ -557,13 +638,73 @@
       <Filter>03. Game\05. Object\UI\Frame UI</Filter>
     </ClCompile>
     <ClCompile Include="CDummy.cpp">
-      <Filter>03. Game\05. Object\AnimationDummy</Filter>
+      <Filter>03. Game\05. Object\Dummy\AnimationDummy</Filter>
     </ClCompile>
     <ClCompile Include="CEditorUI.cpp">
       <Filter>03. Game\05. Object\UI\Editor UI</Filter>
     </ClCompile>
     <ClCompile Include="CEditor_Dummy.cpp">
-      <Filter>03. Game\05. Object\EditorDummy</Filter>
+      <Filter>03. Game\05. Object\Dummy\EditorDummy</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Player.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Attack01.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\06. Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Attack02.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\06. Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Attack03.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\06. Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Fall.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\04. Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Fastfall.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\04. Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Jump.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\04. Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Landing.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\04. Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Enter.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\01. Start</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Start.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\01. Start</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Rakuouha.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\06. Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_WallEnter.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\05. Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_WallIdle.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\05. Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Dash.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\03. Move</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Move.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\03. Move</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Idle.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\02. Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Block.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\07. Block</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_WallKick.cpp">
+      <Filter>03. Game\08. Module\State\PlayerState\State\05. Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer_Attack.cpp">
+      <Filter>03. Game\05. Object\PlayerAttack\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer_JumpAttack.cpp">
+      <Filter>03. Game\05. Object\PlayerAttack\JumpAttack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -32,6 +32,6 @@ void CBackGround::render()
 	//	, GetImg()->GetWidth(), GetImg()->GetHeight()
 	//	, GetImg()->GetDC(), 0, 0, GetImg()->GetWidth(), GetImg()->GetHeight(), bf);
 
-	StretchBlt(DC, (int)vPos.x, (int)vPos.y, GetImg()->GetWidth() * 5, (UINT)(GetImg()->GetHeight() * 2), GetImg()->GetDC(), 0, 0, GetImg()->GetWidth(),
+	StretchBlt(DC, (int)vPos.x, (int)vPos.y, GetImg()->GetWidth() * 3, (UINT)(GetImg()->GetHeight() * 2), GetImg()->GetDC(), 0, 0, GetImg()->GetWidth(),
 		GetImg()->GetHeight(), SRCCOPY);
 }

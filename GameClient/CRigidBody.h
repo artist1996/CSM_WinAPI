@@ -24,12 +24,14 @@ private:
                                  
     bool    m_UseGravity;        // 중력 체크
     bool    m_Ground;            // 땅 위에 서있는지 체크
-    bool    m_LineGround;
 
-    bool    m_Climb;              // 벽에 부딪혔는지 체크
+    bool    m_Wall;              // 벽에 부딪혔는지 체크
+    bool    m_PrevWall;          // 이전 프레임 벽이었는지 체크
 
-    bool    m_Air;                // 공중에 있는지 체크
-                                 
+    bool    m_Block;             // 막다른 길 체크
+
+    bool    m_Jump;              // 점프 중인지 체크
+
     float   m_JumpSpeed;         // 점프 속력
 
     CALL_BACK m_GroundFunc;
@@ -41,29 +43,27 @@ private:
     CObj*    m_AirInst;
     DELEGATE m_AirDelegate;
 
-    
-
 public:
     virtual void finaltick() override;
     void AddForce(Vec2 _Force)  { m_Force += _Force; }
 
 
-    void SetMass(float _Mass)   { m_Mass = _Mass; }
-    void SetMaxWalkSpeed(float _Speed)     { m_MaxWalkSpeed = _Speed; }
-    void SetInitWalkSpeed(float _Speed)    { m_InitWalkSpeed = _Speed; }
-    void SetFriction(float _Friction) { m_Friction = _Friction; }
+    void SetMass(float _Mass)                       { m_Mass = _Mass; }
+    void SetMaxWalkSpeed(float _Speed)              { m_MaxWalkSpeed = _Speed; }
+    void SetInitWalkSpeed(float _Speed)             { m_InitWalkSpeed = _Speed; }
+    void SetFriction(float _Friction)               { m_Friction = _Friction; }
     void SetMaxGravitySpeed(float _MaxGravitySpeed) { m_MaxGravitySpeed = _MaxGravitySpeed; }
-    void SetJumpSpeed(float _JumpSpeed) { m_JumpSpeed = _JumpSpeed; }
+    void SetJumpSpeed(float _JumpSpeed)             { m_JumpSpeed = _JumpSpeed; }
 
-    float GetMass() { return m_Mass; }
-    float GetFriction() { return m_Friction; }
-    float GetInitWalkSpeed() { return m_InitWalkSpeed; }
-    float GetMaxWalkSpeed() { return m_MaxWalkSpeed; }
-    float GetJumpSpeed() { return m_JumpSpeed; }
+    float GetMass()            { return m_Mass; }
+    float GetFriction()        { return m_Friction; }
+    float GetInitWalkSpeed()   { return m_InitWalkSpeed; }
+    float GetMaxWalkSpeed()    { return m_MaxWalkSpeed; }
+    float GetJumpSpeed()       { return m_JumpSpeed; }
     Vec2  GetGravityVelocity() { return m_VelocityByGravity; }
     
     void SetGroundFunc(void (*_pFunc)(void)) { m_GroundFunc = _pFunc; }
-    void SetAirFunc(void(*_pFunc)(void)) { m_AirFunc = _pFunc; }
+    void SetAirFunc(void(*_pFunc)(void))     { m_AirFunc = _pFunc; }
 
     void SetGroundDelegate(CObj* _Inst, DELEGATE _MemFunc)
     {
@@ -76,6 +76,8 @@ public:
         m_AirInst = _Inst;
         m_AirDelegate = _MemFunc;
     }
+    
+    void SetVelocityByGravity(Vec2 _Gravity) { m_VelocityByGravity = _Gravity; }
 
     void SetGround(bool _Ground)
     {
@@ -105,25 +107,24 @@ public:
         }
     }
 
-    void SetClimb(bool _Climb)
+    void SetWall(bool _Wall)
     {
-        if (m_Climb == _Climb)
+        if (m_Wall == _Wall)
             return;
 
-        m_Climb = _Climb;
-        
-        if (m_Climb)
-        {
-            m_VelocityByGravity = Vec2(0.f, -100.f);
-            //m_Force = Vec2(0.f, 0.f);
-            SetGround(false);
-        }
+        m_Wall = _Wall;
     }
 
-    void SetLineGround(bool _LineGround)
+    void SetBlock(bool _Block)
     {
-        m_LineGround = _LineGround;
+        if (m_Block == _Block)
+            return;
+
+        m_Block = _Block;
     }
+
+    void SetJump(bool _Jump) { m_Jump = _Jump; }
+
 
     void UseGravity(bool _UseGravity)
     {
@@ -134,14 +135,13 @@ public:
         }
     }
 
-    bool IsWall() { return m_Climb; }
-
-    bool IsGround() { return m_Ground; }
-    
+    bool IsWall()       { return m_Wall; }
+    bool IsGround()     { return m_Ground; }
+    bool IsPrevWall()   { return m_PrevWall; }
+    bool IsBlock()      { return m_Block; }
+   
     void Jump();
-
-    
-  
+    bool IsJump()     { return m_Jump; }
 
 public:
     CLONE(CRigidBody)

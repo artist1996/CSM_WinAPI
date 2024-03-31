@@ -175,8 +175,8 @@ void CLevel_Editor::Platform()
 		m_tInfo.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
 		float x = (m_tInfo.StartPos.x + m_tInfo.EndPos.x) * 0.5f;
 		float y = (m_tInfo.StartPos.y + m_tInfo.EndPos.y) * 0.5f;
-		float width = m_tInfo.EndPos.x - m_tInfo.StartPos.x;
-		float height = m_tInfo.EndPos.y - m_tInfo.StartPos.y;
+		float width = fabs(m_tInfo.EndPos.x - m_tInfo.StartPos.x);
+		float height = fabs(m_tInfo.EndPos.y - m_tInfo.StartPos.y);
 		CPlatform* pPlatform = new CPlatform(Vec2(x, y), Vec2(width, height));
 		AddObject(LAYER_TYPE::PLATFORM, pPlatform);
 		memset(&m_tInfo, 0, sizeof(tInfo));

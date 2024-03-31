@@ -151,9 +151,20 @@ bool CCollisionMgr::IsCollision(CCollider* _Left, CCollider* _Right)
 		Vec2 vPlayerPos = _Right->GetOwner()->GetPos();
 		Vec2 vPlayerScale = _Right->GetOwner()->GetScale();
 		if (vPlayerPos.x >= vLeftLinePos.x && vPlayerPos.x <= vRightLinePos.x)
-			//&& vPlayerPos.y <= vRightLinePos.y && vPlayerPos.y >= vLeftLinePos.y)
 		{
-			return true;	
+			float M = 0.f;
+			float B = 0.f;
+
+			M = (vRightLinePos.y - vLeftLinePos.y) / (vRightLinePos.x - vLeftLinePos.x);
+
+			B = vLeftLinePos.y - (M * vLeftLinePos.x);
+
+			float LineY = M * vPlayerPos.x + B;
+
+			if (vPlayerPos.y >= LineY - 10.f)
+			{
+				return true;
+			}
 		}
 		return false;
 	}

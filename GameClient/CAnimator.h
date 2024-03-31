@@ -36,6 +36,8 @@ public:
 
     CAnimation* GetCurAnim()                     { return m_CurAnim; }
     void SetCurAnim(CAnimation* _CurAnim)        { m_CurAnim = _CurAnim; }
+    void Play(const wstring& _AnimName, bool _Repeat, int _Idx);
+
 
 public:
     CLONE(CAnimator);

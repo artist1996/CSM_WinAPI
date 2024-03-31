@@ -18,6 +18,8 @@ public:
     HDC GetDC() { return m_hDC; }
     UINT GetWidth() { return m_Info.bmWidth; }
     UINT GetHeight() { return m_Info.bmHeight; }
+    void SetWidth(LONG _Width) { m_Info.bmWidth = _Width; }
+    void SetHeight(LONG _Height) { m_Info.bmHeight = _Height; }
 
 public:
     CTexture();

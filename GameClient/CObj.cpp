@@ -14,7 +14,8 @@ CObj::CObj()
 	: m_Type(LAYER_TYPE::NONE)
 	, m_bDead(false)
 	, m_Animator(nullptr)
-	, m_eDir(DIRECTION::RIGHT)
+	, m_eDir(DIRECTION::END)
+	, m_Speed(0.f)
 {
 }
 

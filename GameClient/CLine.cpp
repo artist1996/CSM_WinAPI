@@ -23,6 +23,11 @@ CLine::~CLine()
 
 void CLine::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
+	if (L"ZERO" == _OtherObj->GetName())
+	{
+		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		pRB->SetGround(true);
+	}
 }
 
 void CLine::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
@@ -32,35 +37,33 @@ void CLine::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _Othe
 	Vec2 OtherPos = _OtherObj->GetPos();
 	Vec2 OtherScale = _OtherObj->GetScale();
 	Vec2 OtherObjPrevPos = _OtherObj->GetPrevPos();
-	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
 	float M = 0.f;
 	float B = 0.f;
 
-	M = (vEnd.y - vStart.y) / (vEnd.x - vStart.x);
-
-	B = vStart.y - (M * vStart.x);
-
-	float PlayerY = OtherPos.y - OtherScale.y * 0.5f;
-
-	float LineY = M * OtherPos.x + B;
+	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
 	
-	if (OtherPos.y >= LineY - 0.5f)
+	if (pRB->IsGround())
 	{
-		pRB->SetGround(true);
-		_OtherObj->SetPos(OtherPos.x, LineY);
-	}
+		M = (vEnd.y - vStart.y) / (vEnd.x - vStart.x);
 
-	else if (OtherPos.y < LineY)
-	{
-		pRB->SetGround(false);
+		B = vStart.y - (M * vStart.x);
+
+		float LineY = M * OtherPos.x + B;
+
+		if (_OtherObj->GetPos().y <= LineY)
+		{
+			_OtherObj->SetPos(_OtherObj->GetPos().x, LineY);
+		}
+
+		else if (_OtherObj->GetPos().y >= LineY)
+		{
+			_OtherObj->SetPos(_OtherObj->GetPos().x, LineY);
+		}
 	}
 }
 
 void CLine::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (L"Player" == _OtherObj->GetName())
-	{
-		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
-		pRB->SetGround(false);
-	}
+	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+	pRB->SetGround(false);
 }

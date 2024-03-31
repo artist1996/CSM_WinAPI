@@ -12,7 +12,6 @@
 #include "CTexture.h"
 #include "CStage01.h"
 
-
 CLevel_Stage01::CLevel_Stage01()
 {
 	SetName(L"Stage01");
@@ -52,25 +51,18 @@ void CLevel_Stage01::tick()
 void CLevel_Stage01::Enter()
 {
 	// 레벨에 물체 추가하기
-	CObj* pObject = new CPlayer;
-	pObject->SetName(L"Player");
-	pObject->SetPos(0.f, 384.f);
-	pObject->SetScale(100.f, 100.f);
-	AddObject(LAYER_TYPE::PLAYER, pObject);
-
+	
 	CObj* pBackGround = new CStage01;
 	AddObject(LAYER_TYPE::BACKGROUND, pBackGround);
-	//pObject = new CMonster;
-	//pObject->SetName(L"Monster");
-	//pObject->SetPos(800.f, 200.f);
-	//pObject->SetScale(100.f, 100.f);
-	//AddObject(LAYER_TYPE::MONSTER, pObject);
-	//
-	//pObject = new CMonster;
-	//pObject->SetName(L"Monster");
-	//pObject->SetPos(100.f, 100.f);
-	//pObject->SetScale(100.f, 100.f);
-	//AddObject(LAYER_TYPE::MONSTER, pObject);
+	
+	CEngine::GetInst()->ChangeWindowSize(Vec2(800.f, 600.f), false);
+	//CCamera::GetInst()->SetCameraLookAt(Vec2(800.f, 600.f));
+	// Player
+	CObj* pObject = new CPlayer;
+	pObject->SetName(L"ZERO");
+	pObject->SetPos(400.f, 100.f);
+	pObject->SetScale(100.f, 100.f);
+	AddObject(LAYER_TYPE::PLAYER, pObject);
 
 	LoadPlatform(L"platform\\platform.dat");
 	LoadLine(L"line\\line.dat");
@@ -81,6 +73,7 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::PLAYER);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::PLATFORM);
 }
 
 void CLevel_Stage01::Exit()

@@ -63,22 +63,33 @@ void CCamera::render()
 
 void CCamera::Move()
 {
+	//if (nullptr != CLevelMgr::GetInst()->GetCurrentLevel() && L"Stage01" == CLevelMgr::GetInst()->GetCurrentLevel()->GetName())
+	//{
+	//	m_LookAt = Vec2(800.f, 600.f);
+	//}
+
 	if (m_Owner)
 	{
-		float fDist = m_LookAt.y - m_Owner->GetPos().y;
 		Vec2 vDir = m_Owner->GetPos();
+		m_LookAt.x = m_Owner->GetPos().x;
+		CTexture* pTex = CAssetMgr::GetInst()->FindTexture(L"VOLCANO_01");
 		
-		if (m_Owner->GetPos().x <= 640.f)
+		if (m_Owner->GetPos().x <= 400.f)
 		{
-			m_LookAt.x = 640.f;
+			m_LookAt.x = 400.f;
 		}
 
-		else
+		if (m_Owner->GetPos().y <= 300.f)
 		{
-			m_LookAt.x = m_Owner->GetPos().x;
+			m_LookAt.y = 300.f;
 		}
-		
-		if (fDist < -220.f)
+
+		if (m_LookAt.y >= 1236.f)
+		{
+			m_LookAt.y = 1236.f;
+		}
+
+		if (m_LookAt.y - m_Owner->GetPos().y < -220.f)
 		{
 			if (!vDir.IsZero())
 			{
@@ -87,7 +98,7 @@ void CCamera::Move()
 			m_LookAt.y += vDir.y * 1000.f * DT;
 		}
 
-		else if (fDist > 150.f)
+		else if (m_LookAt.y - m_Owner->GetPos().y > 100.f)
 		{
 			if (!vDir.IsZero())
 			{
@@ -95,6 +106,8 @@ void CCamera::Move()
 			}
 			m_LookAt.y -= vDir.y * 1000.f * DT;
 		}
+
+
 	}
 
 	else

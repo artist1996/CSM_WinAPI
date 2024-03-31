@@ -38,6 +38,8 @@ public:
 	
 	void SetCameraEffect(CAM_EFFECT _Effect, float _Duration);
 
+	void SetCameraLookAt(Vec2 _Pos) { m_LookAt = _Pos; }
+
 public:
 	void init();
 	void tick();

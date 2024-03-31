@@ -163,3 +163,10 @@ void CAnimator::Play(const wstring& _AnimName, bool _Repeat)
 	m_CurAnim->Reset();
 	m_Repeat = _Repeat;
 }
+
+void CAnimator::Play(const wstring& _AnimName, bool _Repeat, int _Idx)
+{
+	m_CurAnim = FindAnimation(_AnimName);
+	m_CurAnim->Reset(_Idx);
+	m_Repeat = _Repeat;
+}

@@ -139,9 +139,12 @@ HDC CEngine::GetSubDC()
 void CEngine::ChangeWindowSize(Vec2 _Resolution, bool _bMenu)
 {
 	// 입력된 해상도를 가져가기 위한 실제 윈도우의 크기를 계산
+	m_Resolution.x = (int)_Resolution.x;
+	m_Resolution.y = (int)_Resolution.y;
+
 	RECT rt = { 0, 0, _Resolution.x, _Resolution.y };
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, _bMenu);
 
 	// 윈도우 크기를 변경
-	SetWindowPos(m_hMainWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
+	SetWindowPos(m_hMainWnd, nullptr, 300, 50, rt.right - rt.left, rt.bottom - rt.top, 0);
 }

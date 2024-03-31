@@ -2,21 +2,12 @@
 #include "CState_Player.h"
 
 CState_Player::CState_Player()
+	: m_Rigidbody(nullptr)
+	, m_Animator(nullptr)
+	, m_Collider(nullptr)
 {
 }
 
 CState_Player::~CState_Player()
-{
-}
-
-void CState_Player::Enter()
-{
-}
-
-void CState_Player::FinalTick()
-{
-}
-
-void CState_Player::Exit()
 {
 }

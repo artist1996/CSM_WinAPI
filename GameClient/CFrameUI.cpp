@@ -42,11 +42,11 @@ void CFrameUI::render_ui()
 	
 	Rectangle(DC, (int)vPos.x, (int)vPos.y, (int)(vPos.x + vScale.x), (int)(vPos.y + vScale.y));
 	
-	MoveToEx(DC, (int)(vPos.x), (int)(vPos.y + vScale.y * 0.5f), nullptr);
-	LineTo  (DC, (int)(vPos.x + vScale.x), (int)(vPos.y + vScale.y * 0.5f));
-	
-	MoveToEx(DC, (int)(vPos.x + vScale.x * 0.5f), (int)vPos.y, nullptr);
-	LineTo  (DC, (int)(vPos.x + vScale.x * 0.5f), (int)(vPos.y + vScale.y));
+	//MoveToEx(DC, (int)(vPos.x), (int)(vPos.y + vScale.y * 0.5f), nullptr);
+	//LineTo  (DC, (int)(vPos.x + vScale.x), (int)(vPos.y + vScale.y * 0.5f));
+	//
+	//MoveToEx(DC, (int)(vPos.x + vScale.x * 0.5f), (int)vPos.y, nullptr);
+	//LineTo  (DC, (int)(vPos.x + vScale.x * 0.5f), (int)(vPos.y + vScale.y));
 
 	if (nullptr == m_Texture)
 		return;

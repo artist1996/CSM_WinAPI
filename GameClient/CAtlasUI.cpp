@@ -12,9 +12,9 @@ CAtlasUI::CAtlasUI()
 	m_vecTex.push_back(pTex);
 	pTex = CAssetMgr::GetInst()->LoadTexture(L"GIGA_ATTACK", L"texture\\RAKUHOUHA.png");
 	m_vecTex.push_back(pTex);
-	pTex = CAssetMgr::GetInst()->LoadTexture(L"ZERO", L"texture\\ZERO.png");
-	m_vecTex.push_back(pTex);
 	pTex = CAssetMgr::GetInst()->LoadTexture(L"Title", L"texture\\Title.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"ZERO_LEFT", L"texture\\ZERO_LEFT.png");
 	m_vecTex.push_back(pTex);
 }
 

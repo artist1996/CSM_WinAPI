@@ -42,21 +42,28 @@ enum class LEVEL_TYPE
 
 enum class PLAYER_STATE
 {
+	START,
+	ENTER,
+
 	IDLE,
-	IDLE_HEART,
+	HURT,
 
-	MOVE,
-
+	WALK,
+	
 	DASH,
-
+	
 	JUMP,
 	JUMP_ATTACK,
-
-	WALL,
+	
+	WALL_ENTER,
+	WALL_IDLE,
 	WALL_ATTACK,
 
 	FALL,
+	FASTFALL,
 
+	LANDING,
+	
 	ATTACK_01,
 	ATTACK_02,
 	ATTACK_03,
@@ -67,6 +74,19 @@ enum class PLAYER_STATE
 
 	HIT,
 	DEAD,
+
+	VICTORY,
+
+	END,
+};
+
+enum class ATTACK_TYPE
+{
+	ATTACK01,
+	ATTACK02,
+	ATTACK03,
+
+	JUMP_ATTACK,
 
 	END,
 };

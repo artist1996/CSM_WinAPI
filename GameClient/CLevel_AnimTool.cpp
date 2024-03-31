@@ -36,6 +36,11 @@ void CLevel_AnimTool::begin()
 void CLevel_AnimTool::tick()
 {
     CLevel::tick();
+
+    //if (KEY_TAP(KEY::_0))
+    //{
+    //    ChangeLevel(LEVEL_TYPE::LOGO_START);
+    //}
 }
 
 void CLevel_AnimTool::Enter()
@@ -43,18 +48,18 @@ void CLevel_AnimTool::Enter()
 
     SetMenu(CEngine::GetInst()->GetMainWnd(), m_hMenu);
     CEngine::GetInst()->ChangeWindowSize(CEngine::GetInst()->GetResolution(), true);
-    
+
     m_AtlasUI = new CAtlasUI;
     m_AtlasUI->SetPos(Vec2(0.f, 0.f));
     m_AtlasUI->SetScale(Vec2(CEngine::GetInst()->GetResolution().x, CEngine::GetInst()->GetResolution().y));
 
     m_FrameUI = new CFrameUI;
-    m_FrameUI->SetPos(Vec2(640.f, 384.f));
-    m_FrameUI->SetScale(Vec2(640.f, 384.f));
+    m_FrameUI->SetPos(Vec2(400.f, 300.f));
+    m_FrameUI->SetScale(Vec2(400.f, 300.f));
 
     m_AnimationUI = new CAnimationUI;
-    m_AnimationUI->SetPos(Vec2(640.f, 0.f));
-    m_AnimationUI->SetScale(Vec2(640.f, 384.f));
+    m_AnimationUI->SetPos(Vec2(400.f, 0.f));
+    m_AnimationUI->SetScale(Vec2(400.f, 300.f));
 
     AddObject(LAYER_TYPE::UI, m_AtlasUI);
     AddObject(LAYER_TYPE::UI, m_FrameUI);
@@ -64,7 +69,7 @@ void CLevel_AnimTool::Enter()
 void CLevel_AnimTool::Exit()
 {
     SetMenu(CEngine::GetInst()->GetMainWnd(), nullptr);
-    CEngine::GetInst()->ChangeWindowSize(CEngine::GetInst()->GetResolution(), false);
+    CEngine::GetInst()->ChangeWindowSize(Vec2(800.f,600.f), false);
 }
 
 void CLevel_AnimTool::render()
@@ -628,7 +633,7 @@ INT_PTR CALLBACK AnimInfoProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
         {
             wchar_t szBuff[256] = {};
             GetDlgItemText(hDlg, IDC_ANIMATIONNAMEINPUT, szBuff, 256);
-
+            
             CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
             CLevel_AnimTool* pTool = dynamic_cast<CLevel_AnimTool*>(pLevel);
             CUI* pUI = pTool->GetAnimationUI();

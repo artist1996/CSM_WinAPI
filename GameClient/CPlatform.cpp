@@ -4,6 +4,7 @@
 #include "CLevel.h"
 #include "CCollider.h"
 #include "CRigidBody.h"
+#include "CFSM.h"
 
 CPlatform::CPlatform()
 {
@@ -38,100 +39,99 @@ void CPlatform::begin()
 
 void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (L"Player" == _OtherObj->GetName())
+	if (L"ZERO" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		CFSM* pFSM = _OtherObj->GetComponent<CFSM>();
 		Vec2 PrevPos = _OtherObj->GetPrevPos();
 		Vec2 vOtherObjPos = _OtherObj->GetPos();
 		Vec2 vOtherObjScale = _OtherObj->GetScale();
 		Vec2 vPos = GetPos();
 		Vec2 vScale = GetScale();
-		if(PrevPos.y < vPos.y - vScale.y * 0.5f
-			&& vOtherObjPos.x + vOtherObjScale.x * 0.5f >= vPos.x - vScale.x * 0.5f
-			&& vOtherObjPos.x - vOtherObjScale.x * 0.5f <= vPos.x + vScale.x * 0.5f)
-		{ 
+
+
+		if (PrevPos.y > vPos.y - vScale.y * 0.5f
+			&& pRB->IsGround())
+		{
+			pRB->SetBlock(true);
+			pFSM->ChangeState(L"BLOCK");
+			return;
+		}
+		
+		if (_OtherObj->GetPos().y - 1.f <= vPos.y - vScale.y * 0.5f)
+		{
 			pRB->SetGround(true);
-			pRB->SetClimb(false);
+			//pFSM->ChangeState(L"LANDING");
+			return;
 		}
-
-		else if (PrevPos.y > vPos.y - vScale.y * 0.5f
-			&& vOtherObjPos.x + vOtherObjScale.x * 0.5f > vPos.x - vScale.x * 0.5f
+			
+		else if (_OtherObj->GetPos().y > vPos.y - vScale.y * 0.5f
+			&& _OtherObj->GetPos().y < vPos.y + vScale.y * 0.5f
+			&& _OtherObj->GetPos().x < vPos.x - vScale.x * 0.5f
+			&& _OtherObj->GetPos().x < vPos.x
 			&& !pRB->IsGround())
 		{
-			_OtherObj->SetPos(Vec2((vPos.x - vScale.x * 0.5f) - vOtherObjScale.x * 0.5f, vOtherObjPos.y));
-			pRB->SetClimb(true);
+			pRB->SetWall(true);
+			pFSM->ChangeState(L"WALL_ENTER");
+			return;
 		}
-
-		else if (PrevPos.y > vPos.y - vScale.y * 0.5f
-			&& vOtherObjPos.x - vOtherObjScale.x * 0.5f < vPos.x + vScale.x * 0.5f
+			
+		else if (_OtherObj->GetPos().y > vPos.y - vScale.y * 0.5f
+			&& _OtherObj->GetPos().y < vPos.y + vScale.y * 0.5f
+			&& _OtherObj->GetPos().x > vPos.x - vScale.x * 0.5f
+			&& _OtherObj->GetPos().x > vPos.x
 			&& !pRB->IsGround())
 		{
-			_OtherObj->SetPos(Vec2((vPos.x + vScale.x * 0.5f) + vOtherObjScale.x * 0.5f, vOtherObjPos.y));
-			pRB->SetClimb(true);
+			pRB->SetWall(true);
+			pFSM->ChangeState(L"WALL_ENTER");
+			return;
 		}
 	}
 }
 
 void CPlatform::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (L"Player" == _OtherObj->GetName())
+	if (L"ZERO" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
 		Vec2 PrevPos = _OtherObj->GetPrevPos();
 		Vec2 vOtherObjPos = _OtherObj->GetPos();
 		Vec2 vOtherObjScale = _OtherObj->GetScale();
 		Vec2 vPos = GetPos();
-		Vec2 vScale = GetScale();
-
-	if (PrevPos.y > vPos.y - vScale.y * 0.5f
-		&& vOtherObjPos.x - vOtherObjScale.x * 0.5f < vPos.x + vScale.x * 0.5f
-		&& !pRB->IsGround())
-	{
-		_OtherObj->SetPos(Vec2((vPos.x - vScale.x * 0.5f) - vOtherObjScale.x * 0.5f, vOtherObjPos.y));
-		pRB->SetClimb(true);
-	}
-
-	else if 
-		(PrevPos.y > vPos.y - vScale.y * 0.5f
-			&& vOtherObjPos.x - vOtherObjScale.x * 0.5f > vPos.x + vScale.x * 0.5f
-		&& !pRB->IsGround())
-	 {
-		_OtherObj->SetPos(Vec2((vPos.x + vScale.x * 0.5f) + vOtherObjScale.x * 0.5f, vOtherObjPos.y));
-		pRB->SetClimb(true);
-	 }
-
+		Vec2 vScale = GetScale();	
 	}
 }
 
 void CPlatform::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (L"Player" == _OtherObj->GetName())
+	if (L"ZERO" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		CFSM* pFSM = _OtherObj->GetComponent<CFSM>();
 		Vec2 PrevPos = _OtherObj->GetPrevPos();
 		Vec2 vOtherObjPos = _OtherObj->GetPos();
 		Vec2 vOtherObjScale = _OtherObj->GetScale();
 		Vec2 vPos = GetPos();
 		Vec2 vScale = GetScale();
 
-		if (pRB->IsGround() && pRB->IsWall())
-		{
-			pRB->SetClimb(false);
-		}
-		
-		else if (!pRB->IsGround() && pRB->IsWall())
-		{
-			pRB->SetClimb(false);
-		}
-
-		else if (pRB->IsGround())
+		if (pRB->IsBlock())
 		{
 			pRB->SetGround(true);
+			pRB->SetBlock(false);
+			return;
 		}
 
-		else if (pRB->IsGround() && !pRB->IsWall())
+		if (pRB->IsWall())
 		{
 			pRB->SetGround(false);
+			pRB->SetWall(false);
+			return;
+		}
+
+		if (pRB->IsGround() && !pRB->IsWall() && !pRB->IsBlock())
+		{
+			pRB->SetGround(false);
+			return;
 		}
 	}
 }
