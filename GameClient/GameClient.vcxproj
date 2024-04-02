@@ -145,6 +145,8 @@
     <ClInclude Include="CAsset.h" />
     <ClInclude Include="CAssetMgr.h" />
     <ClInclude Include="CAtlasUI.h" />
+    <ClInclude Include="CAttack_GigaDeath.h" />
+    <ClInclude Include="CAttack_Raiden.h" />
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCamera.h" />
@@ -189,6 +191,9 @@
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayer_Attack.h" />
     <ClInclude Include="CPlayer_JumpAttack.h" />
+    <ClInclude Include="CRaiden_Attack.h" />
+    <ClInclude Include="CRaiden_Idle.h" />
+    <ClInclude Include="CRaiden_StandBy.h" />
     <ClInclude Include="CRigidBody.h" />
     <ClInclude Include="CSelectObj.h" />
     <ClInclude Include="CSound.h" />
@@ -203,12 +208,14 @@
     <ClInclude Include="CState_Enter.h" />
     <ClInclude Include="CState_Fall.h" />
     <ClInclude Include="CState_Fastfall.h" />
+    <ClInclude Include="CState_Hit.h" />
     <ClInclude Include="CState_Idle.h" />
     <ClInclude Include="CState_Jump.h" />
     <ClInclude Include="CState_Landing.h" />
     <ClInclude Include="CState_Mettool.h" />
     <ClInclude Include="CState_Move.h" />
     <ClInclude Include="CState_Player.h" />
+    <ClInclude Include="CState_Raiden.h" />
     <ClInclude Include="CState_Rakuouha.h" />
     <ClInclude Include="CState_Start.h" />
     <ClInclude Include="CState_WallEnter.h" />
@@ -238,6 +245,8 @@
     <ClCompile Include="CAsset.cpp" />
     <ClCompile Include="CAssetMgr.cpp" />
     <ClCompile Include="CAtlasUI.cpp" />
+    <ClCompile Include="CAttack_GigaDeath.cpp" />
+    <ClCompile Include="CAttack_Raiden.cpp" />
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CCamera.cpp" />
@@ -282,6 +291,9 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayer_Attack.cpp" />
     <ClCompile Include="CPlayer_JumpAttack.cpp" />
+    <ClCompile Include="CRaiden_Attack.cpp" />
+    <ClCompile Include="CRaiden_Idle.cpp" />
+    <ClCompile Include="CRaiden_StandBy.cpp" />
     <ClCompile Include="CRigidBody.cpp" />
     <ClCompile Include="CSelectObj.cpp" />
     <ClCompile Include="CSound.cpp" />
@@ -296,12 +308,14 @@
     <ClCompile Include="CState_Enter.cpp" />
     <ClCompile Include="CState_Fall.cpp" />
     <ClCompile Include="CState_Fastfall.cpp" />
+    <ClCompile Include="CState_Hit.cpp" />
     <ClCompile Include="CState_Idle.cpp" />
     <ClCompile Include="CState_Jump.cpp" />
     <ClCompile Include="CState_Landing.cpp" />
     <ClCompile Include="CState_Mettool.cpp" />
     <ClCompile Include="CState_Move.cpp" />
     <ClCompile Include="CState_Player.cpp" />
+    <ClCompile Include="CState_Raiden.cpp" />
     <ClCompile Include="CState_Rakuouha.cpp" />
     <ClCompile Include="CState_Start.cpp" />
     <ClCompile Include="CState_WallEnter.cpp" />
@@ -329,6 +343,7 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\xstring" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

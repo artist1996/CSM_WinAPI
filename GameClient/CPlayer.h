@@ -16,8 +16,10 @@ private:
     CRigidBody*     m_RigidBody;
     CFSM*           m_FSM;
 
+    float           m_InvincibleTime;
+    bool            m_Invincible;
+
     float           m_Speed;
-    float           fTime;
     
     PLAYER_STATE    m_eState;
 

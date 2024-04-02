@@ -34,6 +34,7 @@
 #include "CState_WallIdle.h"
 #include "CState_Block.h"
 #include "CState_WallKick.h"
+#include "CState_Hit.h"
 
 void BeGround()
 {
@@ -49,8 +50,9 @@ void BeAir()
 CPlayer::CPlayer()
 	: m_Speed(500.f)
 	, m_PlayerImg(nullptr)
-	, fTime(0.f)
 	, m_eState(PLAYER_STATE::IDLE)
+	, m_Invincible(false)
+	, m_InvincibleTime(0.f)
 {
 	// Player 의 컴포넌트 설정
 	m_BodyCol = (CCollider*)AddComponent(new CCollider);
@@ -134,6 +136,7 @@ CPlayer::CPlayer()
 	m_FSM->AddState(L"WALL_IDLE", new CState_WallIdle);
 	m_FSM->AddState(L"BLOCK", new CState_Block);
 	m_FSM->AddState(L"WALLKICK", new CState_WallKick);
+	m_FSM->AddState(L"HIT", new CState_Hit);
 
 	m_FSM->ChangeState(L"START");
 }
@@ -184,17 +187,16 @@ void CPlayer::tick()
 	CObj::tick();
 	Vec2 vPos = GetPos();
 
-	static float acctime = 0.f;
-	wchar_t szBuff[256] = {};
-	acctime += DT;
-
-	if (acctime >= 1.f)
+	if (m_Invincible)
 	{
-		swprintf_s(szBuff, L"%f", GetPos().y);
-		LOG(LOG_TYPE::DBG_WARNING, szBuff);
-		acctime = 0.f;
+		m_InvincibleTime += DT;
 	}
 
+	if (1.f <= m_InvincibleTime)
+	{
+		m_Invincible = false;
+		m_InvincibleTime = 0.f;
+	}
 
 	SetPos(vPos);
 }
@@ -211,7 +213,14 @@ void CPlayer::render()
 
 void CPlayer::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-
+	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType())
+	{
+		if (!m_Invincible)
+		{
+			m_Invincible = true;
+			m_FSM->ChangeState(L"HIT");
+		}
+	}
 }
 
 void CPlayer::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)

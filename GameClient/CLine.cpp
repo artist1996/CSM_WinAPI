@@ -29,8 +29,9 @@ void CLine::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _O
 		pRB->SetGround(true);
 		return;
 	}
-
-	if (L"Mettool" == _OtherObj->GetName())
+	
+	if (L"Mettool" == _OtherObj->GetName()
+		|| L"Raiden" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
 		pRB->SetGround(true);

@@ -10,7 +10,3 @@ CState_Mettool::CState_Mettool()
 CState_Mettool::~CState_Mettool()
 {
 }
-
-void CState_Mettool::Shoot()
-{
-}

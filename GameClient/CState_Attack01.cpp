@@ -35,6 +35,7 @@ void CState_Attack01::FinalTick()
 {
 	if (KEY_TAP(KEY::Z))
 	{
+		GetObj()->SetSpeed(500.f);
 		GetFSM()->ChangeState(L"DASH");
 		return;
 	}
@@ -43,7 +44,6 @@ void CState_Attack01::FinalTick()
 	{
 		m_bNext = true;
 	}
-
 
 	if (m_bNext)
 	{

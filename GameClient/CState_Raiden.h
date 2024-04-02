@@ -1,8 +1,9 @@
 #pragma once
 #include "CState.h"
+
 #include "CAnimator.h"
 
-class CState_Mettool :
+class CState_Raiden :
     public CState
 {
 private:
@@ -12,7 +13,9 @@ protected:
     void Initialize()
     {
         if (nullptr == m_Animator)
+        {
             m_Animator = GetObj()->GetComponent<CAnimator>();
+        }
     }
 
     CAnimator* GetAnimator() { return m_Animator; }
@@ -22,9 +25,9 @@ public:
     virtual void FinalTick() PURE;
     virtual void Exit() PURE;
 
+
 public:
-    CLONE_DISABLE(CState_Mettool);
-    CState_Mettool();
-    ~CState_Mettool();
+    CState_Raiden();
+    virtual ~CState_Raiden();
 };
 

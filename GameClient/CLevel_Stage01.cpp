@@ -7,6 +7,7 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 #include "CMonster_Mettool.h"
+#include "CMonster_Raiden.h"
 #include "CPlatform.h"
 #include "CLine.h"
 #include "CPathMgr.h"
@@ -66,6 +67,9 @@ void CLevel_Stage01::Enter()
 	
 	CMonster_Mettool* pMettool = new CMonster_Mettool(Vec2(400.f, 300.f), Vec2(50.f, 50.f), 1, 200.f);
 	AddObject(LAYER_TYPE::MONSTER, pMettool);
+
+	CMonster_Raiden* pRaiden = new CMonster_Raiden(Vec2(600.f, 300.f), Vec2(150.f, 180.f), 10, 200.f);
+	AddObject(LAYER_TYPE::MONSTER, pRaiden);
 	
 
 	LoadPlatform(L"platform\\platform.dat");

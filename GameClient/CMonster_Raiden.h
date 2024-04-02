@@ -10,7 +10,7 @@ private:
     CFSM* m_FSM;
 
 public:
-    virtual void tick() override;
+    virtual void begin() override;
         
 public:
     CLONE(CMonster_Raiden);

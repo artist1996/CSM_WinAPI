@@ -260,6 +260,30 @@
     <Filter Include="03. Game\05. Object\Monster\03. Raiden">
       <UniqueIdentifier>{7630c326-82b4-44a4-96cb-4195c44d3e23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\08. Module\State\02. MonsterState\02. Raiden\01. Idle">
+      <UniqueIdentifier>{8b96ae61-4d76-4994-a716-caf90b22310d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\02. MonsterState\02. Raiden\02. Attack">
+      <UniqueIdentifier>{e5cdfcca-15ca-4134-8773-a996de8dd0c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\02. MonsterState\02. Raiden\03. StandBy">
+      <UniqueIdentifier>{edfeeab8-c1ee-4065-b171-ad2eba556ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\MonsterAttack">
+      <UniqueIdentifier>{66014368-c401-42d0-a4e0-b5196a3ede65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\MonsterAttack\01. Raiden">
+      <UniqueIdentifier>{27e7aadf-4f19-4c79-917e-5cda0f5b0ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\MonsterAttack\02. GigaDeath">
+      <UniqueIdentifier>{f51f1565-0700-4cfc-ad1e-08b6ef95f493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\MonsterAttack\03. Batton">
+      <UniqueIdentifier>{ad171765-4c11-4156-82b8-c20f5144f5d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\01. PlayerState\State\08. Hit">
+      <UniqueIdentifier>{5fa70994-d2a0-475f-a228-e9bd25942248}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -535,6 +559,27 @@
     <ClInclude Include="CMonster_Batton.h">
       <Filter>03. Game\05. Object\Monster\02. Batton</Filter>
     </ClInclude>
+    <ClInclude Include="CState_Raiden.h">
+      <Filter>03. Game\08. Module\State\02. MonsterState\02. Raiden</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaiden_Idle.h">
+      <Filter>03. Game\08. Module\State\02. MonsterState\02. Raiden\01. Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaiden_Attack.h">
+      <Filter>03. Game\08. Module\State\02. MonsterState\02. Raiden\02. Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaiden_StandBy.h">
+      <Filter>03. Game\08. Module\State\02. MonsterState\02. Raiden\03. StandBy</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttack_Raiden.h">
+      <Filter>03. Game\05. Object\MonsterAttack\01. Raiden</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Hit.h">
+      <Filter>03. Game\08. Module\State\01. PlayerState\State\08. Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttack_GigaDeath.h">
+      <Filter>03. Game\05. Object\MonsterAttack\02. GigaDeath</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -805,8 +850,30 @@
     <ClCompile Include="CMonster_Batton.cpp">
       <Filter>03. Game\05. Object\Monster\02. Batton</Filter>
     </ClCompile>
+    <ClCompile Include="CState_Raiden.cpp">
+      <Filter>03. Game\08. Module\State\02. MonsterState\02. Raiden</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaiden_Idle.cpp">
+      <Filter>03. Game\08. Module\State\02. MonsterState\02. Raiden\01. Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaiden_Attack.cpp">
+      <Filter>03. Game\08. Module\State\02. MonsterState\02. Raiden\02. Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaiden_StandBy.cpp">
+      <Filter>03. Game\08. Module\State\02. MonsterState\02. Raiden\03. StandBy</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttack_Raiden.cpp">
+      <Filter>03. Game\05. Object\MonsterAttack\01. Raiden</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Hit.cpp">
+      <Filter>03. Game\08. Module\State\01. PlayerState\State\08. Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttack_GigaDeath.cpp">
+      <Filter>03. Game\05. Object\MonsterAttack\02. GigaDeath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="..\..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\xstring" />
   </ItemGroup>
 </Project>
