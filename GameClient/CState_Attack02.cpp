@@ -19,13 +19,13 @@ void CState_Attack02::Enter()
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"ATTACK02_RIGHT", false);
-		dynamic_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
+		static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
 	}
 
 	else if (DIRECTION::LEFT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"ATTACK02_LEFT", false);
-		dynamic_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
+		static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
 	}
 }
 

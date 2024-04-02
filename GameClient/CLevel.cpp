@@ -7,6 +7,7 @@
 #include "CPlatform.h"
 #include "CLine.h"
 #include "CMonster.h"
+#include "CMonster_Mettool.h"
 
 CLevel::CLevel()
 {
@@ -149,12 +150,12 @@ void CLevel::DeleteObjects(LAYER_TYPE _Type)
 void CLevel::SavePlatform(const wstring& _strRelativePath)
 {
 	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
-	if (L"Stage01" == GetName())
+	if (SAVE_TYPE::STAGE01 == m_Save)
 	{
 		strFullPath += L"stage01\\";
 	}
 
-	else if (L"Stage02" == GetName())
+	else if (SAVE_TYPE::STAGE02 == m_Save)
 	{
 		strFullPath += L"stage02\\";
 	}
@@ -191,12 +192,12 @@ void CLevel::SaveLine(const wstring& _strRelativePath)
 {
 	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
 
-	if (L"Stage01" == GetName())
+	if (SAVE_TYPE::STAGE01 == m_Save)
 	{
 		strFullPath += L"stage01\\";
 	}
 
-	else if (L"Stage02" == GetName())
+	else if (SAVE_TYPE::STAGE02 == m_Save)
 	{
 		strFullPath += L"stage02\\";
 	}
@@ -232,12 +233,12 @@ void CLevel::SaveMonster(const wstring& _strRelativePath)
 {
 	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
 
-	if (L"Stage01" == GetName())
+	if (SAVE_TYPE::STAGE01 == m_Save)
 	{
 		strFullPath += L"stage01\\";
 	}
-
-	else if (L"Stage02" == GetName())
+	
+	else if (SAVE_TYPE::STAGE02 == m_Save)
 	{
 		strFullPath += L"stage02\\";
 	}
@@ -259,10 +260,17 @@ void CLevel::SaveMonster(const wstring& _strRelativePath)
 
 	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::MONSTER].size(); ++i)
 	{
+		OBJ_ID ID = m_arrObj[(UINT)LAYER_TYPE::MONSTER][i]->GetID();
 		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::MONSTER][i]->GetPos();
 		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::MONSTER][i]->GetScale();
+		int HP = dynamic_cast<CMonster*>(m_arrObj[(UINT)LAYER_TYPE::MONSTER][i])->GetHP();
+		float fDetectRange = dynamic_cast<CMonster*>(m_arrObj[(UINT)LAYER_TYPE::MONSTER][i])->GetDetectRange();
+
+		fwrite(&ID, sizeof(OBJ_ID), 1, pFile);
 		fwrite(&vPos, sizeof(Vec2), 1, pFile);
 		fwrite(&vScale, sizeof(Vec2), 1, pFile);
+		fwrite(&HP, sizeof(int), 1, pFile);
+		fwrite(&fDetectRange, sizeof(float), 1, pFile);
 	}
 
 	fclose(pFile);
@@ -271,12 +279,12 @@ void CLevel::SaveMonster(const wstring& _strRelativePath)
 void CLevel::SaveTrap(const wstring& _strRelativePath)
 {
 	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
-	if (L"Stage01" == GetName())
+	if (SAVE_TYPE::STAGE01 == m_Save)
 	{
 		strFullPath += L"stage01\\";
 	}
 
-	else if (L"Stage02" == GetName())
+	else if (SAVE_TYPE::STAGE02 == m_Save)
 	{
 		strFullPath += L"stage02\\";
 	}
@@ -323,8 +331,15 @@ void CLevel::LoadPlatform(const wstring& _strRelativePath)
 	FILE* pFile = nullptr;
 	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
 
+	if (nullptr == pFile)
+		return;
+
 	size_t len = 0;
 	fread(&len, sizeof(size_t), 1, pFile);
+
+
+	if (nullptr == pFile)
+		return;
 
 	for (size_t i = 0; i < len; ++i)
 	{
@@ -356,6 +371,9 @@ void CLevel::LoadLine(const wstring& _strRelativePath)
 	FILE* pFile = nullptr;
 	
 	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+		return;
 
 	size_t len = 0;
 	fread(&len, sizeof(size_t), 1, pFile);
@@ -395,19 +413,53 @@ void CLevel::LoadMonster(const wstring& _strRelativePath)
 
 	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
 
+	if (nullptr == pFile)
+		return;
+
 	size_t len = 0;
 	fread(&len, sizeof(size_t), 1, pFile);
 
 	for (size_t i = 0; i < len; ++i)
 	{
+		OBJ_ID ID;
 		Vec2 vPos;
 		Vec2 vScale;
+		int HP = 0;
+		float DetectRange = 0.f;
 
+		fread(&ID, sizeof(OBJ_ID), 1, pFile);
 		fread(&vPos, sizeof(Vec2), 1, pFile);
 		fread(&vScale, sizeof(Vec2), 1, pFile);
+		fread(&HP, sizeof(int), 1, pFile);
+		fread(&DetectRange, sizeof(float), 1, pFile);
 
-		CMonster* pMonster = new CMonster(vPos, vScale);
-		AddObject(LAYER_TYPE::MONSTER, pMonster);
+		if (OBJ_ID::METTOOL == ID)
+		{
+			// Mettool
+			CMonster_Mettool* pMonster = new CMonster_Mettool(vPos, vScale, HP, DetectRange);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
+		}
+
+		else if (OBJ_ID::RAIDEN == ID)
+		{
+			// Raiden
+			
+
+		}
+
+		else if (OBJ_ID::GIGADEATH == ID)
+		{
+			// GIGADEATH
+			
+
+		}
+
+		else if (OBJ_ID::BATTON == ID)
+		{
+			// BATTON
+
+
+		}
 	}
 
 	fclose(pFile);
@@ -432,6 +484,9 @@ void CLevel::LoadTrap(const wstring& _strRelativePath)
 	FILE* pFile = nullptr;
 
 	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+		return;
 
 	size_t len = 0;
 	fread(&len, sizeof(size_t), 1, pFile);

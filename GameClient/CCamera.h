@@ -40,6 +40,8 @@ public:
 
 	void SetCameraLookAt(Vec2 _Pos) { m_LookAt = _Pos; }
 
+	Vec2 GetLookAt() { return m_LookAt; }
+
 public:
 	void init();
 	void tick();

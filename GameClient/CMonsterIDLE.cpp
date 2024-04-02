@@ -15,6 +15,7 @@ void CMonsterIDLE::Enter()
 
 void CMonsterIDLE::FinalTick()
 {
+	
 	float Range = GetBlackboardData<float>(L"DetectRange");
 	CObj* pSelf = GetBlackboardData<CObj*>(L"Self");
 	CObj* pPlayer = GetBlackboardData<CObj*>(L"Target");

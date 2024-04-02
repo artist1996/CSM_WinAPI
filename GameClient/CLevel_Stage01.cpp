@@ -6,6 +6,7 @@
 #include "CCamera.h"
 #include "CPlayer.h"
 #include "CMonster.h"
+#include "CMonster_Mettool.h"
 #include "CPlatform.h"
 #include "CLine.h"
 #include "CPathMgr.h"
@@ -56,16 +57,20 @@ void CLevel_Stage01::Enter()
 	AddObject(LAYER_TYPE::BACKGROUND, pBackGround);
 	
 	CEngine::GetInst()->ChangeWindowSize(Vec2(800.f, 600.f), false);
-	//CCamera::GetInst()->SetCameraLookAt(Vec2(800.f, 600.f));
 	// Player
 	CObj* pObject = new CPlayer;
 	pObject->SetName(L"ZERO");
 	pObject->SetPos(400.f, 100.f);
 	pObject->SetScale(100.f, 100.f);
 	AddObject(LAYER_TYPE::PLAYER, pObject);
+	
+	CMonster_Mettool* pMettool = new CMonster_Mettool(Vec2(400.f, 300.f), Vec2(50.f, 50.f), 1, 200.f);
+	AddObject(LAYER_TYPE::MONSTER, pMettool);
+	
 
 	LoadPlatform(L"platform\\platform.dat");
 	LoadLine(L"line\\line.dat");
+	LoadMonster(L"monster\\monster.dat");
 
 	// 레벨 충돌 설정하기
 	CCollisionMgr::GetInst()->CollisionCheckClear();
@@ -74,6 +79,7 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::PLAYER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::PLATFORM);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::MONSTER);
 }
 
 void CLevel_Stage01::Exit()

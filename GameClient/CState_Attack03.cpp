@@ -17,13 +17,13 @@ void CState_Attack03::Enter()
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"ATTACK03_RIGHT", false);
-		dynamic_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK03);
+		static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK03);
 	}
 
 	if (DIRECTION::LEFT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"ATTACK03_LEFT", false);
-		dynamic_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK03);
+		static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK03);
 	}
 }
 

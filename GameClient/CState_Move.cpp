@@ -72,6 +72,12 @@ void CState_Move::FinalTick()
 		return;
 	}
 
+	if (KEY_TAP(KEY::X))
+	{
+		GetFSM()->ChangeState(L"JUMP");
+		return;
+	}
+
 	if (KEY_PRESSED(KEY::RIGHT) && KEY_PRESSED(KEY::LEFT)
 		&& DIRECTION::RIGHT == GetObj()->GetDirection())
 	{

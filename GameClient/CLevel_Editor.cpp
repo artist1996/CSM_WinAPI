@@ -2,6 +2,7 @@
 #include "CLevel_Editor.h"
 #include "CKeyMgr.h"
 #include "CLevelMgr.h"
+#include "CCollisionMgr.h"
 #include "CPathMgr.h"
 
 #include "CTile.h"
@@ -15,6 +16,7 @@
 #include "CButton.h"
 #include "CEditorUI.h"
 #include "CMonster.h"
+#include "CMonster_Mettool.h"
 
 void ButtonCallBackFunc()
 {
@@ -32,6 +34,7 @@ CLevel_Editor::CLevel_Editor()
 	, m_BackGround(nullptr)
 	, m_Type(MAP_TYPE::PLATFORM)
 {
+	SetName(L"Editor");
 }
 
 CLevel_Editor::~CLevel_Editor()
@@ -53,13 +56,12 @@ void CLevel_Editor::tick()
 		m_BackGround = new CStage01;
 		m_BackGround->SetPos(Vec2(0.f, 0.f));
 		AddObject(LAYER_TYPE::BACKGROUND, m_BackGround);
-		SetName(L"Stage01");
+		SetSaveType(SAVE_TYPE::STAGE01);
 	}
 
 	else if (KEY_TAP(KEY::_2))
 	{
 		//m_BackGround = new CStage02;
-		SetName(L"Stage02");
 	}
 
 	if (KEY_TAP(KEY::_9))
@@ -104,7 +106,7 @@ void CLevel_Editor::tick()
 	{
 		SetType(MAP_TYPE::MONSTER);
 		ResetInfo();
-		MessageBox(CEngine::GetInst()->GetMainWnd(), L"MONSERT", L"Type", MB_OK);
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"MONSTER", L"Type", MB_OK);
 	}
 
 	if (MAP_TYPE::PLATFORM == m_Type)
@@ -151,6 +153,9 @@ void CLevel_Editor::Enter()
 	m_UI->SetScale(Vec2(150.f, 150.f));
 	m_UI->SetPos(CEngine::GetInst()->GetResolution().x - 150.f, 0.f);
 	AddObject(LAYER_TYPE::UI, m_UI);
+
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::MONSTER);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLATFORM, LAYER_TYPE::MONSTER);
 }
 
 void CLevel_Editor::Exit()
@@ -209,9 +214,10 @@ void CLevel_Editor::Monster()
 	if (KEY_TAP(KEY::LBTN))
 	{
 		Vec2 vPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-		CMonster* pMonster = new CMonster;
-		pMonster->SetPos(vPos);
-		pMonster->SetScale(100.f, 100.f);
+		CMonster_Mettool* pMonster = new CMonster_Mettool(vPos, Vec2(50.f, 50.f), 1, 200.f);
+		
+		pMonster->SetID(OBJ_ID::METTOOL);
+
 		AddObject(LAYER_TYPE::MONSTER, pMonster);
 	}
 }

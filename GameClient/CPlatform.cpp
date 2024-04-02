@@ -58,9 +58,11 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 			return;
 		}
 		
-		if (_OtherObj->GetPos().y - 1.f <= vPos.y - vScale.y * 0.5f)
+		if (_OtherObj->GetPrevPos().y - 3.f <= vPos.y - vScale.y * 0.5f)
 		{
+
 			pRB->SetGround(true);
+			_OtherObj->SetPos(Vec2(_OtherObj->GetPos().x, vPos.y - vScale.y * 0.5f));
 			//pFSM->ChangeState(L"LANDING");
 			return;
 		}

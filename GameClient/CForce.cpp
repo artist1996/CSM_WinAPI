@@ -41,7 +41,6 @@ void CForce::AddForce(LAYER_TYPE _Type)
 	
 	for (size_t i = 0; i < vecObj.size(); ++i)
 	{
-
 		// Force의 힘의 거리가 Force와 Object의 거리보다 크다면 충돌 한거다.
 		float fDist = GetPos().GetDistance(vecObj[i]->GetPos());
 
@@ -52,7 +51,7 @@ void CForce::AddForce(LAYER_TYPE _Type)
 			
 			if (nullptr == pComponent)
 				continue;
-
+			
 			// 오브젝트와 Force의 거리를 비율로 바꿔준다.
 			float fRatio = Saturate(1.f - fDist / m_Range);
 			// Force에 기존 힘 * 거리비율을 곱해주고

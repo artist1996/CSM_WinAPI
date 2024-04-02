@@ -148,9 +148,9 @@ bool CCollisionMgr::IsCollision(CCollider* _Left, CCollider* _Right)
 	{
 		Vec2 vLeftLinePos = _Left->GetOwner()->GetPos();
 		Vec2 vRightLinePos = _Left->GetOwner()->GetScale();
-		Vec2 vPlayerPos = _Right->GetOwner()->GetPos();
-		Vec2 vPlayerScale = _Right->GetOwner()->GetScale();
-		if (vPlayerPos.x >= vLeftLinePos.x && vPlayerPos.x <= vRightLinePos.x)
+		Vec2 vPos = _Right->GetOwner()->GetPos();
+		Vec2 vScale = _Right->GetOwner()->GetScale();
+		if (vPos.x >= vLeftLinePos.x && vPos.x <= vRightLinePos.x)
 		{
 			float M = 0.f;
 			float B = 0.f;
@@ -159,9 +159,9 @@ bool CCollisionMgr::IsCollision(CCollider* _Left, CCollider* _Right)
 
 			B = vLeftLinePos.y - (M * vLeftLinePos.x);
 
-			float LineY = M * vPlayerPos.x + B;
+			float LineY = M * vPos.x + B;
 
-			if (vPlayerPos.y >= LineY - 10.f)
+			if (vPos.y >= LineY - 10.f)
 			{
 				return true;
 			}

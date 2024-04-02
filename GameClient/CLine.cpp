@@ -27,6 +27,14 @@ void CLine::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _O
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
 		pRB->SetGround(true);
+		return;
+	}
+
+	if (L"Mettool" == _OtherObj->GetName())
+	{
+		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		pRB->SetGround(true);
+		return;
 	}
 }
 

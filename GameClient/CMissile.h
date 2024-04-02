@@ -1,32 +1,32 @@
 #pragma once
 #include "CObj.h"
 
+class CForce;
+
 class CMissile :
     public CObj
 {
 private:
-    float       m_Speed;
-    float       m_Angle;    // ¶óµð¾È
+    CObj*       m_Owner;
+    CForce*     m_Force;
 
+    CAnimator*  m_Animator;
     CCollider*  m_Collider;
 
-protected:
-    void SetSpeed(float _Speed) { m_Speed = _Speed; }
-    void SetAngle(float _Angle) { m_Angle = _Angle; }
+    Vec2        m_CenterPos;
 
-    float GetSpeed() { return m_Speed; }
-    float GetAngle() { return m_Angle; }
+    float       m_Speed;
+    float       m_Dir;
+    
+    float       m_MaxDistance;
 
-    CCollider* GetCollider() { return m_Collider; }
-
-protected:
+public:
     virtual void tick() override;
-    virtual void render() override;
 
 public:
-    virtual CMissile* Clone() { return new CMissile(*this); }
-public:
+    CLONE(CMissile);
     CMissile();
+    CMissile(Vec2 _Pos, Vec2 _Scale, CObj* _Owner);
     ~CMissile();
 };
 

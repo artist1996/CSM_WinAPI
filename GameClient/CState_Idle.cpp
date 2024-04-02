@@ -12,7 +12,7 @@ CState_Idle::~CState_Idle()
 void CState_Idle::Enter()
 {
 	Initialize();
-	GetObj()->SetSpeed(250.f);
+	GetObj()->SetSpeed(300.f);
 	GetCollider()->SetScale(Vec2(90.f, 105.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
 
@@ -88,7 +88,7 @@ void CState_Idle::FinalTick()
 
 	if (KEY_TAP(KEY::Z))
 	{
-		GetObj()->SetSpeed(400.f);
+		GetObj()->SetSpeed(500.f);
 
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{

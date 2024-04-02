@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "CState_Dash.h"
+#include "CEffect_Dash.h"
+#include "CLevelMgr.h"
+#include "CLevel.h"
 
 CState_Dash::CState_Dash()
 {
@@ -16,11 +19,15 @@ void CState_Dash::Enter()
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"DASH_RIGHT", false);
+		CEffect_Dash* pEffect = new CEffect_Dash(GetObj(), Vec2(GetObj()->GetPos().x - 60.f, GetObj()->GetPos().y), Vec2(20.f,20.f));
+		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
 	}
 
 	else if (DIRECTION::LEFT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"DASH_LEFT", false);
+		CEffect_Dash* pEffect = new CEffect_Dash(GetObj(), Vec2(GetObj()->GetPos().x + 60.f, GetObj()->GetPos().y), Vec2(20.f, 20.f));
+		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
 	}
 }
 

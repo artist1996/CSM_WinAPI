@@ -10,7 +10,7 @@ CPlayer_Attack::CPlayer_Attack(CObj* _Owner, Vec2 _Pos, ATTACK_TYPE _Type)
 	, m_eType(_Type)
 {
 	SetPos(_Pos);
-
+	SetName(L"PLAYER_ATTACK");
 	m_Collider = (CCollider*)AddComponent(new CCollider);
 }
 

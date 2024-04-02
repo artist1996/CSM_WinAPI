@@ -13,6 +13,8 @@ private:
     vector<CObj*>       m_arrObj[(UINT)LAYER_TYPE::END];
     vector<CCollider*>  m_arrCollider[(UINT)LAYER_TYPE::END];
     
+    SAVE_TYPE           m_Save;
+
 public:
     // 시점 함수
     virtual void begin(); // 레벨이 시작될 때
@@ -39,12 +41,15 @@ protected:
     void SavePlatform(const wstring& _strRelativePath);
     void SaveLine(const wstring& _strRelativePath);
     void SaveMonster(const wstring& _strRelativePath);
+    void SaveMettool(const wstring& _strRelativePath);
     void SaveTrap(const wstring& _strRelativePath);
 
     void LoadPlatform(const wstring& _strRelativePath);
     void LoadLine(const wstring& _strRelativePath);
     void LoadMonster(const wstring& _strRelativePath);
     void LoadTrap(const wstring& _strRelativePath);
+
+    void SetSaveType(SAVE_TYPE _Type) { m_Save = _Type; }
 
 public:
     CLONE_DISABLE(CLevel)

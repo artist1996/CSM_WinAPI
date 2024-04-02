@@ -16,11 +16,22 @@ CAtlasUI::CAtlasUI()
 	m_vecTex.push_back(pTex);
 	pTex = CAssetMgr::GetInst()->LoadTexture(L"ZERO_LEFT", L"texture\\ZERO_LEFT.png");
 	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"mettool_left", L"texture\\mettool_left.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"mettool_right", L"texture\\mettool_right.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"EFFECT_DASH_RIGHT", L"texture\\EFFECT_DASH_RIGHT.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"EFFECT_DASH_LEFT", L"texture\\EFFECT_DASH_LEFT.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"MonsterDead", L"texture\\MonsterDead.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"Raiden", L"texture\\raiden.png");
+	m_vecTex.push_back(pTex);
 }
 
 CAtlasUI::~CAtlasUI()
 {
-	//Safe_Del_Vec(m_vecTex);
 }
 
 void CAtlasUI::tick_ui()

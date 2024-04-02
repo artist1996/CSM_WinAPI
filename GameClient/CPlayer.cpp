@@ -12,7 +12,6 @@
 #include "CFSM.h"
 
 #include "CMissile.h"
-#include "CGuidedMissile.h"
 #include "CPlayer_Attack.h"
 #include "CPlayer_JumpAttack.h"
 #include "CCamera.h"
@@ -207,9 +206,8 @@ void CPlayer::render()
 	Vec2 vPos =	GetRenderPos();
 	Vec2 vScale = GetScale();
 
-	Rectangle(DC, vPos.x - 10.f, vPos.y - 10.f, vPos.x + 10.f, vPos.y + 10.f);
+	Rectangle(DC, vPos.x - 10.f, vPos.y - 10.f, vPos.x + 5.f, vPos.y + 5.f);
 }
-
 
 void CPlayer::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
@@ -228,22 +226,6 @@ void CPlayer::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _O
 void CPlayer::Jump()
 {
 	m_RigidBody->Jump();
-}
-
-void CPlayer::Shoot()
-{
-	CMissile * pMissile = new CGuidedMissile;
-	pMissile->SetName(L"Missile");
-	
-	Vec2 vMissilePos = GetPos();
-	vMissilePos.y -= GetScale().y / 2.f;
-	
-	pMissile->SetPos(vMissilePos);
-	pMissile->SetScale(Vec2(20.f, 20.f));
-	
-	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::PLAYER_MISSILE, pMissile);
-	
-	LOG(LOG_TYPE::DBG_WARNING, L"미사일 발사");
 }
 
 // Animation 추가

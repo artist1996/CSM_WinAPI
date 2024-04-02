@@ -120,11 +120,26 @@ enum class LAYER_TYPE
 	MONSTER_MISSILE,
 	FORCE,
 
-	UI	= 15,
-	DUMMY = 16,
-	END = 17,
+	UI	= 14,
+	DUMMY = 15,
+	END = 16,
 
 	NONE = -1,
+};
+
+enum class OBJ_ID
+{
+	METTOOL,
+	RAIDEN,
+	BATTON,
+	GIGADEATH,
+	
+	METEOR_UP,
+	METEOR_DOWN,
+	METEOR_RIGHT,
+	METEOR_LEFT,
+
+	END,
 };
 
 
@@ -148,4 +163,12 @@ enum class MAP_TYPE
 	PLATFORM,
 	LINE,
 	MONSTER,
+};
+
+enum class SAVE_TYPE
+{
+	STAGE01,
+	STAGE02,
+
+	END,
 };

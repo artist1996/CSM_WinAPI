@@ -15,8 +15,8 @@ void CState_Block::Enter()
 	GetRigidBody()->SetWall(false);
 
 	GetCollider()->SetScale(Vec2(90.f, 105.f));
-	GetCollider()->SetOffsetPos(Vec2(0.f, -55.f));
-
+	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
+	
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"IDLE_RIGHT", true);

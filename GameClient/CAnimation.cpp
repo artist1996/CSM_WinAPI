@@ -83,6 +83,24 @@ void CAnimation::render()
 		return;
 	}
 
+	if (L"Mettool" == pOwnerObj->GetName())
+	{
+		BLENDFUNCTION bf = {};
+
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+
+		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+		return;
+	}
+
 	if (L"TOOL" == pLevel->GetName())
 	{
 		BLENDFUNCTION bf = {};
@@ -123,14 +141,21 @@ void CAnimation::render()
 		return;
 	}
 
-	//TransparentBlt(DC
-	//            , int((vRenderPos.x - frm.SliceSize.x * 0.5f) + frm.Offset.x)
-	//            , int((vRenderPos.y - frm.SliceSize.y * 0.5f) + frm.Offset.y)
-	//            , (int)frm.SliceSize.x, (int)frm.SliceSize.y
-	//            , m_Atlas->GetDC()
-	//            , (int)frm.StartPos.x, (int)frm.StartPos.y
-	//            , (int)frm.SliceSize.x, (int)frm.SliceSize.y
-	//            , RGB(255, 0, 255));
+
+	BLENDFUNCTION bf = {};
+
+	bf.BlendOp = AC_SRC_OVER;
+	bf.BlendFlags = 0;
+	bf.SourceConstantAlpha = 255;
+	bf.AlphaFormat = AC_SRC_ALPHA;
+
+	AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+		, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+		, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+		, m_Atlas->GetDC()
+		, (int)frm.StartPos.x, (int)frm.StartPos.y
+		, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+
 }
 
 void CAnimation::Create(  CTexture* _AtlasTex, Vec2 _StartPos

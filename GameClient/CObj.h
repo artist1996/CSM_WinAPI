@@ -27,8 +27,10 @@ private:
 
     LAYER_TYPE          m_Type;     // 소속 레이어
 
-    DIRECTION           m_eDir;     // 오브젝트의 방향
+    OBJ_ID              m_ID;       // 몬스터,트랩 Save, Load 전용 ID
 
+    DIRECTION           m_eDir;     // 오브젝트의 방향
+    
     bool                m_bDead;    // 삭제 예정상태
 
     float               m_Speed;    // Object 속력
@@ -36,6 +38,8 @@ private:
 public:
     void SetPos(Vec2 _Pos)      { m_Pos = _Pos; }
     void SetScale(Vec2 _Scale)  { m_Scale = _Scale; }
+
+    void SetID(OBJ_ID _ID) { m_ID = _ID; }
 
     void SetPos(float _x, float _y)             { m_Pos.x = _x; m_Pos.y = _y; }
     void SetScale(float _width, float _height)  { m_Scale.x = _width; m_Scale.y = _height; }
@@ -49,11 +53,13 @@ public:
     void SetDirection(DIRECTION _eDir)  { m_eDir = _eDir; }
     DIRECTION GetDirection()            { return m_eDir; }
 
+    OBJ_ID GetID()                      { return m_ID; }
+
     void SetSpeed(float _Speed) { m_Speed = _Speed; }
     float GetSpeed()            { return m_Speed; }
 
 
-    bool IsDead()                       { return m_bDead; }
+    bool IsDead()               { return m_bDead; }
 
 
 

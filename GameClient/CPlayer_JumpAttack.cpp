@@ -27,11 +27,22 @@ void CPlayer_JumpAttack::tick()
 {
 	CObj::tick();
 
+	if (m_Animator->GetCurAnim()->IsFinish())
+	{
+		Destroy();
+	}
+	
 	if (DIRECTION::RIGHT == m_Owner->GetDirection() && L"RAKUOUHA_RIGHT" != m_Animator->GetCurAnim()->GetName())
+	{
+		Destroy();
 		return;
-	if (DIRECTION::LEFT == m_Owner->GetDirection() && L"RAKUOUHA_LEFT" != m_Animator->GetCurAnim()->GetName())
-		return;
+	}
 
+	if (DIRECTION::LEFT == m_Owner->GetDirection() && L"RAKUOUHA_LEFT" != m_Animator->GetCurAnim()->GetName())
+	{
+		Destroy();
+		return;
+	}
 	JumpAttack();
 
 	Vec2 vPos = m_Owner->GetPos();
