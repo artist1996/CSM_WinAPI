@@ -284,6 +284,12 @@
     <Filter Include="03. Game\08. Module\State\01. PlayerState\State\08. Hit">
       <UniqueIdentifier>{5fa70994-d2a0-475f-a228-e9bd25942248}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\08. Module\State\02. MonsterState\03. GigaDeath\01. Idle">
+      <UniqueIdentifier>{70eafcf4-70c5-4fc1-8271-f70fedcba796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\State\02. MonsterState\03. GigaDeath\02. Attack">
+      <UniqueIdentifier>{924c5c42-414c-4504-92c9-db76035c52a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -580,6 +586,15 @@
     <ClInclude Include="CAttack_GigaDeath.h">
       <Filter>03. Game\05. Object\MonsterAttack\02. GigaDeath</Filter>
     </ClInclude>
+    <ClInclude Include="CState_GigaDeath.h">
+      <Filter>03. Game\08. Module\State\02. MonsterState\03. GigaDeath</Filter>
+    </ClInclude>
+    <ClInclude Include="CGigaDeath_Idle.h">
+      <Filter>03. Game\08. Module\State\02. MonsterState\03. GigaDeath\01. Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="CGigaDeath_Attack.h">
+      <Filter>03. Game\08. Module\State\02. MonsterState\03. GigaDeath\02. Attack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -870,6 +885,15 @@
     </ClCompile>
     <ClCompile Include="CAttack_GigaDeath.cpp">
       <Filter>03. Game\05. Object\MonsterAttack\02. GigaDeath</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_GigaDeath.cpp">
+      <Filter>03. Game\08. Module\State\02. MonsterState\03. GigaDeath</Filter>
+    </ClCompile>
+    <ClCompile Include="CGigaDeath_Idle.cpp">
+      <Filter>03. Game\08. Module\State\02. MonsterState\03. GigaDeath\01. Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="CGigaDeath_Attack.cpp">
+      <Filter>03. Game\08. Module\State\02. MonsterState\03. GigaDeath\02. Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

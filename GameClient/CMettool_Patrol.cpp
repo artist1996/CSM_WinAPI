@@ -38,7 +38,7 @@ void CMettool_Patrol::FinalTick()
 	float Speed = GetFSM()->GetBlackboardData<float>(L"Speed");
 
 	float fDist = abs(vCenterPos.x - vPos.x) - MaxDistance;
-
+	
 	if (vPos.GetDistance(pTarget->GetPos()) < 200.f)
 	{
 		m_ShootTime += DT;

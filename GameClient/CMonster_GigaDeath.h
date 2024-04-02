@@ -10,6 +10,7 @@ private:
     CFSM*       m_FSM;
 
 public:
+    virtual void begin() override;
     virtual void tick() override;
 
 public:

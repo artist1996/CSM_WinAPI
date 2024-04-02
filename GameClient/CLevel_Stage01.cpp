@@ -8,6 +8,7 @@
 #include "CMonster.h"
 #include "CMonster_Mettool.h"
 #include "CMonster_Raiden.h"
+#include "CMonster_GigaDeath.h"
 #include "CPlatform.h"
 #include "CLine.h"
 #include "CPathMgr.h"
@@ -70,7 +71,9 @@ void CLevel_Stage01::Enter()
 
 	CMonster_Raiden* pRaiden = new CMonster_Raiden(Vec2(600.f, 300.f), Vec2(150.f, 180.f), 10, 200.f);
 	AddObject(LAYER_TYPE::MONSTER, pRaiden);
-	
+
+	CMonster_GigaDeath* pGigaDeath = new CMonster_GigaDeath(Vec2(300.f, 300.f), Vec2(200.f, 180.f), 10, 200.f);
+	AddObject(LAYER_TYPE::MONSTER, pGigaDeath);
 
 	LoadPlatform(L"platform\\platform.dat");
 	LoadLine(L"line\\line.dat");
@@ -84,6 +87,7 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::PLAYER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::MONSTER);
+	
 }
 
 void CLevel_Stage01::Exit()

@@ -164,6 +164,8 @@
     <ClInclude Include="CForce.h" />
     <ClInclude Include="CFrameUI.h" />
     <ClInclude Include="CFSM.h" />
+    <ClInclude Include="CGigaDeath_Attack.h" />
+    <ClInclude Include="CGigaDeath_Idle.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CLevel.h" />
     <ClInclude Include="CLevelMgr.h" />
@@ -208,6 +210,7 @@
     <ClInclude Include="CState_Enter.h" />
     <ClInclude Include="CState_Fall.h" />
     <ClInclude Include="CState_Fastfall.h" />
+    <ClInclude Include="CState_GigaDeath.h" />
     <ClInclude Include="CState_Hit.h" />
     <ClInclude Include="CState_Idle.h" />
     <ClInclude Include="CState_Jump.h" />
@@ -264,6 +267,8 @@
     <ClCompile Include="CForce.cpp" />
     <ClCompile Include="CFrameUI.cpp" />
     <ClCompile Include="CFSM.cpp" />
+    <ClCompile Include="CGigaDeath_Attack.cpp" />
+    <ClCompile Include="CGigaDeath_Idle.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CLevel.cpp" />
     <ClCompile Include="CLevelMgr.cpp" />
@@ -308,6 +313,7 @@
     <ClCompile Include="CState_Enter.cpp" />
     <ClCompile Include="CState_Fall.cpp" />
     <ClCompile Include="CState_Fastfall.cpp" />
+    <ClCompile Include="CState_GigaDeath.cpp" />
     <ClCompile Include="CState_Hit.cpp" />
     <ClCompile Include="CState_Idle.cpp" />
     <ClCompile Include="CState_Jump.cpp" />

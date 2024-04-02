@@ -30,10 +30,10 @@ void CMettool_Idle::Enter()
 
 void CMettool_Idle::FinalTick()
 {
-	if (L"Editor" == CLevelMgr::GetInst()->GetCurrentLevel()->GetName())
-		return;
-
-	m_Time += DT;
+	if (L"Editor" != CLevelMgr::GetInst()->GetCurrentLevel()->GetName())
+	{
+		m_Time += DT;
+	}
 
 	if (1.f <= m_Time)
 	{

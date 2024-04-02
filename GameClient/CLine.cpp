@@ -30,8 +30,7 @@ void CLine::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _O
 		return;
 	}
 	
-	if (L"Mettool" == _OtherObj->GetName()
-		|| L"Raiden" == _OtherObj->GetName())
+	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
 		pRB->SetGround(true);

@@ -31,7 +31,7 @@ void CAttack_Raiden::tick()
 {
 	CObj::tick();
 
-	if (L"ATTACK" != m_Animator->GetCurAnim()->GetName())
+	if (m_Animator->GetCurAnim()->IsFinish())
 	{
 		Destroy();
 		return;
