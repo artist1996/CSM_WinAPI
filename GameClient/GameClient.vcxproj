@@ -145,9 +145,13 @@
     <ClInclude Include="CAsset.h" />
     <ClInclude Include="CAssetMgr.h" />
     <ClInclude Include="CAtlasUI.h" />
+    <ClInclude Include="CAttack_BattonBomb.h" />
     <ClInclude Include="CAttack_GigaDeath.h" />
     <ClInclude Include="CAttack_Raiden.h" />
     <ClInclude Include="CBackGround.h" />
+    <ClInclude Include="CBatton_Attack.h" />
+    <ClInclude Include="CBatton_Idle.h" />
+    <ClInclude Include="CBatton_Move.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCollider.h" />
@@ -205,6 +209,7 @@
     <ClInclude Include="CState_Attack01.h" />
     <ClInclude Include="CState_Attack02.h" />
     <ClInclude Include="CState_Attack03.h" />
+    <ClInclude Include="CState_Batton.h" />
     <ClInclude Include="CState_Block.h" />
     <ClInclude Include="CState_Dash.h" />
     <ClInclude Include="CState_Enter.h" />
@@ -229,6 +234,8 @@
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileMap.h" />
     <ClInclude Include="CTimeMgr.h" />
+    <ClInclude Include="CTrap.h" />
+    <ClInclude Include="CTrap_Meteor.h" />
     <ClInclude Include="CUI.h" />
     <ClInclude Include="CUIMgr.h" />
     <ClInclude Include="define.h" />
@@ -248,9 +255,13 @@
     <ClCompile Include="CAsset.cpp" />
     <ClCompile Include="CAssetMgr.cpp" />
     <ClCompile Include="CAtlasUI.cpp" />
+    <ClCompile Include="CAttack_BattonBomb.cpp" />
     <ClCompile Include="CAttack_GigaDeath.cpp" />
     <ClCompile Include="CAttack_Raiden.cpp" />
     <ClCompile Include="CBackGround.cpp" />
+    <ClCompile Include="CBatton_Attack.cpp" />
+    <ClCompile Include="CBatton_Idle.cpp" />
+    <ClCompile Include="CBatton_Move.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCollider.cpp" />
@@ -308,6 +319,7 @@
     <ClCompile Include="CState_Attack01.cpp" />
     <ClCompile Include="CState_Attack02.cpp" />
     <ClCompile Include="CState_Attack03.cpp" />
+    <ClCompile Include="CState_Batton.cpp" />
     <ClCompile Include="CState_Block.cpp" />
     <ClCompile Include="CState_Dash.cpp" />
     <ClCompile Include="CState_Enter.cpp" />
@@ -332,6 +344,8 @@
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileMap.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />
+    <ClCompile Include="CTrap.cpp" />
+    <ClCompile Include="CTrap_Meteor.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CUIMgr.cpp" />
     <ClCompile Include="func.cpp" />

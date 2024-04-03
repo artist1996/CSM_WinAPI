@@ -64,13 +64,13 @@ void CMettool_Patrol::FinalTick()
 		m_Dir *= -1.f;
 		vPos.x += fDist * m_Dir;
 		GetObj()->SetPos(vPos);
-		if (m_Dir == -1.f)
+		if (-1.f == m_Dir)
 		{
 			GetObj()->SetDirection(DIRECTION::LEFT);
 			GetAnimator()->Play(L"PATROL_LEFT", true);
 		}
 		
-		else if (m_Dir == 1.f)
+		else if (1.f == m_Dir)
 		{
 			GetObj()->SetDirection(DIRECTION::RIGHT);
 			GetAnimator()->Play(L"PATROL_RIGHT", true);

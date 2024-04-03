@@ -39,6 +39,12 @@ void CPlatform::begin()
 
 void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
+	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType())
+	{
+		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		pRB->SetGround(true);
+	}
+
 	if (L"ZERO" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();

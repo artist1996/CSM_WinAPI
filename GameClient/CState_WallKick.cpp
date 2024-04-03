@@ -105,6 +105,7 @@ void CState_WallKick::FinalTick()
 
 	if (m_bAirMove && GetAnimator()->GetCurAnim()->IsFinish())
 	{
+		GetObj()->SetSpeed(300.f);
 		GetFSM()->ChangeState(L"FALL");
 		return;
 	}
@@ -113,6 +114,7 @@ void CState_WallKick::FinalTick()
 	{
 		if (GetAnimator()->GetCurAnim()->IsFinish())
 		{
+			GetObj()->SetSpeed(300.f);
 			GetFSM()->ChangeState(L"FALL");
 			return;
 		}

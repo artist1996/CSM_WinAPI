@@ -176,10 +176,6 @@ void CPlayer::begin()
 {
 	m_RigidBody->SetGroundFunc(&BeGround);
 	m_RigidBody->SetAirFunc(&BeAir);
-
-	CState* pState = m_FSM->FindState(L"ATTACK01");
-
-	CCamera::GetInst()->SetOwner(this);
 }
 
 void CPlayer::tick()

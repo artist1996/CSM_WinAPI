@@ -45,7 +45,7 @@ CMonster_GigaDeath::CMonster_GigaDeath(Vec2 _Pos, Vec2 _Scale, int _HP, float _D
 	m_RigidBody->UseGravity(true);
 
 	// Collider
-	m_Collider->SetOffsetPos(Vec2(0.f, -100.f));
+	m_Collider->SetOffsetPos(Vec2(0.f, -90.f));
 	m_Collider->SetScale(_Scale);
 
 	// Animation
@@ -71,5 +71,5 @@ void CMonster_GigaDeath::begin()
 
 void CMonster_GigaDeath::tick()
 {
-	CObj::tick();
+	CMonster::tick();
 }

@@ -62,24 +62,24 @@ void CAnimation::render()
 	Vec2 vRenderPos = pOwnerObj->GetRenderPos();
 
 	// 현재 프레임 이미지를 오브젝트 위치에 렌더링
-
-	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 	
+	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+
 	if (L"ZERO" == pOwnerObj->GetName())
 	{
 		BLENDFUNCTION bf = {};
-		
+
 		bf.BlendOp = AC_SRC_OVER;
 		bf.BlendFlags = 0;
 		bf.SourceConstantAlpha = 255;
 		bf.AlphaFormat = AC_SRC_ALPHA;
 
 		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
-					 , (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
-					 , (int)frm.SliceSize.x, (int)frm.SliceSize.y
-					 , m_Atlas->GetDC()
-					 , (int)frm.StartPos.x,  (int)frm.StartPos.y
-					 , (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 		return;
 	}
 
@@ -111,16 +111,16 @@ void CAnimation::render()
 		bf.AlphaFormat = AC_SRC_ALPHA;
 		CObj* DummyObject = m_Animator->GetOwner();
 		Vec2 vPos = DummyObject->GetPos();
-		
-		AlphaBlend(DC, (int)(vPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x,
-					   (int)(vPos.y - frm.SliceSize.y) + (int)frm.Offset.y
-					 , (int)frm.SliceSize.x, (int)frm.SliceSize.y
-					 , m_Atlas->GetDC()
-					 , (int)frm.StartPos.x,  (int)frm.StartPos.y
-					 , (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+
+		AlphaBlend(DC, (int)(vPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 		return;
 	}
-	
+
 	if (L"Logo" == m_Animator->GetOwner()->GetName())
 	{
 		BLENDFUNCTION bf = {};
@@ -133,11 +133,11 @@ void CAnimation::render()
 		Vec2 vPos = DummyObject->GetPos();
 
 		AlphaBlend(DC, (int)(vPos.x) + (int)frm.Offset.x,
-				       (int)(vPos.y) + (int)frm.Offset.y
-				     , (int)frm.SliceSize.x, (int)frm.SliceSize.y
-				     , m_Atlas->GetDC()
-				     , (int)frm.StartPos.x, (int)frm.StartPos.y
-				     , (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+			(int)(vPos.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 		return;
 	}
 
@@ -155,7 +155,7 @@ void CAnimation::render()
 		, m_Atlas->GetDC()
 		, (int)frm.StartPos.x, (int)frm.StartPos.y
 		, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
-
+	
 }
 
 void CAnimation::Create(  CTexture* _AtlasTex, Vec2 _StartPos

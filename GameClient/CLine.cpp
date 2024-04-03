@@ -73,5 +73,6 @@ void CLine::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _Othe
 void CLine::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
 	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+
 	pRB->SetGround(false);
 }

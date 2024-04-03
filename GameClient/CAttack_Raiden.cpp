@@ -31,43 +31,47 @@ void CAttack_Raiden::tick()
 {
 	CObj::tick();
 
-	if (m_Animator->GetCurAnim()->IsFinish())
+	if (m_Owner->IsDead())
 	{
 		Destroy();
 		return;
 	}
+
 	Attack();
 }
 
 void CAttack_Raiden::Attack()
 {
-	if (0 == m_Animator->GetCurAnim()->GetCurFrameIdx())
+	if (!m_Owner->IsDead())
 	{
-		m_Collider->SetOffsetPos(Vec2(100.f, -180.f));
-		m_Collider->SetScale(Vec2(50.f, 60.f));
-	}
+		if (0 == m_Animator->GetCurAnim()->GetCurFrameIdx())
+		{
+			m_Collider->SetOffsetPos(Vec2(100.f, -180.f));
+			m_Collider->SetScale(Vec2(50.f, 60.f));
+		}
 
-	if (1 == m_Animator->GetCurAnim()->GetCurFrameIdx())
-	{
-		m_Collider->SetOffsetPos(Vec2(90.f, -195.f));
-		m_Collider->SetScale(Vec2(55.f, 65.f));
-	}
+		if (1 == m_Animator->GetCurAnim()->GetCurFrameIdx())
+		{
+			m_Collider->SetOffsetPos(Vec2(90.f, -195.f));
+			m_Collider->SetScale(Vec2(55.f, 65.f));
+		}
 
-	if (2 == m_Animator->GetCurAnim()->GetCurFrameIdx())
-	{
-		m_Collider->SetOffsetPos(Vec2(80.f, -235.f));
-		m_Collider->SetScale(Vec2(55.f, 70.f));
-	}
-	
-	if (3 == m_Animator->GetCurAnim()->GetCurFrameIdx())
-	{
-		m_Collider->SetOffsetPos(Vec2(-50.f, -120.f));
-		m_Collider->SetScale(Vec2(280.f, 270.f));
-	}
+		if (2 == m_Animator->GetCurAnim()->GetCurFrameIdx())
+		{
+			m_Collider->SetOffsetPos(Vec2(80.f, -235.f));
+			m_Collider->SetScale(Vec2(55.f, 70.f));
+		}
 
-	if (4 <= m_Animator->GetCurAnim()->GetCurFrameIdx())
-	{
-		Destroy();
-		return;
+		if (3 == m_Animator->GetCurAnim()->GetCurFrameIdx())
+		{
+			m_Collider->SetOffsetPos(Vec2(-50.f, -120.f));
+			m_Collider->SetScale(Vec2(280.f, 270.f));
+		}
+
+		if (4 <= m_Animator->GetCurAnim()->GetCurFrameIdx())
+		{
+			Destroy();
+			return;
+		}
 	}
 }

@@ -154,7 +154,7 @@ bool CCollisionMgr::IsCollision(CCollider* _Left, CCollider* _Right)
 		{
 			float M = 0.f;
 			float B = 0.f;
-
+			
 			M = (vRightLinePos.y - vLeftLinePos.y) / (vRightLinePos.x - vLeftLinePos.x);
 
 			B = vLeftLinePos.y - (M * vLeftLinePos.x);

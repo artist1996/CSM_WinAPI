@@ -9,6 +9,10 @@
 #include "CMonster_Mettool.h"
 #include "CMonster_Raiden.h"
 #include "CMonster_GigaDeath.h"
+#include "CMonster_Batton.h"
+
+#include "CTrap_Meteor.h"
+
 #include "CPlatform.h"
 #include "CLine.h"
 #include "CPathMgr.h"
@@ -22,6 +26,7 @@ CLevel_Stage01::CLevel_Stage01()
 
 CLevel_Stage01::~CLevel_Stage01()
 {
+	DeleteAllObjects();
 }
 
 void CLevel_Stage01::begin()
@@ -62,23 +67,32 @@ void CLevel_Stage01::Enter()
 	// Player
 	CObj* pObject = new CPlayer;
 	pObject->SetName(L"ZERO");
-	pObject->SetPos(400.f, 100.f);
+	pObject->SetPos(400.f, 0.f);
 	pObject->SetScale(100.f, 100.f);
 	AddObject(LAYER_TYPE::PLAYER, pObject);
 	
-	CMonster_Mettool* pMettool = new CMonster_Mettool(Vec2(400.f, 300.f), Vec2(50.f, 50.f), 1, 200.f);
-	AddObject(LAYER_TYPE::MONSTER, pMettool);
+	//CMonster_Mettool* pMettool = new CMonster_Mettool(Vec2(400.f, 300.f), Vec2(50.f, 50.f), 1, 200.f);
+	//AddObject(LAYER_TYPE::MONSTER, pMettool);
+	//
+	//CMonster_Raiden* pRaiden = new CMonster_Raiden(Vec2(600.f, 300.f), Vec2(150.f, 180.f), 10, 200.f);
+	//AddObject(LAYER_TYPE::MONSTER, pRaiden);
+	//
+	//CMonster_GigaDeath* pGigaDeath = new CMonster_GigaDeath(Vec2(300.f, 300.f), Vec2(200.f, 180.f), 5, 200.f);
+	//AddObject(LAYER_TYPE::MONSTER, pGigaDeath);
 
-	CMonster_Raiden* pRaiden = new CMonster_Raiden(Vec2(600.f, 300.f), Vec2(150.f, 180.f), 10, 200.f);
-	AddObject(LAYER_TYPE::MONSTER, pRaiden);
+	CMonster_Batton* pBatton = new CMonster_Batton(Vec2(900.f, 300.f), Vec2(50.f, 70.f), 1, 200.f);
+	AddObject(LAYER_TYPE::MONSTER, pBatton);
 
-	CMonster_GigaDeath* pGigaDeath = new CMonster_GigaDeath(Vec2(300.f, 300.f), Vec2(200.f, 180.f), 10, 200.f);
-	AddObject(LAYER_TYPE::MONSTER, pGigaDeath);
+	CTrap_Meteor* pMeteor = new CTrap_Meteor(Vec2(900.f, 300.f), OBJ_ID::METEOR_UP);
+	AddObject(LAYER_TYPE::TRAP, pMeteor);
+
+	pMeteor = new CTrap_Meteor(Vec2(1100.f, 300.f), OBJ_ID::METEOR_DOWN);
+	AddObject(LAYER_TYPE::TRAP, pMeteor);
 
 	LoadPlatform(L"platform\\platform.dat");
 	LoadLine(L"line\\line.dat");
 	LoadMonster(L"monster\\monster.dat");
-
+	
 	// 레벨 충돌 설정하기
 	CCollisionMgr::GetInst()->CollisionCheckClear();
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER);
@@ -87,7 +101,6 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::PLAYER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::MONSTER);
-	
 }
 
 void CLevel_Stage01::Exit()

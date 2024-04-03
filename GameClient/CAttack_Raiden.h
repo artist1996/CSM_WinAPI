@@ -21,6 +21,5 @@ public:
     CAttack_Raiden();
     CAttack_Raiden(CObj* _Owner, CAnimator* _Animator);
     virtual ~CAttack_Raiden();
-
 };
 

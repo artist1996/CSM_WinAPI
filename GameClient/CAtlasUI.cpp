@@ -30,6 +30,10 @@ CAtlasUI::CAtlasUI()
 	m_vecTex.push_back(pTex);
 	pTex = CAssetMgr::GetInst()->LoadTexture(L"GigaDeath", L"texture\\gigadeath.png");
 	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"Batton", L"texture\\batton.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"Meteor", L"texture\\meteor.png");
+	m_vecTex.push_back(pTex);
 }
 
 CAtlasUI::~CAtlasUI()

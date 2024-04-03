@@ -18,6 +18,9 @@ private:
     
     tInfo              m_tInfo;
     MAP_TYPE           m_Type;
+
+    OBJ_ID             m_ID;
+
     CTexture*          m_CurImg;
     CBackGround*       m_BackGround;
 

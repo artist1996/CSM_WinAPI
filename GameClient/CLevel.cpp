@@ -8,6 +8,8 @@
 #include "CLine.h"
 #include "CMonster.h"
 #include "CMonster_Mettool.h"
+#include "CMonster_Raiden.h"
+#include "CMonster_GigaDeath.h"
 
 CLevel::CLevel()
 {
@@ -442,23 +444,22 @@ void CLevel::LoadMonster(const wstring& _strRelativePath)
 
 		else if (OBJ_ID::RAIDEN == ID)
 		{
-			// Raiden
-			
-
+			// Raiden			
+			CMonster_Raiden* pMonster = new CMonster_Raiden(vPos, vScale, HP, DetectRange);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
 		}
 
 		else if (OBJ_ID::GIGADEATH == ID)
 		{
 			// GIGADEATH
-			
-
+			CMonster_GigaDeath* pMonster = new CMonster_GigaDeath(vPos, vScale, HP, DetectRange);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
 		}
 
 		else if (OBJ_ID::BATTON == ID)
 		{
 			// BATTON
-
-
+			continue;
 		}
 	}
 

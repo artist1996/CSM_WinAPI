@@ -17,6 +17,8 @@
 #include "CEditorUI.h"
 #include "CMonster.h"
 #include "CMonster_Mettool.h"
+#include "CMonster_Raiden.h"
+#include "CMonster_GigaDeath.h"
 
 void ButtonCallBackFunc()
 {
@@ -33,6 +35,7 @@ CLevel_Editor::CLevel_Editor()
 	, m_CurImg(nullptr)
 	, m_BackGround(nullptr)
 	, m_Type(MAP_TYPE::PLATFORM)
+	, m_ID(OBJ_ID::END)
 {
 	SetName(L"Editor");
 }
@@ -61,30 +64,34 @@ void CLevel_Editor::tick()
 
 	else if (KEY_TAP(KEY::_2))
 	{
-		//m_BackGround = new CStage02;
+
 	}
 
 	if (KEY_TAP(KEY::_9))
 	{
 		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		m_ID = OBJ_ID::RAIDEN;
 		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"radien_editor", L"texture\\raiden_editor.png"));
 	}
 
 	if (KEY_TAP(KEY::_8))
 	{
 		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		m_ID = OBJ_ID::GIGADEATH;
 		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"gigadeath_editor", L"texture\\gigadeath_editor.png"));
 	}
 
 	if (KEY_TAP(KEY::_7))
 	{
 		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		m_ID = OBJ_ID::METTOOL;
 		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"mettool_editor", L"texture\\mettool_editor.png"));
 	}
 
 	if(KEY_TAP(KEY::_6))
 	{
 		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		m_ID = OBJ_ID::BATTON;
 		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"batton_editor", L"texture\\batton_editor.png"));
 	}
 
@@ -216,9 +223,29 @@ void CLevel_Editor::Monster()
 		Vec2 vPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
 		CMonster_Mettool* pMonster = new CMonster_Mettool(vPos, Vec2(50.f, 50.f), 1, 200.f);
 		
-		pMonster->SetID(OBJ_ID::METTOOL);
+		if (OBJ_ID::METTOOL == m_ID)
+		{
+			CMonster_Mettool* pMonster = new CMonster_Mettool(vPos, Vec2(50.f, 50.f), 1, 200.f);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
+			return;
+		}
 
-		AddObject(LAYER_TYPE::MONSTER, pMonster);
+		else if (OBJ_ID::RAIDEN == m_ID)
+		{
+			CMonster_Raiden* pMonster = new CMonster_Raiden(vPos, Vec2(150.f, 180.f), 6, 200.f);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
+		}
+
+		else if (OBJ_ID::GIGADEATH == m_ID)
+		{
+			CMonster_GigaDeath* pMonster = new CMonster_GigaDeath(vPos, Vec2(200.f, 180.f), 5, 200.f);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
+		}
+
+		else if (OBJ_ID::BATTON == m_ID)
+		{
+			return;
+		}
 	}
 }
 

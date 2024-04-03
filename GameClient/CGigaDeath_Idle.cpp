@@ -19,12 +19,12 @@ void CGigaDeath_Idle::FinalTick()
 {
 	CObj* pTarget = GetBlackboardData<CObj*>(L"Target");
 	Vec2 vPos = GetObj()->GetPos();
-
+	
 	if (m_Attack)
 	{
 		m_Time += DT;
 	}
-	if (vPos.GetDistance(pTarget->GetPos()) < 300.f)
+	if (vPos.GetDistance(pTarget->GetPos()) < 600.f)
 	{
 		m_Attack = true;
 	}

@@ -21,7 +21,7 @@ CCamera::~CCamera()
 void CCamera::init()
 {	
 	Vec2 vResol = CEngine::GetInst()->GetResolution();
-	m_LookAt = Vec2(vResol.x / 2.f, vResol.y / 2.f);
+	m_LookAt = Vec2(400.f, vResol.y / 2.f);
 	//m_LookAt = Vec2(640.f / 2.f, vResol.y / 2.f);
 	
 	
@@ -63,11 +63,6 @@ void CCamera::render()
 
 void CCamera::Move()
 {
-	//if (nullptr != CLevelMgr::GetInst()->GetCurrentLevel() && L"Stage01" == CLevelMgr::GetInst()->GetCurrentLevel()->GetName())
-	//{
-	//	m_LookAt = Vec2(800.f, 600.f);
-	//}
-
 	if (m_Owner)
 	{
 		Vec2 vDir = m_Owner->GetPos();
@@ -98,13 +93,13 @@ void CCamera::Move()
 			m_LookAt.y += vDir.y * 1000.f * DT;
 		}
 
-		else if (m_LookAt.y - m_Owner->GetPos().y > 100.f)
+		else if (m_LookAt.y - m_Owner->GetPos().y > 50.f)
 		{
 			if (!vDir.IsZero())
 			{
 				vDir.Normalize();
 			}
-			m_LookAt.y -= vDir.y * 1000.f * DT;
+			m_LookAt.y -= vDir.y * 6000.f * DT;
 		}
 
 
