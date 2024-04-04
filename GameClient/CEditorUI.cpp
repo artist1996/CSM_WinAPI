@@ -31,9 +31,9 @@ void CEditorUI::begin()
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
 	
-	float x = (vPos.x + vScale.x) - vScale.x * 0.5f;
-	float y = (vPos.y + vScale.y) - vScale.y * 0.5f;
-	m_DummyObject->SetPos(Vec2(x, y));
+	float x = ((vPos.x + vScale.x) - vScale.x) + 25.f;
+	float y = ((vPos.y + vScale.y) - vScale.y) + 25.f;
+	m_DummyObject->SetPos(Vec2(x,y));
 	m_DummyObject->SetScale(Vec2(0.f, 0.f));
 }
 

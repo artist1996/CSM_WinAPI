@@ -10,6 +10,11 @@
 #include "CMonster_Mettool.h"
 #include "CMonster_Raiden.h"
 #include "CMonster_GigaDeath.h"
+#include "CMonster_Batton.h"
+
+#include "CTrap_Meteor.h"
+
+#include "CEditor_RenderDummy.h"
 
 CLevel::CLevel()
 {
@@ -262,11 +267,11 @@ void CLevel::SaveMonster(const wstring& _strRelativePath)
 
 	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::MONSTER].size(); ++i)
 	{
-		OBJ_ID ID = m_arrObj[(UINT)LAYER_TYPE::MONSTER][i]->GetID();
+		OBJ_ID ID = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::MONSTER][i])->GetID();
 		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::MONSTER][i]->GetPos();
 		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::MONSTER][i]->GetScale();
-		int HP = dynamic_cast<CMonster*>(m_arrObj[(UINT)LAYER_TYPE::MONSTER][i])->GetHP();
-		float fDetectRange = dynamic_cast<CMonster*>(m_arrObj[(UINT)LAYER_TYPE::MONSTER][i])->GetDetectRange();
+		int HP = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::MONSTER][i])->GetHP();
+		float fDetectRange = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::MONSTER][i])->GetRange();
 
 		fwrite(&ID, sizeof(OBJ_ID), 1, pFile);
 		fwrite(&vPos, sizeof(Vec2), 1, pFile);
@@ -308,10 +313,16 @@ void CLevel::SaveTrap(const wstring& _strRelativePath)
 
 	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::TRAP].size(); ++i)
 	{
+		OBJ_ID ID = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetID();
 		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetPos();
 		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetScale();
+		int HP = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetHP();
+		float Range = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetRange();
+		fwrite(&ID, sizeof(OBJ_ID), 1, pFile);
 		fwrite(&vPos, sizeof(Vec2), 1, pFile);
 		fwrite(&vScale, sizeof(Vec2), 1, pFile);
+		fwrite(&HP, sizeof(int), 1, pFile);
+		fwrite(&Range, sizeof(float), 1, pFile);
 	}
 
 	fclose(pFile);
@@ -459,7 +470,8 @@ void CLevel::LoadMonster(const wstring& _strRelativePath)
 		else if (OBJ_ID::BATTON == ID)
 		{
 			// BATTON
-			continue;
+			CMonster_Batton* pMonster = new CMonster_Batton(vPos, vScale, HP, DetectRange);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
 		}
 	}
 
@@ -469,7 +481,7 @@ void CLevel::LoadMonster(const wstring& _strRelativePath)
 void CLevel::LoadTrap(const wstring& _strRelativePath)
 {
 	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
-
+	
 	if (L"Stage01" == GetName())
 	{
 		strFullPath += L"stage01\\";
@@ -494,14 +506,20 @@ void CLevel::LoadTrap(const wstring& _strRelativePath)
 
 	for (size_t i = 0; i < len; ++i)
 	{
+		OBJ_ID ID;
 		Vec2 vPos;
 		Vec2 vScale;
+		int HP = 0;
+		float Range = 0.f;
 
+		fread(&ID, sizeof(OBJ_ID), 1, pFile);
 		fread(&vPos, sizeof(Vec2), 1, pFile);
 		fread(&vScale, sizeof(Vec2), 1, pFile);
+		fread(&HP, sizeof(int), 1, pFile);
+		fread(&Range, sizeof(float), 1, pFile);
 
-		CMonster* pMonster = new CMonster(vPos, vScale);
-		AddObject(LAYER_TYPE::MONSTER, pMonster);
+		CTrap_Meteor* pTrap = new CTrap_Meteor(vPos, ID);
+		AddObject(LAYER_TYPE::TRAP, pTrap);
 	}
 
 	fclose(pFile);

@@ -13,6 +13,10 @@ CCamera::CCamera()
 	: m_Owner(nullptr)
 	, m_FadeTex(nullptr)
 	, m_CamSpeed(1000.f)
+	, m_MaxHighHeight(0.f)
+	, m_MaxLowHeight(0.f)
+	, m_MaxHighWidth(0.f)
+	, m_MaxLowWidth(0.f)
 {}
 
 CCamera::~CCamera()
@@ -22,8 +26,6 @@ void CCamera::init()
 {	
 	Vec2 vResol = CEngine::GetInst()->GetResolution();
 	m_LookAt = Vec2(400.f, vResol.y / 2.f);
-	//m_LookAt = Vec2(640.f / 2.f, vResol.y / 2.f);
-	
 	
 	m_FadeTex = CAssetMgr::GetInst()->CreateTexture(L"CameraEffect", (UINT)vResol.x, (UINT)vResol.y);
 }
@@ -67,42 +69,52 @@ void CCamera::Move()
 	{
 		Vec2 vDir = m_Owner->GetPos();
 		m_LookAt.x = m_Owner->GetPos().x;
-		CTexture* pTex = CAssetMgr::GetInst()->FindTexture(L"VOLCANO_01");
 		
-		if (m_Owner->GetPos().x <= 400.f)
+		if (m_Owner->GetPos().x <= m_MaxLowWidth)
 		{
-			m_LookAt.x = 400.f;
+			m_LookAt.x = m_MaxLowWidth;			// MaxLowWidth
+			return;
+		}
+		
+		if (m_Owner->GetPos().y <= m_MaxHighHeight)
+		{
+			m_LookAt.y = m_MaxHighHeight;		// MaxHighHeight
 		}
 
-		if (m_Owner->GetPos().y <= 300.f)
+		else
 		{
-			m_LookAt.y = 300.f;
-		}
-
-		if (m_LookAt.y >= 1236.f)
-		{
-			m_LookAt.y = 1236.f;
-		}
-
-		if (m_LookAt.y - m_Owner->GetPos().y < -220.f)
-		{
-			if (!vDir.IsZero())
+			if (m_LookAt.y - m_Owner->GetPos().y > 50.f)
 			{
-				vDir.Normalize();
+				if (!vDir.IsZero())
+				{
+					vDir.Normalize();
+				}
+				m_LookAt.y -= vDir.y * 6000.f * DT;
 			}
-			m_LookAt.y += vDir.y * 1000.f * DT;
 		}
 
-		else if (m_LookAt.y - m_Owner->GetPos().y > 50.f)
+		if (m_LookAt.y >= m_MaxLowHeight)
 		{
-			if (!vDir.IsZero())
+			m_LookAt.y = m_MaxLowHeight;				// MaxLowHeight
+		}
+		
+		else
+		{
+			if (m_LookAt.y - m_Owner->GetPos().y < -150.f)
 			{
-				vDir.Normalize();
+				if (!vDir.IsZero())
+				{
+					vDir.Normalize();
+				}
+				m_LookAt.y += vDir.y * 6000.f * DT;
 			}
-			m_LookAt.y -= vDir.y * 6000.f * DT;
 		}
 
-
+		if (m_LookAt.x >= m_MaxHighWidth)				// MaxHighWidth
+		{
+			m_LookAt.x = m_MaxHighWidth;
+			return;
+		}
 	}
 
 	else

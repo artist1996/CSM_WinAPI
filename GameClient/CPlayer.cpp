@@ -183,6 +183,18 @@ void CPlayer::tick()
 	CObj::tick();
 	Vec2 vPos = GetPos();
 
+	static float logtime = 0.f;
+
+	logtime += DT;
+
+	if (1.f <= logtime)
+	{
+		wchar_t szBuff[256] = {};
+		swprintf_s(szBuff, L"%f, %f", vPos.x, vPos.y);
+		LOG(LOG_TYPE::DBG_WARNING, szBuff);
+		logtime = 0.f;
+	}
+
 	if (m_Invincible)
 	{
 		m_InvincibleTime += DT;

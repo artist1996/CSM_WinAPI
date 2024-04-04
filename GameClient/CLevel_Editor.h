@@ -23,7 +23,7 @@ private:
 
     CTexture*          m_CurImg;
     CBackGround*       m_BackGround;
-
+    
 public:
     virtual void begin() override;
     virtual void tick() override;

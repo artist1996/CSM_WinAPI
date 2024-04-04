@@ -32,8 +32,8 @@ void CEditor_Dummy::render()
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
 
-	AlphaBlend(DC, (int)vPos.x - 25
-				 , (int)vPos.y - 30
+	AlphaBlend(DC, (int)vPos.x
+				 , (int)vPos.y
 				 , m_Img->GetWidth(), m_Img->GetHeight()
 				 , m_Img->GetDC()
 				 , 0, 0

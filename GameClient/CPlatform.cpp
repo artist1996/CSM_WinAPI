@@ -45,6 +45,11 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 		pRB->SetGround(true);
 	}
 
+	if (L"BattonBomb" == _OtherObj->GetName())
+	{
+		_OtherObj->Destroy();
+	}
+
 	if (L"ZERO" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
@@ -112,6 +117,10 @@ void CPlatform::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _
 
 void CPlatform::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
+	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+	if (nullptr == pRB)
+		return;
+
 	if (L"ZERO" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();

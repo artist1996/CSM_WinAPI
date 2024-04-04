@@ -22,7 +22,7 @@ CTrap_Meteor::CTrap_Meteor(Vec2 _Pos, OBJ_ID _ID)
 	SetID(_ID);
 	SetPos(_Pos);
 	SetStartPos(_Pos);
-	SetScale(Vec2(150.f, 150.f));
+	SetScale(Vec2(120.f, 130.f));
 
 	// Component
 	m_RigidBody = (CRigidBody*)AddComponent(new CRigidBody);
@@ -106,13 +106,13 @@ void CTrap_Meteor::tick()
 	{
 		if(OBJ_ID::METEOR_DOWN == GetID())
 		{
-			vPos += Vec2(0.f, 1.f) * 400.f * DT;
+			vPos += Vec2(0.f, 1.f) * 700.f * DT;
 			SetPos(vPos);
 		}
 
 		else if (OBJ_ID::METEOR_UP == GetID())
 		{
-			vPos += Vec2(0.f, -1.f) * 400.f * DT;
+			vPos += Vec2(0.f, -1.f) * 700.f * DT;
 			SetPos(vPos);
 		}
 

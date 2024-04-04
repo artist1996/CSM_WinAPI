@@ -34,6 +34,8 @@ CAtlasUI::CAtlasUI()
 	m_vecTex.push_back(pTex);
 	pTex = CAssetMgr::GetInst()->LoadTexture(L"Meteor", L"texture\\meteor.png");
 	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"Eruption", L"texture\\eruption.png");
+	m_vecTex.push_back(pTex);
 }
 
 CAtlasUI::~CAtlasUI()

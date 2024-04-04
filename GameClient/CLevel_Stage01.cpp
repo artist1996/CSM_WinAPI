@@ -2,9 +2,11 @@
 #include "CLevel_Stage01.h"
 #include "CKeyMgr.h"
 #include "CCollisionMgr.h"
-#include "CForce.h"
 #include "CCamera.h"
+
 #include "CPlayer.h"
+#include "CForce.h"
+
 #include "CMonster.h"
 #include "CMonster_Mettool.h"
 #include "CMonster_Raiden.h"
@@ -12,8 +14,10 @@
 #include "CMonster_Batton.h"
 
 #include "CTrap_Meteor.h"
+#include "CTrap_Eruption.h"
 
 #include "CPlatform.h"
+#include "CPlatform_Camera.h"
 #include "CLine.h"
 #include "CPathMgr.h"
 #include "CTexture.h"
@@ -80,18 +84,35 @@ void CLevel_Stage01::Enter()
 	//CMonster_GigaDeath* pGigaDeath = new CMonster_GigaDeath(Vec2(300.f, 300.f), Vec2(200.f, 180.f), 5, 200.f);
 	//AddObject(LAYER_TYPE::MONSTER, pGigaDeath);
 
-	CMonster_Batton* pBatton = new CMonster_Batton(Vec2(900.f, 300.f), Vec2(50.f, 70.f), 1, 200.f);
-	AddObject(LAYER_TYPE::MONSTER, pBatton);
+	//CMonster_Batton* pBatton = new CMonster_Batton(Vec2(900.f, 300.f), Vec2(50.f, 70.f), 1, 200.f);
+	//AddObject(LAYER_TYPE::MONSTER, pBatton);
+	//
+	//CTrap_Meteor* pMeteor = new CTrap_Meteor(Vec2(900.f, 300.f), OBJ_ID::METEOR_UP);
+	//AddObject(LAYER_TYPE::TRAP, pMeteor);
+	//
+	//CTrap_Eruption* pEruption = new CTrap_Eruption(Vec2(500.f, 400.f), OBJ_ID::ERUPTION);
+	//AddObject(LAYER_TYPE::TRAP, pEruption);
+	//
+	//pMeteor = new CTrap_Meteor(Vec2(1100.f, 300.f), OBJ_ID::METEOR_DOWN);
+	//AddObject(LAYER_TYPE::TRAP, pMeteor);
 
-	CTrap_Meteor* pMeteor = new CTrap_Meteor(Vec2(900.f, 300.f), OBJ_ID::METEOR_UP);
-	AddObject(LAYER_TYPE::TRAP, pMeteor);
+	//Camera
+	CPlatform_Camera* pPlatform = new CPlatform_Camera(Vec2(3751.f, 1437.f), Vec2(300.f, 300.f), PLATFORM_CAMERA::MAX_HEIGHT);
+	AddObject(LAYER_TYPE::PLATFORM, pPlatform);
+	pPlatform = new CPlatform_Camera(Vec2(16291.f, 1441.f), Vec2(300.f, 300.f), PLATFORM_CAMERA::MAX_HEIGHT2);
+	AddObject(LAYER_TYPE::PLATFORM, pPlatform);
+	
+	CCamera::GetInst()->SetMaxHighWidth(18751.f);
+	CCamera::GetInst()->SetMaxLowWidth(400.f);
+	CCamera::GetInst()->SetMaxHighHeight(300.f);
+	CCamera::GetInst()->SetMaxLowHeight(1236.f);
 
-	pMeteor = new CTrap_Meteor(Vec2(1100.f, 300.f), OBJ_ID::METEOR_DOWN);
-	AddObject(LAYER_TYPE::TRAP, pMeteor);
 
+	// Load
 	LoadPlatform(L"platform\\platform.dat");
 	LoadLine(L"line\\line.dat");
 	LoadMonster(L"monster\\monster.dat");
+	LoadTrap(L"trap\\trap.dat");
 	
 	// 레벨 충돌 설정하기
 	CCollisionMgr::GetInst()->CollisionCheckClear();
@@ -100,6 +121,8 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::PLAYER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::PLATFORM);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::MONSTER_MISSILE, LAYER_TYPE::PLATFORM);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::MONSTER_MISSILE, LAYER_TYPE::LINE);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::MONSTER);
 }
 

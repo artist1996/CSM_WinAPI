@@ -35,13 +35,13 @@ void CState_WallKick::FinalTick()
 	{
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{
-			vPos += Vec2(-1.f, 0.f) * (GetObj()->GetSpeed() + 100.f) * DT;
+			vPos += Vec2(-1.f, 0.f) * (GetObj()->GetSpeed() + 200.f) * DT;
 			GetObj()->SetPos(vPos);
 		}
 
 		else if (DIRECTION::LEFT == GetObj()->GetDirection())
 		{
-			vPos += Vec2(1.f, 0.f) * (GetObj()->GetSpeed() + 100.f) * DT;
+			vPos += Vec2(1.f, 0.f) * (GetObj()->GetSpeed() + 200.f) * DT;
 			GetObj()->SetPos(vPos);
 		}
 	}
@@ -74,7 +74,7 @@ void CState_WallKick::FinalTick()
 				if (KEY_PRESSED(KEY::RIGHT))
 				{
 					GetObj()->SetDirection(DIRECTION::RIGHT);
-					vPos += Vec2(1.f, 0.f) * 300.f * DT;
+					vPos += Vec2(1.f, 0.f) * 400.f * DT;
 					GetObj()->SetPos(vPos);
 				}
 
@@ -90,10 +90,10 @@ void CState_WallKick::FinalTick()
 				if (KEY_PRESSED(KEY::LEFT))
 				{
 					GetObj()->SetDirection(DIRECTION::LEFT);
-					vPos += Vec2(-1.f, 0.f) * 300.f * DT;
+					vPos += Vec2(-1.f, 0.f) * 400.f * DT;
 					GetObj()->SetPos(vPos);
 				}
-
+				
 				else if (KEY_TAP(KEY::RIGHT))
 				{
 					GetObj()->SetDirection(DIRECTION::RIGHT);
@@ -105,7 +105,7 @@ void CState_WallKick::FinalTick()
 
 	if (m_bAirMove && GetAnimator()->GetCurAnim()->IsFinish())
 	{
-		GetObj()->SetSpeed(300.f);
+		GetObj()->SetSpeed(400.f);
 		GetFSM()->ChangeState(L"FALL");
 		return;
 	}
@@ -114,7 +114,7 @@ void CState_WallKick::FinalTick()
 	{
 		if (GetAnimator()->GetCurAnim()->IsFinish())
 		{
-			GetObj()->SetSpeed(300.f);
+			GetObj()->SetSpeed(400.f);
 			GetFSM()->ChangeState(L"FALL");
 			return;
 		}

@@ -27,6 +27,12 @@ void CBatton_Move::FinalTick()
 		return;
 	}
 
+	if (abs(vPos.x - pTarget->GetPos().x) > 1000.f)
+	{
+		GetObj()->Destroy();
+		return;
+	}
+
 	vPos += Vec2(-1.f, 0.f) * 100.f * DT;
 	GetObj()->SetPos(vPos);
 	

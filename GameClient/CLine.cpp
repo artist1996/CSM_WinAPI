@@ -23,6 +23,11 @@ CLine::~CLine()
 
 void CLine::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
+	if (L"BattonBomb" == _OtherObj->GetName())
+	{
+		_OtherObj->Destroy();
+	}
+
 	if (L"ZERO" == _OtherObj->GetName())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
@@ -49,7 +54,10 @@ void CLine::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _Othe
 	float B = 0.f;
 
 	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
-	
+
+	if (nullptr == pRB)
+		return;
+
 	if (pRB->IsGround())
 	{
 		M = (vEnd.y - vStart.y) / (vEnd.x - vStart.x);
@@ -68,11 +76,15 @@ void CLine::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _Othe
 			_OtherObj->SetPos(_OtherObj->GetPos().x, LineY);
 		}
 	}
+	
 }
 
 void CLine::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
 	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+
+	if (nullptr == pRB)
+		return;
 
 	pRB->SetGround(false);
 }

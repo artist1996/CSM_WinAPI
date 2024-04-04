@@ -21,6 +21,7 @@ CAttack_BattonBomb::CAttack_BattonBomb(CObj* _Owner, bool _Active)
 	, m_bPlay(false)
 {
 	// Info
+	SetName(L"BattonBomb");
 	SetPos(m_Owner->GetPos());
 	SetScale(50.f, 60.f);
 	

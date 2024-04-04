@@ -41,7 +41,6 @@ protected:
     void SavePlatform(const wstring& _strRelativePath);
     void SaveLine(const wstring& _strRelativePath);
     void SaveMonster(const wstring& _strRelativePath);
-    void SaveMettool(const wstring& _strRelativePath);
     void SaveTrap(const wstring& _strRelativePath);
 
     void LoadPlatform(const wstring& _strRelativePath);

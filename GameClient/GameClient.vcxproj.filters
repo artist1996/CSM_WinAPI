@@ -311,6 +311,21 @@
     <Filter Include="03. Game\05. Object\04. Trap\01. Meteor">
       <UniqueIdentifier>{f0e27093-c17f-4186-8038-983f64da9b6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\05. Object\14. Dummy\EditorDummy\01. Editor Dummy">
+      <UniqueIdentifier>{fa234404-5a51-4018-89d5-2d090a5fa287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\14. Dummy\EditorDummy\02. Rendering Dummy">
+      <UniqueIdentifier>{febe2d47-dbb3-4fa2-b8ba-7ebc4bf66be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\04. Trap\02. Eruption">
+      <UniqueIdentifier>{5e7b084b-66bf-42ef-837a-6b69b39c4d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\06. Platform\01. Normal">
+      <UniqueIdentifier>{f2cb9cb5-64ab-4e2c-89ff-6c1de0367dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\06. Platform\02. Camera">
+      <UniqueIdentifier>{9f4c017f-f04c-4276-8a9c-131deaa1ed01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -415,9 +430,6 @@
     <ClInclude Include="CForce.h">
       <Filter>03. Game\05. Object\11. Force</Filter>
     </ClInclude>
-    <ClInclude Include="CPlatform.h">
-      <Filter>03. Game\05. Object\06. Platform</Filter>
-    </ClInclude>
     <ClInclude Include="CCamera.h">
       <Filter>03. Game\03. Manager\09. Camera</Filter>
     </ClInclude>
@@ -486,9 +498,6 @@
     </ClInclude>
     <ClInclude Include="CEditorUI.h">
       <Filter>03. Game\05. Object\12. UI\Editor UI</Filter>
-    </ClInclude>
-    <ClInclude Include="CEditor_Dummy.h">
-      <Filter>03. Game\05. Object\14. Dummy\EditorDummy</Filter>
     </ClInclude>
     <ClInclude Include="CState_Player.h">
       <Filter>03. Game\08. Module\02. State\01. PlayerState</Filter>
@@ -637,6 +646,21 @@
     <ClInclude Include="CTrap.h">
       <Filter>03. Game\05. Object\04. Trap</Filter>
     </ClInclude>
+    <ClInclude Include="CEditor_Dummy.h">
+      <Filter>03. Game\05. Object\14. Dummy\EditorDummy\01. Editor Dummy</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditor_RenderDummy.h">
+      <Filter>03. Game\05. Object\14. Dummy\EditorDummy\02. Rendering Dummy</Filter>
+    </ClInclude>
+    <ClInclude Include="CTrap_Eruption.h">
+      <Filter>03. Game\05. Object\04. Trap\02. Eruption</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlatform.h">
+      <Filter>03. Game\05. Object\06. Platform\01. Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlatform_Camera.h">
+      <Filter>03. Game\05. Object\06. Platform\02. Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -742,9 +766,6 @@
     <ClCompile Include="CForce.cpp">
       <Filter>03. Game\05. Object\11. Force</Filter>
     </ClCompile>
-    <ClCompile Include="CPlatform.cpp">
-      <Filter>03. Game\05. Object\06. Platform</Filter>
-    </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>03. Game\03. Manager\09. Camera</Filter>
     </ClCompile>
@@ -813,9 +834,6 @@
     </ClCompile>
     <ClCompile Include="CEditorUI.cpp">
       <Filter>03. Game\05. Object\12. UI\Editor UI</Filter>
-    </ClCompile>
-    <ClCompile Include="CEditor_Dummy.cpp">
-      <Filter>03. Game\05. Object\14. Dummy\EditorDummy</Filter>
     </ClCompile>
     <ClCompile Include="CState_Player.cpp">
       <Filter>03. Game\08. Module\02. State\01. PlayerState</Filter>
@@ -957,6 +975,21 @@
     </ClCompile>
     <ClCompile Include="CTrap.cpp">
       <Filter>03. Game\05. Object\04. Trap</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditor_Dummy.cpp">
+      <Filter>03. Game\05. Object\14. Dummy\EditorDummy\01. Editor Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditor_RenderDummy.cpp">
+      <Filter>03. Game\05. Object\14. Dummy\EditorDummy\02. Rendering Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="CTrap_Eruption.cpp">
+      <Filter>03. Game\05. Object\04. Trap\02. Eruption</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlatform.cpp">
+      <Filter>03. Game\05. Object\06. Platform\01. Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlatform_Camera.cpp">
+      <Filter>03. Game\05. Object\06. Platform\02. Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -140,6 +140,8 @@ enum class OBJ_ID
 	METEOR_LEFT,
 	METEOR_DIAGONAL,
 
+	ERUPTION,
+
 	END,
 };
 
@@ -164,12 +166,26 @@ enum class MAP_TYPE
 	PLATFORM,
 	LINE,
 	MONSTER,
+	TRAP,
+
+	END,
 };
 
 enum class SAVE_TYPE
 {
 	STAGE01,
 	STAGE02,
+
+	END,
+};
+
+enum class PLATFORM_CAMERA
+{
+	MAX_HEIGHT,
+	MAX_HEIGHT2,
+	MAX_WIDTH,
+	LOW_HEIGHT,
+	LOW_WIDTH,
 
 	END,
 };

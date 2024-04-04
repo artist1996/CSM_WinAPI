@@ -19,6 +19,11 @@
 #include "CMonster_Mettool.h"
 #include "CMonster_Raiden.h"
 #include "CMonster_GigaDeath.h"
+#include "CMonster_Batton.h"
+
+#include "CTrap_Meteor.h"
+
+#include "CEditor_RenderDummy.h"
 
 void ButtonCallBackFunc()
 {
@@ -95,6 +100,27 @@ void CLevel_Editor::tick()
 		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"batton_editor", L"texture\\batton_editor.png"));
 	}
 
+	if (KEY_TAP(KEY::_5))
+	{
+		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		m_ID = OBJ_ID::METEOR_UP;
+		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"meteorup_editor", L"texture\\meteorup_editor.png"));
+	}
+
+	if (KEY_TAP(KEY::_4))
+	{
+		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		m_ID = OBJ_ID::METEOR_DOWN;
+		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"meteordown_editor", L"texture\\meteordown_editor.png"));
+	}
+
+	if (KEY_TAP(KEY::_2))
+	{
+		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
+		m_ID = OBJ_ID::ERUPTION;
+		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"eruption_editor", L"texture\\eruption_editor.png"));
+	}
+	
 	if (KEY_TAP(KEY::P))
 	{
 		SetType(MAP_TYPE::PLATFORM);
@@ -116,6 +142,13 @@ void CLevel_Editor::tick()
 		MessageBox(CEngine::GetInst()->GetMainWnd(), L"MONSTER", L"Type", MB_OK);
 	}
 
+	else if (KEY_TAP(KEY::N))
+	{
+		SetType(MAP_TYPE::TRAP);
+		ResetInfo();
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"TRAP", L"Type", MB_OK);
+	}
+
 	if (MAP_TYPE::PLATFORM == m_Type)
 	{
 		Platform();
@@ -129,6 +162,11 @@ void CLevel_Editor::tick()
 	else if (MAP_TYPE::MONSTER == m_Type)
 	{
 		Monster();
+	}
+
+	else if (MAP_TYPE::TRAP == m_Type)
+	{
+		Trap();
 	}
 	 
 	if (KEY_TAP(KEY::T))
@@ -147,16 +185,16 @@ void CLevel_Editor::tick()
 		LoadTrap(L"trap\\trap.dat");
 	}
 
-	if (KEY_TAP(KEY::_5))
+	if (KEY_TAP(KEY::C))
 	{
-		ChangeLevel(LEVEL_TYPE::STAGE_01);
+		ChangeLevel(LEVEL_TYPE::LOGO_START);
 	}
 }
 
 void CLevel_Editor::Enter()
 {
 	CCamera::GetInst()->SetOwner(nullptr);
-	m_UI = new CEditorUI;//(Vec2(CEngine::GetInst()->GetResolution().x - 200.f, 0.f), Vec2(400.f, 200.f));
+	m_UI = new CEditorUI;
 	m_UI->SetScale(Vec2(150.f, 150.f));
 	m_UI->SetPos(CEngine::GetInst()->GetResolution().x - 150.f, 0.f);
 	AddObject(LAYER_TYPE::UI, m_UI);
@@ -221,29 +259,30 @@ void CLevel_Editor::Monster()
 	if (KEY_TAP(KEY::LBTN))
 	{
 		Vec2 vPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
-		CMonster_Mettool* pMonster = new CMonster_Mettool(vPos, Vec2(50.f, 50.f), 1, 200.f);
 		
 		if (OBJ_ID::METTOOL == m_ID)
 		{
-			CMonster_Mettool* pMonster = new CMonster_Mettool(vPos, Vec2(50.f, 50.f), 1, 200.f);
-			AddObject(LAYER_TYPE::MONSTER, pMonster);
+			CEditor_RenderDummy* pDummy = new CEditor_RenderDummy(vPos, Vec2(50.f, 50.f), OBJ_ID::METTOOL, 1, 200.f);
+			AddObject(LAYER_TYPE::MONSTER, pDummy);
 			return;
 		}
 
 		else if (OBJ_ID::RAIDEN == m_ID)
 		{
-			CMonster_Raiden* pMonster = new CMonster_Raiden(vPos, Vec2(150.f, 180.f), 6, 200.f);
+			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, Vec2(150.f, 180.f), OBJ_ID::RAIDEN, 6, 200.f);
 			AddObject(LAYER_TYPE::MONSTER, pMonster);
 		}
 
 		else if (OBJ_ID::GIGADEATH == m_ID)
 		{
-			CMonster_GigaDeath* pMonster = new CMonster_GigaDeath(vPos, Vec2(200.f, 180.f), 5, 200.f);
+			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, Vec2(200.f, 180.f), OBJ_ID::GIGADEATH, 5, 200.f);
 			AddObject(LAYER_TYPE::MONSTER, pMonster);
 		}
 
 		else if (OBJ_ID::BATTON == m_ID)
 		{
+			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, Vec2(50.f, 70.f), OBJ_ID::BATTON, 2, 200.f);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
 			return;
 		}
 	}
@@ -251,6 +290,28 @@ void CLevel_Editor::Monster()
 
 void CLevel_Editor::Trap()
 {
+	if (KEY_TAP(KEY::LBTN))
+	{
+		Vec2 vPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+		
+		if (OBJ_ID::METEOR_UP == m_ID)
+		{
+			CEditor_RenderDummy* pTrap = new CEditor_RenderDummy(vPos, Vec2(120.f,130.f), OBJ_ID::METEOR_UP, 3, 200.f);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
+
+		else if (OBJ_ID::METEOR_DOWN == m_ID)
+		{
+			CEditor_RenderDummy* pTrap = new CEditor_RenderDummy(vPos, Vec2(120.f, 130.f), OBJ_ID::METEOR_DOWN, 3, 200.f);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
+
+		else if (OBJ_ID::ERUPTION == m_ID)
+		{
+			CEditor_RenderDummy* pTrap = new CEditor_RenderDummy(vPos, Vec2(10.f, 10.f), OBJ_ID::ERUPTION, 0, 200.f);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
+	}
 }
 
 void CLevel_Editor::CreateUI()
