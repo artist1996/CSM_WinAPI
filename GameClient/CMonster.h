@@ -10,6 +10,8 @@ private:
     float       m_DetectRange;
     float       m_Speed;
 
+    float       m_Time;
+
 public:
     virtual void begin() override;
     virtual void tick() override;

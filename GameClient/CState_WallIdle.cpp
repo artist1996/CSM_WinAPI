@@ -51,7 +51,7 @@ void CState_WallIdle::FinalTick()
 	{
 		if (KEY_PRESSED(KEY::RIGHT))
 		{
-			vPos += Vec2(1.f, 0.f) * 300.f * DT;
+			//vPos += Vec2(1.f, 0.f) * 300.f * DT;
 			GetObj()->SetDirection(DIRECTION::LEFT);
 			GetRigidBody()->SetWall(false);
 			GetFSM()->ChangeState(L"FALL");

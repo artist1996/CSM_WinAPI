@@ -10,8 +10,11 @@
 #include "CLine.h"
 #include "CCollider.h"
 #include "CTexture.h"
+
 #include "CBackGround.h"
 #include "CStage01.h"
+#include "CStage02.h"
+
 #include "CPanel.h"
 #include "CButton.h"
 #include "CEditorUI.h"
@@ -69,7 +72,10 @@ void CLevel_Editor::tick()
 
 	else if (KEY_TAP(KEY::_2))
 	{
-
+		m_BackGround = new CStage02;
+		m_BackGround->SetPos(Vec2(0.f, 0.f));
+		AddObject(LAYER_TYPE::BACKGROUND, m_BackGround);
+		SetSaveType(SAVE_TYPE::STAGE02);			
 	}
 
 	if (KEY_TAP(KEY::_9))
@@ -114,7 +120,7 @@ void CLevel_Editor::tick()
 		pUI->SetImg(CAssetMgr::GetInst()->LoadTexture(L"meteordown_editor", L"texture\\meteordown_editor.png"));
 	}
 
-	if (KEY_TAP(KEY::_2))
+	if (KEY_TAP(KEY::_3))
 	{
 		CEditorUI* pUI = dynamic_cast<CEditorUI*>(m_UI);
 		m_ID = OBJ_ID::ERUPTION;
@@ -305,7 +311,7 @@ void CLevel_Editor::Trap()
 			CEditor_RenderDummy* pTrap = new CEditor_RenderDummy(vPos, Vec2(120.f, 130.f), OBJ_ID::METEOR_DOWN, 3, 200.f);
 			AddObject(LAYER_TYPE::TRAP, pTrap);
 		}
-
+		
 		else if (OBJ_ID::ERUPTION == m_ID)
 		{
 			CEditor_RenderDummy* pTrap = new CEditor_RenderDummy(vPos, Vec2(10.f, 10.f), OBJ_ID::ERUPTION, 0, 200.f);

@@ -33,6 +33,8 @@ private:
     
     bool                m_bDead;    // 삭제 예정상태
 
+    bool                m_Hit;
+
     float               m_Speed;    // Object 속력
 
 public:
@@ -43,6 +45,8 @@ public:
 
     void SetPos(float _x, float _y)             { m_Pos.x = _x; m_Pos.y = _y; }
     void SetScale(float _width, float _height)  { m_Scale.x = _width; m_Scale.y = _height; }
+
+    void SetHit(bool _Hit) { m_Hit = _Hit; }
 
     Vec2 GetPos()               { return m_Pos; }
     Vec2 GetScale()             { return m_Scale; }
@@ -58,9 +62,8 @@ public:
     void SetSpeed(float _Speed) { m_Speed = _Speed; }
     float GetSpeed()            { return m_Speed; }
 
-
     bool IsDead()               { return m_bDead; }
-
+    bool IsHit()                { return m_Hit; }
 
 
     void Destroy();

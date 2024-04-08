@@ -16,7 +16,7 @@ void CState_Jump::Enter()
 	GetRigidBody()->Jump();
 
 
-	GetCollider()->SetScale(Vec2(90.f, 130.f));
+	GetCollider()->SetScale(Vec2(70.f, 130.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -60.f));
 
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())

@@ -22,6 +22,8 @@ void CState_Start::FinalTick()
 {
 	Vec2 vPos = GetObj()->GetPos();
 
+	GetCollider()->SetScale(Vec2(90.f, 105.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
 
 	vPos += Vec2(0.f, 1.f) * 200.f * DT;
 	GetObj()->SetPos(vPos);

@@ -105,7 +105,16 @@ void CState_WallKick::FinalTick()
 
 	if (m_bAirMove && GetAnimator()->GetCurAnim()->IsFinish())
 	{
-		GetObj()->SetSpeed(400.f);
+		if (KEY_TAP(KEY::RIGHT) || KEY_PRESSED(KEY::RIGHT))
+		{
+			GetObj()->SetDirection(DIRECTION::RIGHT);
+		}
+
+		if (KEY_TAP(KEY::LEFT) || KEY_PRESSED(KEY::LEFT))
+		{
+			GetObj()->SetDirection(DIRECTION::LEFT);
+		}
+		GetObj()->SetSpeed(500.f);
 		GetFSM()->ChangeState(L"FALL");
 		return;
 	}
@@ -114,7 +123,17 @@ void CState_WallKick::FinalTick()
 	{
 		if (GetAnimator()->GetCurAnim()->IsFinish())
 		{
-			GetObj()->SetSpeed(400.f);
+			if (KEY_TAP(KEY::RIGHT) || KEY_PRESSED(KEY::RIGHT))
+			{
+				GetObj()->SetDirection(DIRECTION::RIGHT);
+			}
+
+			if (KEY_TAP(KEY::LEFT) || KEY_PRESSED(KEY::LEFT))
+			{
+				GetObj()->SetDirection(DIRECTION::LEFT);
+			}
+
+			GetObj()->SetSpeed(500.f);
 			GetFSM()->ChangeState(L"FALL");
 			return;
 		}

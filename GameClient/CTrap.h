@@ -8,6 +8,8 @@ private:
 
 protected:
     void SetStartPos(Vec2 _Pos) { m_StartPos = _Pos; }
+
+public:
     Vec2 GetStartPos()          { return m_StartPos; }
 
 public:

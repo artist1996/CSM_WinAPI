@@ -13,6 +13,8 @@
 #include "CSoundMgr.h"
 #include "CTexture.h"
 
+
+
 CEngine::CEngine()
 	: m_hMainWnd(nullptr)	
 	, m_Resolution{}
@@ -97,6 +99,7 @@ void CEngine::progress()
 	CLevelMgr::GetInst()->render();	
 	CCamera::GetInst()->render();
 	CDbgRender::GetInst()->render();
+
 
 	// Sub -> Main
 	BitBlt(m_hDC, 0, 0, m_Resolution.x, m_Resolution.y, m_SubTex->GetDC(), 0, 0, SRCCOPY);

@@ -68,6 +68,7 @@ void CTaskMgr::ExecuteTask()
 			bChangeLevel = true;
 			LEVEL_TYPE NextType = (LEVEL_TYPE)m_vecTask[i].Param1;
 			CLevelMgr::GetInst()->ChangeLevel(NextType);
+			//bChangeLevel = false;
 		}
 		break;
 		case TASK_TYPE::UI_LBTN_DOWN:

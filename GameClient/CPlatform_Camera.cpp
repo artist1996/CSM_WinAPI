@@ -76,6 +76,8 @@ void CPlatform_Camera::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CC
 
 		case PLATFORM_CAMERA::LOW_WIDTH:
 		{
+			CCamera::GetInst()->SetMaxLowWidth(4694.f);
+			CCamera::GetInst()->SetMaxHighHeight(297.f);
 			Destroy();
 		}
 		break;

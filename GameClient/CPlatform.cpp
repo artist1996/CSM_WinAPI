@@ -61,7 +61,7 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 		Vec2 vScale = GetScale();
 
 
-		if (PrevPos.y > vPos.y - vScale.y * 0.5f
+		if (PrevPos.y> vPos.y - vScale.y * 0.5f
 			&& pRB->IsGround())
 		{
 			pRB->SetBlock(true);
@@ -69,7 +69,7 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 			return;
 		}
 		
-		if (_OtherObj->GetPrevPos().y - 3.f <= vPos.y - vScale.y * 0.5f)
+		if (_OtherObj->GetPrevPos().y - 10.f <= vPos.y - vScale.y * 0.5f)
 		{
 
 			pRB->SetGround(true);
@@ -79,7 +79,7 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 		}
 			
 		else if (_OtherObj->GetPos().y > vPos.y - vScale.y * 0.5f
-			&& _OtherObj->GetPos().y < vPos.y + vScale.y * 0.5f
+			&& _OtherObj->GetPos().y - _OtherObj->GetScale().y * 0.5f < vPos.y + vScale.y * 0.5f
 			&& _OtherObj->GetPos().x < vPos.x - vScale.x * 0.5f
 			&& _OtherObj->GetPos().x < vPos.x
 			&& !pRB->IsGround())
@@ -90,7 +90,7 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 		}
 			
 		else if (_OtherObj->GetPos().y > vPos.y - vScale.y * 0.5f
-			&& _OtherObj->GetPos().y < vPos.y + vScale.y * 0.5f
+			&& _OtherObj->GetPos().y - _OtherObj->GetScale().y * 0.5f < vPos.y + vScale.y * 0.5f
 			&& _OtherObj->GetPos().x > vPos.x - vScale.x * 0.5f
 			&& _OtherObj->GetPos().x > vPos.x
 			&& !pRB->IsGround())

@@ -9,6 +9,7 @@
 #include "CTimeMgr.h"
 #include "CPathMgr.h"
 #include "CLevelMgr.h"
+
 #include "CLevel.h"
 
 CAnimation::CAnimation()
@@ -17,6 +18,8 @@ CAnimation::CAnimation()
 	, m_Time(0.f)
 	, m_CurFrmIdx(0)
 	, m_bFinish(false)
+	, m_OldBrush(nullptr)
+	, m_Hit(false)
 {
 
 }
@@ -50,6 +53,7 @@ void CAnimation::finaltick()
 	}
 }
 
+
 void CAnimation::render()
 {
 	// 현재 프레임 정보
@@ -65,7 +69,7 @@ void CAnimation::render()
 	
 	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 
-	if (L"ZERO" == pOwnerObj->GetName())
+	if (LAYER_TYPE::MONSTER_MISSILE == pOwnerObj->GetLayerType())
 	{
 		BLENDFUNCTION bf = {};
 
@@ -80,10 +84,79 @@ void CAnimation::render()
 			, m_Atlas->GetDC()
 			, (int)frm.StartPos.x, (int)frm.StartPos.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
-		return;
 	}
 
-	if (L"Mettool" == pOwnerObj->GetName())
+	if (L"Shadow" == pOwnerObj->GetName())
+	{
+		BLENDFUNCTION bf = {};
+
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 70;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+
+		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+	}
+
+	//if (LAYER_TYPE::DUMMY == pOwnerObj->GetLayerType())
+	//{
+	//	BLENDFUNCTION bf = {};
+	//
+	//	bf.BlendOp = AC_SRC_OVER;
+	//	bf.BlendFlags = 0;
+	//	bf.SourceConstantAlpha = 255;
+	//	bf.AlphaFormat = AC_SRC_ALPHA;
+	//
+	//	AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+	//		, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+	//		, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+	//		, m_Atlas->GetDC()
+	//		, (int)frm.StartPos.x, (int)frm.StartPos.y
+	//		, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+	//}
+
+	if (LAYER_TYPE::MONSTER == pOwnerObj->GetLayerType() || LAYER_TYPE::TRAP == pOwnerObj->GetLayerType())
+	{
+		if (pOwnerObj->IsHit())
+		{	
+			BLENDFUNCTION bf = {};
+			
+			bf.BlendOp = AC_SRC_OVER;
+			bf.BlendFlags = 0;
+			bf.SourceConstantAlpha = 235;
+			bf.AlphaFormat = AC_SRC_ALPHA;
+			
+			AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+				, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+				, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+				, m_Atlas->GetDC()
+				, (int)frm.StartPos.x, (int)frm.StartPos.y
+				, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+		}
+
+		else
+		{
+			BLENDFUNCTION bf = {};
+
+			bf.BlendOp = AC_SRC_OVER;
+			bf.BlendFlags = 0;
+			bf.SourceConstantAlpha = 255;
+			bf.AlphaFormat = AC_SRC_ALPHA;
+
+			AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+				, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+				, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+				, m_Atlas->GetDC()
+				, (int)frm.StartPos.x, (int)frm.StartPos.y
+				, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+		}
+	}
+	if (L"ZERO" == pOwnerObj->GetName())
 	{
 		BLENDFUNCTION bf = {};
 
@@ -139,23 +212,7 @@ void CAnimation::render()
 			, (int)frm.StartPos.x, (int)frm.StartPos.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 		return;
-	}
-
-
-	BLENDFUNCTION bf = {};
-
-	bf.BlendOp = AC_SRC_OVER;
-	bf.BlendFlags = 0;
-	bf.SourceConstantAlpha = 255;
-	bf.AlphaFormat = AC_SRC_ALPHA;
-
-	AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
-		, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
-		, (int)frm.SliceSize.x, (int)frm.SliceSize.y
-		, m_Atlas->GetDC()
-		, (int)frm.StartPos.x, (int)frm.StartPos.y
-		, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
-	
+	}	
 }
 
 void CAnimation::Create(  CTexture* _AtlasTex, Vec2 _StartPos
@@ -195,10 +252,10 @@ void CAnimation::Save(const wstring& _strRelativeFolderPath)
 {
 	// Save 함수 개선
 	//wstring strFilePath = CPathMgr::GetInst()->GetContehtPath();	// 컨텐츠 패스(절대경로)
-	//strFilePath += _strRelativeFolderPath;							// 상대 경로
+	//strFilePath += _strRelativeFolderPath;						// 상대 경로
 	//strFilePath += GetName();										// 파일 이름
 	//strFilePath += L".anim";										// 확장자 명
-	
+
 	wstring strFilePath = _strRelativeFolderPath;
 	strFilePath += L".anim";
 

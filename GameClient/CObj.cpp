@@ -17,6 +17,7 @@ CObj::CObj()
 	, m_eDir(DIRECTION::END)
 	, m_Speed(0.f)
 	, m_ID(OBJ_ID::END)
+	, m_Hit(false)
 {
 }
 
@@ -30,6 +31,8 @@ CObj::CObj(const CObj& _Other)
 	, m_bDead(false)
 	, m_eDir(_Other.m_eDir)
 	, m_ID(_Other.m_ID)
+	, m_Speed(0.f)
+	, m_Hit(false)
 {
 	for (size_t i = 0; i < _Other.m_vecCom.size(); ++i)
 	{

@@ -13,6 +13,7 @@
 #include "CMonster_Batton.h"
 
 #include "CTrap_Meteor.h"
+#include "CTrap_Eruption.h"
 
 #include "CEditor_RenderDummy.h"
 
@@ -518,8 +519,23 @@ void CLevel::LoadTrap(const wstring& _strRelativePath)
 		fread(&HP, sizeof(int), 1, pFile);
 		fread(&Range, sizeof(float), 1, pFile);
 
-		CTrap_Meteor* pTrap = new CTrap_Meteor(vPos, ID);
-		AddObject(LAYER_TYPE::TRAP, pTrap);
+		if (OBJ_ID::METEOR_DOWN == ID)
+		{
+			CTrap_Meteor* pTrap = new CTrap_Meteor(vPos, ID);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
+
+		else if (OBJ_ID::METEOR_UP == ID)
+		{
+			CTrap_Meteor* pTrap = new CTrap_Meteor(vPos, ID);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
+
+		else if (OBJ_ID::ERUPTION == ID)
+		{
+			CTrap_Eruption* pTrap = new CTrap_Eruption(vPos, ID);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
 	}
 
 	fclose(pFile);

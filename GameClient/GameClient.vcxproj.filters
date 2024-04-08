@@ -62,9 +62,6 @@
     <Filter Include="03. Game\03. Manager\08. TaskMgr">
       <UniqueIdentifier>{36102273-7557-4d4e-933d-e4cf71e18845}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\03. Manager\09. Camera">
-      <UniqueIdentifier>{f0391659-71a7-4a50-a813-4ff665a3f8ea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\06. Component\05. TileMap">
       <UniqueIdentifier>{131c4757-28f9-42bc-af67-4c86771ac61c}</UniqueIdentifier>
     </Filter>
@@ -254,17 +251,8 @@
     <Filter Include="03. Game\05. Object\09. Effect\03. Trap">
       <UniqueIdentifier>{f82fa1b8-bcda-470a-b110-a03ee53c3561}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\05. Object\09. Effect\04. Boss">
-      <UniqueIdentifier>{93f04d88-c1c2-4b7d-b43f-56b611f1d24e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\05. Object\10. BackGround">
       <UniqueIdentifier>{34e37779-d915-423c-8766-22b1baa9024f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\05. Object\10. BackGround\Stage01">
-      <UniqueIdentifier>{6f236aa7-b022-4bda-af15-bfc7ef56cee6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\05. Object\10. BackGround\Logo">
-      <UniqueIdentifier>{ac614a74-12a4-42e0-89e0-714c3ec07d62}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Game\05. Object\11. Force">
       <UniqueIdentifier>{04dcd61d-7d2d-42a3-ad6a-4e2a49a87f3a}</UniqueIdentifier>
@@ -296,12 +284,6 @@
     <Filter Include="03. Game\05. Object\14. Dummy">
       <UniqueIdentifier>{790bca30-efde-4ead-ab76-1315283e8a92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\05. Object\14. Dummy\EditorDummy">
-      <UniqueIdentifier>{7c9b9015-79e4-49da-9138-62be1b55a68c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\05. Object\14. Dummy\AnimationDummy">
-      <UniqueIdentifier>{5ce48f0b-c73a-4c2a-b481-7c4be99c3db3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\05. Object\03. Boss">
       <UniqueIdentifier>{938a1f04-484b-4fbb-8eb3-1ececace3a69}</UniqueIdentifier>
     </Filter>
@@ -311,12 +293,6 @@
     <Filter Include="03. Game\05. Object\04. Trap\01. Meteor">
       <UniqueIdentifier>{f0e27093-c17f-4186-8038-983f64da9b6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\05. Object\14. Dummy\EditorDummy\01. Editor Dummy">
-      <UniqueIdentifier>{fa234404-5a51-4018-89d5-2d090a5fa287}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\05. Object\14. Dummy\EditorDummy\02. Rendering Dummy">
-      <UniqueIdentifier>{febe2d47-dbb3-4fa2-b8ba-7ebc4bf66be2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\05. Object\04. Trap\02. Eruption">
       <UniqueIdentifier>{5e7b084b-66bf-42ef-837a-6b69b39c4d71}</UniqueIdentifier>
     </Filter>
@@ -325,6 +301,75 @@
     </Filter>
     <Filter Include="03. Game\05. Object\06. Platform\02. Camera">
       <UniqueIdentifier>{9f4c017f-f04c-4276-8a9c-131deaa1ed01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\10. BackGround\04. Stage02">
+      <UniqueIdentifier>{1b0ee768-a10e-4fa9-bea6-1440319cd104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\10. BackGround\03. Stage01">
+      <UniqueIdentifier>{6f236aa7-b022-4bda-af15-bfc7ef56cee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\10. BackGround\01. Logo">
+      <UniqueIdentifier>{ac614a74-12a4-42e0-89e0-714c3ec07d62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\10. BackGround\02. Select">
+      <UniqueIdentifier>{2c9e096c-7216-4fe3-b0c3-26c9aeacc93b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\09. Effect\04. Boss">
+      <UniqueIdentifier>{93f04d88-c1c2-4b7d-b43f-56b611f1d24e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\03. Manager\09. Camera">
+      <UniqueIdentifier>{f0391659-71a7-4a50-a813-4ff665a3f8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\15. Door">
+      <UniqueIdentifier>{1242d0b4-c736-4739-85ee-d865104a412f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\06. Platform\03. Level">
+      <UniqueIdentifier>{33cdfa47-957b-4f1a-a141-5beb74b5a499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\06. Platform\04. Magma">
+      <UniqueIdentifier>{9e8d2cb9-cbd4-430f-8ff1-a54219a2d0bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\09. Effect\05. Door">
+      <UniqueIdentifier>{65fbb639-6adb-4c52-b6ff-670fc312b9fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\14. Dummy\01. AnimationDummy">
+      <UniqueIdentifier>{5ce48f0b-c73a-4c2a-b481-7c4be99c3db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\14. Dummy\02. EditorDummy">
+      <UniqueIdentifier>{7c9b9015-79e4-49da-9138-62be1b55a68c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\14. Dummy\02. EditorDummy\01. Editor Dummy">
+      <UniqueIdentifier>{fa234404-5a51-4018-89d5-2d090a5fa287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\14. Dummy\02. EditorDummy\02. Rendering Dummy">
+      <UniqueIdentifier>{febe2d47-dbb3-4fa2-b8ba-7ebc4bf66be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\09. Effect\01. Player\01. Dash">
+      <UniqueIdentifier>{19788b7d-26f4-4511-97d7-bc9ef2c41d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\09. Effect\01. Player\02. Saber">
+      <UniqueIdentifier>{31eccd81-8b24-49f5-ba0b-98d373c7d587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\16. Spawner">
+      <UniqueIdentifier>{4a8a7a99-7342-4a06-8436-7f8ef44faab2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\16. Spawner\01. Meteor">
+      <UniqueIdentifier>{f3848645-b785-4baa-9b68-da13004745d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\16. Spawner\02. Monster">
+      <UniqueIdentifier>{b50997e2-845c-4ccc-b15c-a6729515378a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\17. AfterImage">
+      <UniqueIdentifier>{207323cc-1624-4b92-9311-43f6908478fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\03. Manager\12. ShadowMgr">
+      <UniqueIdentifier>{55f9f926-aa55-4540-b130-67aa26d54932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\12. UI\Warning UI">
+      <UniqueIdentifier>{c8d30939-b3f2-4ced-8609-f6ddf222bf4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\06. Platform\05. BossRoom">
+      <UniqueIdentifier>{6fbf22cf-b4a0-4829-ad92-771fae4d1e79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -464,7 +509,7 @@
       <Filter>03. Game\05. Object\10. BackGround</Filter>
     </ClInclude>
     <ClInclude Include="CStage01.h">
-      <Filter>03. Game\05. Object\10. BackGround\Stage01</Filter>
+      <Filter>03. Game\05. Object\10. BackGround\03. Stage01</Filter>
     </ClInclude>
     <ClInclude Include="CPanel.h">
       <Filter>03. Game\05. Object\12. UI\PanelUI</Filter>
@@ -479,7 +524,7 @@
       <Filter>03. Game\04. Level\01. Start_Logo</Filter>
     </ClInclude>
     <ClInclude Include="CLogo.h">
-      <Filter>03. Game\05. Object\10. BackGround\Logo</Filter>
+      <Filter>03. Game\05. Object\10. BackGround\01. Logo</Filter>
     </ClInclude>
     <ClInclude Include="CLevel_AnimTool.h">
       <Filter>03. Game\04. Level\03. Animation Tool</Filter>
@@ -494,7 +539,7 @@
       <Filter>03. Game\05. Object\12. UI\Frame UI</Filter>
     </ClInclude>
     <ClInclude Include="CDummy.h">
-      <Filter>03. Game\05. Object\14. Dummy\AnimationDummy</Filter>
+      <Filter>03. Game\05. Object\14. Dummy\01. AnimationDummy</Filter>
     </ClInclude>
     <ClInclude Include="CEditorUI.h">
       <Filter>03. Game\05. Object\12. UI\Editor UI</Filter>
@@ -577,9 +622,6 @@
     <ClInclude Include="CMettool_Idle.h">
       <Filter>03. Game\08. Module\02. State\02. MonsterState\01. Mettool\01. Idle</Filter>
     </ClInclude>
-    <ClInclude Include="CEffect_Dash.h">
-      <Filter>03. Game\05. Object\09. Effect\01. Player</Filter>
-    </ClInclude>
     <ClInclude Include="CEffect_MonsterDead.h">
       <Filter>03. Game\05. Object\09. Effect\02. Monster\01. Dead</Filter>
     </ClInclude>
@@ -647,10 +689,10 @@
       <Filter>03. Game\05. Object\04. Trap</Filter>
     </ClInclude>
     <ClInclude Include="CEditor_Dummy.h">
-      <Filter>03. Game\05. Object\14. Dummy\EditorDummy\01. Editor Dummy</Filter>
+      <Filter>03. Game\05. Object\14. Dummy\02. EditorDummy\01. Editor Dummy</Filter>
     </ClInclude>
     <ClInclude Include="CEditor_RenderDummy.h">
-      <Filter>03. Game\05. Object\14. Dummy\EditorDummy\02. Rendering Dummy</Filter>
+      <Filter>03. Game\05. Object\14. Dummy\02. EditorDummy\02. Rendering Dummy</Filter>
     </ClInclude>
     <ClInclude Include="CTrap_Eruption.h">
       <Filter>03. Game\05. Object\04. Trap\02. Eruption</Filter>
@@ -660,6 +702,48 @@
     </ClInclude>
     <ClInclude Include="CPlatform_Camera.h">
       <Filter>03. Game\05. Object\06. Platform\02. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CLevel_Stage02.h">
+      <Filter>03. Game\04. Level\05. Stage02</Filter>
+    </ClInclude>
+    <ClInclude Include="CStage02.h">
+      <Filter>03. Game\05. Object\10. BackGround\04. Stage02</Filter>
+    </ClInclude>
+    <ClInclude Include="CDoor.h">
+      <Filter>03. Game\05. Object\15. Door</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlatform_Level.h">
+      <Filter>03. Game\05. Object\06. Platform\03. Level</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect_Door.h">
+      <Filter>03. Game\05. Object\09. Effect\05. Door</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect_Meteor.h">
+      <Filter>03. Game\05. Object\09. Effect\03. Trap</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect_Dash.h">
+      <Filter>03. Game\05. Object\09. Effect\01. Player\01. Dash</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect_Saber.h">
+      <Filter>03. Game\05. Object\09. Effect\01. Player\02. Saber</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpawner_Meteor.h">
+      <Filter>03. Game\05. Object\16. Spawner\01. Meteor</Filter>
+    </ClInclude>
+    <ClInclude Include="CAfterImage.h">
+      <Filter>03. Game\05. Object\17. AfterImage</Filter>
+    </ClInclude>
+    <ClInclude Include="CShadowMgr.h">
+      <Filter>03. Game\03. Manager\12. ShadowMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_Warning.h">
+      <Filter>03. Game\05. Object\12. UI\Warning UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlatform_BossRoom.h">
+      <Filter>03. Game\05. Object\06. Platform\05. BossRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoss.h">
+      <Filter>03. Game\05. Object\03. Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -693,9 +777,6 @@
     </ClCompile>
     <ClCompile Include="CSelectObj.cpp">
       <Filter>03. Game\08. Module</Filter>
-    </ClCompile>
-    <ClCompile Include="CLevel.cpp">
-      <Filter>03. Game\04. Level</Filter>
     </ClCompile>
     <ClCompile Include="CLevelMgr.cpp">
       <Filter>03. Game\03. Manager\05. LevelMgr</Filter>
@@ -800,7 +881,7 @@
       <Filter>03. Game\05. Object\10. BackGround</Filter>
     </ClCompile>
     <ClCompile Include="CStage01.cpp">
-      <Filter>03. Game\05. Object\10. BackGround\Stage01</Filter>
+      <Filter>03. Game\05. Object\10. BackGround\03. Stage01</Filter>
     </ClCompile>
     <ClCompile Include="CPanel.cpp">
       <Filter>03. Game\05. Object\12. UI\PanelUI</Filter>
@@ -815,7 +896,7 @@
       <Filter>03. Game\04. Level\01. Start_Logo</Filter>
     </ClCompile>
     <ClCompile Include="CLogo.cpp">
-      <Filter>03. Game\05. Object\10. BackGround\Logo</Filter>
+      <Filter>03. Game\05. Object\10. BackGround\01. Logo</Filter>
     </ClCompile>
     <ClCompile Include="CLevel_AnimTool.cpp">
       <Filter>03. Game\04. Level\03. Animation Tool</Filter>
@@ -830,7 +911,7 @@
       <Filter>03. Game\05. Object\12. UI\Frame UI</Filter>
     </ClCompile>
     <ClCompile Include="CDummy.cpp">
-      <Filter>03. Game\05. Object\14. Dummy\AnimationDummy</Filter>
+      <Filter>03. Game\05. Object\14. Dummy\01. AnimationDummy</Filter>
     </ClCompile>
     <ClCompile Include="CEditorUI.cpp">
       <Filter>03. Game\05. Object\12. UI\Editor UI</Filter>
@@ -910,9 +991,6 @@
     <ClCompile Include="CMettool_Idle.cpp">
       <Filter>03. Game\08. Module\02. State\02. MonsterState\01. Mettool\01. Idle</Filter>
     </ClCompile>
-    <ClCompile Include="CEffect_Dash.cpp">
-      <Filter>03. Game\05. Object\09. Effect\01. Player</Filter>
-    </ClCompile>
     <ClCompile Include="CEffect_MonsterDead.cpp">
       <Filter>03. Game\05. Object\09. Effect\02. Monster\01. Dead</Filter>
     </ClCompile>
@@ -977,10 +1055,10 @@
       <Filter>03. Game\05. Object\04. Trap</Filter>
     </ClCompile>
     <ClCompile Include="CEditor_Dummy.cpp">
-      <Filter>03. Game\05. Object\14. Dummy\EditorDummy\01. Editor Dummy</Filter>
+      <Filter>03. Game\05. Object\14. Dummy\02. EditorDummy\01. Editor Dummy</Filter>
     </ClCompile>
     <ClCompile Include="CEditor_RenderDummy.cpp">
-      <Filter>03. Game\05. Object\14. Dummy\EditorDummy\02. Rendering Dummy</Filter>
+      <Filter>03. Game\05. Object\14. Dummy\02. EditorDummy\02. Rendering Dummy</Filter>
     </ClCompile>
     <ClCompile Include="CTrap_Eruption.cpp">
       <Filter>03. Game\05. Object\04. Trap\02. Eruption</Filter>
@@ -990,6 +1068,51 @@
     </ClCompile>
     <ClCompile Include="CPlatform_Camera.cpp">
       <Filter>03. Game\05. Object\06. Platform\02. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CLevel_Stage02.cpp">
+      <Filter>03. Game\04. Level\05. Stage02</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage02.cpp">
+      <Filter>03. Game\05. Object\10. BackGround\04. Stage02</Filter>
+    </ClCompile>
+    <ClCompile Include="CDoor.cpp">
+      <Filter>03. Game\05. Object\15. Door</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlatform_Level.cpp">
+      <Filter>03. Game\05. Object\06. Platform\03. Level</Filter>
+    </ClCompile>
+    <ClCompile Include="CLevel.cpp">
+      <Filter>03. Game\04. Level</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect_Door.cpp">
+      <Filter>03. Game\05. Object\09. Effect\05. Door</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect_Meteor.cpp">
+      <Filter>03. Game\05. Object\09. Effect\03. Trap</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect_Dash.cpp">
+      <Filter>03. Game\05. Object\09. Effect\01. Player\01. Dash</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect_Saber.cpp">
+      <Filter>03. Game\05. Object\09. Effect\01. Player\02. Saber</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawner_Meteor.cpp">
+      <Filter>03. Game\05. Object\16. Spawner\01. Meteor</Filter>
+    </ClCompile>
+    <ClCompile Include="CAfterImage.cpp">
+      <Filter>03. Game\05. Object\17. AfterImage</Filter>
+    </ClCompile>
+    <ClCompile Include="CShadowMgr.cpp">
+      <Filter>03. Game\03. Manager\12. ShadowMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_Warning.cpp">
+      <Filter>03. Game\05. Object\12. UI\Warning UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlatform_BossRoom.cpp">
+      <Filter>03. Game\05. Object\06. Platform\05. BossRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoss.cpp">
+      <Filter>03. Game\05. Object\03. Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

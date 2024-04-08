@@ -14,7 +14,6 @@ public:
     virtual void Enter() override;
     virtual void Exit() override;
 
-
 public:
     CLevel_Stage01();
     ~CLevel_Stage01();

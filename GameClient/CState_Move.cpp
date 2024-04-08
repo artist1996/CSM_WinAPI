@@ -67,7 +67,7 @@ void CState_Move::FinalTick()
 
 	if (KEY_TAP(KEY::Z))
 	{
-		GetObj()->SetSpeed(400.f);
+		GetObj()->SetSpeed(500.f);
 		GetFSM()->ChangeState(L"DASH");
 		return;
 	}

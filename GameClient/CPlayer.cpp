@@ -115,7 +115,7 @@ CPlayer::CPlayer()
 	m_RigidBody->SetFriction(2000.f);
 
 	m_RigidBody->UseGravity(true);
-	m_RigidBody->SetMaxGravitySpeed(1500.f);
+	m_RigidBody->SetMaxGravitySpeed(2000.f);
 	m_RigidBody->SetJumpSpeed(600.f);
 	
 	// FSM
@@ -191,7 +191,7 @@ void CPlayer::tick()
 	{
 		wchar_t szBuff[256] = {};
 		swprintf_s(szBuff, L"%f, %f", vPos.x, vPos.y);
-		LOG(LOG_TYPE::DBG_WARNING, szBuff);
+		LOG(LOG_TYPE::DBG_ERROR, szBuff);
 		logtime = 0.f;
 	}
 

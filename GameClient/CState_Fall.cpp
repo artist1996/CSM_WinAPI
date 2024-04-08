@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CState_Fall.h"
 
+#include "CShadowMgr.h"
+
 CState_Fall::CState_Fall()
 {
 }
@@ -14,8 +16,21 @@ void CState_Fall::Enter()
 	Initialize();
 
 
-	GetCollider()->SetScale(Vec2(90.f, 130.f));
+	GetCollider()->SetScale(Vec2(70.f, 130.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -65.f));
+
+	if (CShadowMgr::GetInst()->GetActive())
+	{
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			CShadowMgr::GetInst()->Play(L"FALL_RIGHT", true);
+		}
+
+		else
+		{
+			CShadowMgr::GetInst()->Play(L"FALL_LEFT", true);
+		}
+	}
 
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{

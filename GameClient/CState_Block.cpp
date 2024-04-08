@@ -14,7 +14,7 @@ void CState_Block::Enter()
 	Initialize();
 	GetRigidBody()->SetWall(false);
 
-	GetCollider()->SetScale(Vec2(90.f, 105.f));
+	GetCollider()->SetScale(Vec2(70.f, 105.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
 	
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())

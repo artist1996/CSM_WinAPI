@@ -65,20 +65,35 @@ void CCamera::render()
 
 void CCamera::Move()
 {
+	if (nullptr == CLevelMgr::GetInst()->GetCurrentLevel())
+		return;
+
 	if (m_Owner)
 	{
 		Vec2 vDir = m_Owner->GetPos();
-		m_LookAt.x = m_Owner->GetPos().x;
-		
+
 		if (m_Owner->GetPos().x <= m_MaxLowWidth)
 		{
 			m_LookAt.x = m_MaxLowWidth;			// MaxLowWidth
 			return;
 		}
-		
+
+		else
+		{
+			m_LookAt.x = m_Owner->GetPos().x;
+		}
+
 		if (m_Owner->GetPos().y <= m_MaxHighHeight)
 		{
-			m_LookAt.y = m_MaxHighHeight;		// MaxHighHeight
+			if (m_LookAt.y >= m_MaxHighHeight)
+			{
+				m_LookAt.y += -1.f * 300.f * DT;		// MaxHighHeight
+			}
+			
+			else
+			{
+				m_LookAt.y = m_MaxHighHeight;
+			}
 		}
 
 		else
@@ -97,7 +112,7 @@ void CCamera::Move()
 		{
 			m_LookAt.y = m_MaxLowHeight;				// MaxLowHeight
 		}
-		
+
 		else
 		{
 			if (m_LookAt.y - m_Owner->GetPos().y < -150.f)
@@ -116,7 +131,8 @@ void CCamera::Move()
 			return;
 		}
 	}
-
+	
+	
 	else
 	{
 		if (KEY_PRESSED(KEY::W))

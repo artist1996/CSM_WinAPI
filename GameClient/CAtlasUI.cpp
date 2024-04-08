@@ -36,6 +36,20 @@ CAtlasUI::CAtlasUI()
 	m_vecTex.push_back(pTex);
 	pTex = CAssetMgr::GetInst()->LoadTexture(L"Eruption", L"texture\\eruption.png");
 	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"Saber", L"texture\\Saber.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"AfterImage_Right", L"texture\\AFTERIMAGE_RIGHT.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"AfterImage_Left", L"texture\\AFTERIMAGE_LEFT.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"WARNING_ENTER", L"texture\\WARNING_ENTER.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"WARNING", L"texture\\WARNING.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"DRAGOON_LEFT", L"texture\\MagmaDragoon_LEFT.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"DRAGOON_RIGHT", L"texture\\MagmaDragoon_RIGHT.png");
+	m_vecTex.push_back(pTex);
 }
 
 CAtlasUI::~CAtlasUI()

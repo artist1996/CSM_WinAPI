@@ -22,6 +22,9 @@ public:
     void SetOwner(CObj* _Owner)            { m_Owner = _Owner; }
 
 public:
+    virtual void BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
+
+public:
     CLONE(CPlayer_Attack);
     CPlayer_Attack(CObj* _Owner, Vec2 _Pos, ATTACK_TYPE _Type);
     virtual ~CPlayer_Attack();

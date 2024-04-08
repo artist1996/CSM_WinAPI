@@ -1,14 +1,23 @@
 #include "pch.h"
 #include "CTrap_Meteor.h"
 
+#include "CLevelMgr.h"
+
 #include "CRigidBody.h"
 #include "CCollider.h"
 #include "CAnimator.h"
+
+#include "CEffect_Meteor.h"
+
+#include "CSpawner_Meteor.h"
+
 
 CTrap_Meteor::CTrap_Meteor()
 	: m_RigidBody(nullptr)
 	, m_Collider(nullptr)
 	, m_Animator(nullptr)
+	, m_HP(0)
+	, m_Time(0.f)
 {
 }
 
@@ -16,6 +25,8 @@ CTrap_Meteor::CTrap_Meteor(Vec2 _Pos, OBJ_ID _ID)
 	: m_RigidBody(nullptr)
 	, m_Collider(nullptr)
 	, m_Animator(nullptr)
+	, m_HP(3)
+	, m_Time(0.f)
 {
 	// Info
 	SetName(L"Meteor");
@@ -90,6 +101,10 @@ CTrap_Meteor::CTrap_Meteor(Vec2 _Pos, OBJ_ID _ID)
 	{
 		m_Animator->Play(L"DIAGONAL", false);
 	}
+
+	// Spawner
+	CSpawner_Meteor* pSpawner = new CSpawner_Meteor(this, GetID());
+	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DEFAULT, pSpawner);
 }
 
 CTrap_Meteor::~CTrap_Meteor()
@@ -122,8 +137,35 @@ void CTrap_Meteor::tick()
 		}	
 	}
 
-	else
+	if (0 >= m_HP)
 	{
+		Destroy();
+		for (int i = 0; i < (int)METEOR_EFFECT::END; ++i)
+		{
+			CEffect_Meteor* pEffect = new CEffect_Meteor(GetPos(), (METEOR_EFFECT)i);
+			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
+		}
+	}
+}
 
+void CTrap_Meteor::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
+{
+	if (L"PLAYER_ATTACK" == _OtherObj->GetName())
+	{
+		--m_HP;
+	}
+}
+
+void CTrap_Meteor::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
+{
+	if (L"PLAYER_JUMPATTACK" == _OtherObj->GetName())
+	{
+		m_Time += DT;
+
+		if (0.1f <= m_Time)
+		{
+			--m_HP;
+			m_Time = 0.f;
+		}
 	}
 }

@@ -15,6 +15,7 @@ CPlayer_JumpAttack::CPlayer_JumpAttack(CObj* _Owner, CAnimator* _Animator, Vec2 
 	: m_Owner(_Owner)
 	, m_Animator(_Animator)
 {
+	SetName(L"PLAYER_JUMPATTACK");
 	SetPos(_Pos);
 	m_Collider = (CCollider*)AddComponent(new CCollider);
 }

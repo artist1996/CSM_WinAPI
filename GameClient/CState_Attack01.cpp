@@ -15,7 +15,7 @@ void CState_Attack01::Enter()
 {
 	Initialize();
 
-	GetCollider()->SetScale(Vec2(90.f, 100.f));
+	GetCollider()->SetScale(Vec2(70.f, 100.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
 
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())

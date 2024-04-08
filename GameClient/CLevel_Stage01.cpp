@@ -23,6 +23,9 @@
 #include "CTexture.h"
 #include "CStage01.h"
 
+#include "CDoor.h"
+#include "CShadowMgr.h"
+
 CLevel_Stage01::CLevel_Stage01()
 {
 	SetName(L"Stage01");
@@ -72,6 +75,7 @@ void CLevel_Stage01::Enter()
 	CObj* pObject = new CPlayer;
 	pObject->SetName(L"ZERO");
 	pObject->SetPos(400.f, 0.f);
+	//pObject->SetPos(400.f, 0.f);
 	pObject->SetScale(100.f, 100.f);
 	AddObject(LAYER_TYPE::PLAYER, pObject);
 	
@@ -90,8 +94,8 @@ void CLevel_Stage01::Enter()
 	//CTrap_Meteor* pMeteor = new CTrap_Meteor(Vec2(900.f, 300.f), OBJ_ID::METEOR_UP);
 	//AddObject(LAYER_TYPE::TRAP, pMeteor);
 	//
-	//CTrap_Eruption* pEruption = new CTrap_Eruption(Vec2(500.f, 400.f), OBJ_ID::ERUPTION);
-	//AddObject(LAYER_TYPE::TRAP, pEruption);
+	CTrap_Eruption* pEruption = new CTrap_Eruption(Vec2(9787.f, 1439.f), OBJ_ID::ERUPTION);
+	AddObject(LAYER_TYPE::TRAP, pEruption);
 	//
 	//pMeteor = new CTrap_Meteor(Vec2(1100.f, 300.f), OBJ_ID::METEOR_DOWN);
 	//AddObject(LAYER_TYPE::TRAP, pMeteor);
@@ -101,12 +105,15 @@ void CLevel_Stage01::Enter()
 	AddObject(LAYER_TYPE::PLATFORM, pPlatform);
 	pPlatform = new CPlatform_Camera(Vec2(16291.f, 1441.f), Vec2(300.f, 300.f), PLATFORM_CAMERA::MAX_HEIGHT2);
 	AddObject(LAYER_TYPE::PLATFORM, pPlatform);
-	
+	CDoor* pDoor = new CDoor(Vec2(18936.f, 214.f), Vec2(100.f, 100.f), 10);
+	AddObject(LAYER_TYPE::PLATFORM, pDoor);
+
+	CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 400.f));
 	CCamera::GetInst()->SetMaxHighWidth(18751.f);
 	CCamera::GetInst()->SetMaxLowWidth(400.f);
 	CCamera::GetInst()->SetMaxHighHeight(300.f);
 	CCamera::GetInst()->SetMaxLowHeight(1236.f);
-
+	
 
 	// Load
 	LoadPlatform(L"platform\\platform.dat");
@@ -124,9 +131,12 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::MONSTER_MISSILE, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::MONSTER_MISSILE, LAYER_TYPE::LINE);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::MONSTER);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::TRAP);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::SHADOW);
 }
 
 void CLevel_Stage01::Exit()
 {
 	DeleteAllObjects();
+	CShadowMgr::GetInst()->clear();
 }

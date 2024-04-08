@@ -8,6 +8,7 @@
 #include "CLevel_Editor.h"
 #include "CLevel_AnimTool.h"
 #include "CLevel_Stage01.h"
+#include "CLevel_Stage02.H"
 
 CLevelMgr::CLevelMgr()
 	: m_arrLevel{}
@@ -27,6 +28,7 @@ void CLevelMgr::init()
 	m_arrLevel[(UINT)LEVEL_TYPE::LOGO_START] = new CLevel_Logo;
 	m_arrLevel[(UINT)LEVEL_TYPE::EDITOR] = new CLevel_Editor;
 	m_arrLevel[(UINT)LEVEL_TYPE::STAGE_01] = new CLevel_Stage01;
+	m_arrLevel[(UINT)LEVEL_TYPE::STAGE_02] = new CLevel_Stage02;
 	m_arrLevel[(UINT)LEVEL_TYPE::TOOL] = new CLevel_AnimTool;
 	m_arrLevel[(UINT)LEVEL_TYPE::TOOL]->SetName(L"TOOL");
 	

@@ -51,7 +51,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
 
     // Engine 초기화
-    if (FAILED(CEngine::GetInst()->init(hInst, g_hWnd, POINT{1280, 768})))
+    if (FAILED(CEngine::GetInst()->init(hInst, g_hWnd, POINT{800, 600})))
     {
         // Engine 초기화 실패 ==> 프로그램 종료
         MessageBox(nullptr, L"엔진 초기화 실패", L"에러 발생", MB_OK);

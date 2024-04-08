@@ -64,6 +64,11 @@ CEditor_RenderDummy::CEditor_RenderDummy(Vec2 _Pos, Vec2 _Scale, OBJ_ID _ID, int
 	{
 		m_Img = CAssetMgr::GetInst()->LoadTexture(L"MeteorRight", L"texture\\render_dummy\\dummy_meteorright.png");
 	}
+
+	else if (OBJ_ID::ERUPTION == m_ID)
+	{
+		m_Img = CAssetMgr::GetInst()->LoadTexture(L"EruptionRender", L"texture\\render_dummy\\dummy_eruption.png");
+	}
 }
 
 CEditor_RenderDummy::~CEditor_RenderDummy()

@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "CPlayer_Attack.h"
+
+#include "CLevelMgr.h"
+
 #include "CPlayer.h"
 #include "CCollider.h"
 #include "CAnimator.h"
 #include "CAnimation.h"
+
+#include "CEffect_Saber.h"
 
 CPlayer_Attack::CPlayer_Attack(CObj* _Owner, Vec2 _Pos, ATTACK_TYPE _Type)
 	: m_Owner(_Owner)
@@ -443,6 +448,28 @@ void CPlayer_Attack::Attack_03()
 		if (9 <= m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
 			Destroy();
+		}
+	}
+}
+
+void CPlayer_Attack::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
+{
+	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType()
+		|| L"Meteor" == _OtherObj->GetName())
+	{
+		if (ATTACK_TYPE::ATTACK02 == m_eType)
+		{
+			CEffect_Saber* pEffect = new CEffect_Saber(Vec2(
+				m_Collider->GetFinalPos().x + m_Collider->GetScale().x * 0.5f, m_Collider->GetFinalPos().y + m_Collider->GetScale().y * 0.5f),
+				EFFECT_TYPE::EFFECT_TWO);
+			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
+		}
+
+		else
+		{
+			CEffect_Saber* pEffect = new CEffect_Saber(Vec2(m_Collider->GetFinalPos().x + m_Collider->GetScale().x * 0.5f, m_Collider->GetFinalPos().y + m_Collider->GetScale().y * 0.5f)
+				, EFFECT_TYPE::EFFECT_ONE);
+			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
 		}
 	}
 }
