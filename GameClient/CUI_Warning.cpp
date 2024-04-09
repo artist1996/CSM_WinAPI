@@ -4,8 +4,11 @@
 #include "CAnimator.h"
 #include "CAnimation.h"
 
+#include "CFSM.h"
+
 CUI_Warning::CUI_Warning()
 	: m_Animator(nullptr)
+	, m_Target(nullptr)
 	, m_Count(0)
 {
 	m_Animator = (CAnimator*)AddComponent(new CAnimator);
@@ -35,6 +38,8 @@ void CUI_Warning::tick_ui()
 	
 	if (6 <= m_Count && m_Animator->GetCurAnim()->IsFinish())
 	{
+		CFSM* pFSM = m_Target->GetComponent<CFSM>();
+		pFSM->ChangeState(L"ENTER");
 		Destroy();
 	}
 }

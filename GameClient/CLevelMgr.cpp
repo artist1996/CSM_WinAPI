@@ -33,7 +33,7 @@ void CLevelMgr::init()
 	m_arrLevel[(UINT)LEVEL_TYPE::TOOL]->SetName(L"TOOL");
 	
 	// 초기 레벨 지정
-	::ChangeLevel(LEVEL_TYPE::LOGO_START);
+	::ChangeLevel(LEVEL_TYPE::STAGE_02);
 }
 
 void CLevelMgr::progress()

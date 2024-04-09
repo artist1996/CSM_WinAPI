@@ -10,6 +10,7 @@ class CAnimation :
 private:
     CAnimator*          m_Animator;     // Animation 을 소유하고 있는 Animator
     CTexture*           m_Atlas;        // Animation 이미지를 보유하고 있는 Altas Texture
+
     vector<tAnimFrm>    m_vecFrm;       // 각 프레임 정보
 
     HBRUSH              m_OldBrush;

@@ -6,6 +6,7 @@ class CPlatform :
 {
 private:
     CCollider*    m_Collider;
+    bool          m_Boss;
 
 public:
     virtual void begin() override;

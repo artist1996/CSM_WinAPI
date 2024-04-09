@@ -7,6 +7,7 @@
 #include <map>		// 이진탐색트리
 #include <string>   // 문자열 전용 관리 
 #include <assert.h>
+#include <ctime>
 
 // TransparentBlt 이 구현되어있는 라이브러리 링크
 #pragma comment(lib, "Msimg32.lib")

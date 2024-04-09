@@ -1,5 +1,6 @@
 #pragma once
 #include "CObj.h"
+
 class CPlatform_BossRoom :
     public CObj
 {

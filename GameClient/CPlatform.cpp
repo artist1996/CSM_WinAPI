@@ -6,7 +6,10 @@
 #include "CRigidBody.h"
 #include "CFSM.h"
 
+#include "CBoss.h"
+
 CPlatform::CPlatform()
+	: m_Boss(true)
 {
 	//SetScale(Vec2(500.f, 100.f));
 	m_Collider = (CCollider*)AddComponent(new CCollider);
@@ -14,6 +17,7 @@ CPlatform::CPlatform()
 }
 
 CPlatform::CPlatform(const Vec2& _StartPos, const Vec2& _EndPos)
+	: m_Boss(true)
 {
 	SetPos(_StartPos);
 	SetScale(_EndPos);
@@ -22,6 +26,7 @@ CPlatform::CPlatform(const Vec2& _StartPos, const Vec2& _EndPos)
 }
 
 CPlatform::CPlatform(Vec2 _Pos, Vec2 _Scale, LAYER_TYPE _type)
+	: m_Boss(true)
 {
 	SetPos(_Pos);
 	SetScale(_Scale);
@@ -40,6 +45,12 @@ void CPlatform::begin()
 void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
 	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType())
+	{
+		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		pRB->SetGround(true);
+	}
+
+	if (LAYER_TYPE::BOSS == _OtherObj->GetLayerType())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
 		pRB->SetGround(true);

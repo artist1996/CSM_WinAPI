@@ -21,12 +21,12 @@ CAnimation::CAnimation()
 	, m_OldBrush(nullptr)
 	, m_Hit(false)
 {
-
+	CTexture* pTex = CAssetMgr::GetInst()->LoadTexture(L"HIT_LEFT", L"texture\\MagmaDragoon_HITLEFT.png");
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"HIT_RIGHT", L"texture\\MagmaDragoon_HITRIGHT.png");
 }
 
 CAnimation::~CAnimation()
 {
-
 }
 
 void CAnimation::finaltick()
@@ -69,7 +69,7 @@ void CAnimation::render()
 	
 	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 
-	if (LAYER_TYPE::MONSTER_MISSILE == pOwnerObj->GetLayerType())
+	if (L"TOOL" == pLevel->GetName())
 	{
 		BLENDFUNCTION bf = {};
 
@@ -77,15 +77,17 @@ void CAnimation::render()
 		bf.BlendFlags = 0;
 		bf.SourceConstantAlpha = 255;
 		bf.AlphaFormat = AC_SRC_ALPHA;
+		CObj* DummyObject = m_Animator->GetOwner();
+		Vec2 vPos = DummyObject->GetPos();
 
-		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
-			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+		AlphaBlend(DC, (int)(vPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vPos.y - frm.SliceSize.y) + (int)frm.Offset.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
 			, m_Atlas->GetDC()
 			, (int)frm.StartPos.x, (int)frm.StartPos.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 	}
-
+	
 	if (L"Shadow" == pOwnerObj->GetName())
 	{
 		BLENDFUNCTION bf = {};
@@ -103,34 +105,44 @@ void CAnimation::render()
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 	}
 
-	//if (LAYER_TYPE::DUMMY == pOwnerObj->GetLayerType())
-	//{
-	//	BLENDFUNCTION bf = {};
-	//
-	//	bf.BlendOp = AC_SRC_OVER;
-	//	bf.BlendFlags = 0;
-	//	bf.SourceConstantAlpha = 255;
-	//	bf.AlphaFormat = AC_SRC_ALPHA;
-	//
-	//	AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
-	//		, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
-	//		, (int)frm.SliceSize.x, (int)frm.SliceSize.y
-	//		, m_Atlas->GetDC()
-	//		, (int)frm.StartPos.x, (int)frm.StartPos.y
-	//		, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
-	//}
+	if (LAYER_TYPE::DUMMY == pOwnerObj->GetLayerType())
+	{
+		BLENDFUNCTION bf = {};
+	
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+	
+		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+	}
 
-	if (LAYER_TYPE::MONSTER == pOwnerObj->GetLayerType() || LAYER_TYPE::TRAP == pOwnerObj->GetLayerType())
+	if (LAYER_TYPE::BOSS == pOwnerObj->GetLayerType())
 	{
 		if (pOwnerObj->IsHit())
-		{	
+		{
+			if (DIRECTION::LEFT == pOwnerObj->GetDirection())
+			{
+				m_Atlas = CAssetMgr::GetInst()->FindTexture(L"HIT_LEFT");
+			}
+
+			else if (DIRECTION::RIGHT == pOwnerObj->GetDirection())
+			{
+				m_Atlas = CAssetMgr::GetInst()->FindTexture(L"HIT_RIGHT");
+			}
+
 			BLENDFUNCTION bf = {};
-			
+
 			bf.BlendOp = AC_SRC_OVER;
 			bf.BlendFlags = 0;
-			bf.SourceConstantAlpha = 235;
+			bf.SourceConstantAlpha = 205;
 			bf.AlphaFormat = AC_SRC_ALPHA;
-			
+
 			AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
 				, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
 				, (int)frm.SliceSize.x, (int)frm.SliceSize.y
@@ -141,6 +153,16 @@ void CAnimation::render()
 
 		else
 		{
+			if (DIRECTION::LEFT == pOwnerObj->GetDirection())
+			{
+				m_Atlas = CAssetMgr::GetInst()->FindTexture(L"DRAGOON_LEFT");
+			}
+
+			else if (DIRECTION::RIGHT == pOwnerObj->GetDirection())
+			{
+				m_Atlas = CAssetMgr::GetInst()->FindTexture(L"DRAGOON_RIGHT");
+			}
+			
 			BLENDFUNCTION bf = {};
 
 			bf.BlendOp = AC_SRC_OVER;
@@ -156,7 +178,11 @@ void CAnimation::render()
 				, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 		}
 	}
-	if (L"ZERO" == pOwnerObj->GetName())
+
+	if (LAYER_TYPE::MONSTER == pOwnerObj->GetLayerType()
+		|| LAYER_TYPE::TRAP == pOwnerObj->GetLayerType() 
+		|| LAYER_TYPE::MONSTER_MISSILE == pOwnerObj->GetLayerType()
+		|| LAYER_TYPE::BOSS_ATTACK == pOwnerObj->GetLayerType())
 	{
 		BLENDFUNCTION bf = {};
 
@@ -171,10 +197,10 @@ void CAnimation::render()
 			, m_Atlas->GetDC()
 			, (int)frm.StartPos.x, (int)frm.StartPos.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
-		return;
+		
 	}
 
-	if (L"TOOL" == pLevel->GetName())
+	if (L"ZERO" == pOwnerObj->GetName())
 	{
 		BLENDFUNCTION bf = {};
 
@@ -182,11 +208,9 @@ void CAnimation::render()
 		bf.BlendFlags = 0;
 		bf.SourceConstantAlpha = 255;
 		bf.AlphaFormat = AC_SRC_ALPHA;
-		CObj* DummyObject = m_Animator->GetOwner();
-		Vec2 vPos = DummyObject->GetPos();
 
-		AlphaBlend(DC, (int)(vPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
-			, (int)(vPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
 			, m_Atlas->GetDC()
 			, (int)frm.StartPos.x, (int)frm.StartPos.y

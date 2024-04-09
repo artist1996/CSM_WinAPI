@@ -7,9 +7,13 @@
 
 #include "CPlayer.h"
 
+#include "CPlatform.h"
+
 #include "CPlatform_Camera.h"
 
 #include "CPlatform_BossRoom.h"
+
+#include "CBoss.h"
 
 CLevel_Stage02::CLevel_Stage02()
 {
@@ -39,13 +43,21 @@ void CLevel_Stage02::Enter()
 
 	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetName(L"ZERO");
-	pPlayer->SetPos(Vec2(200.f, 100.f));
+	pPlayer->SetPos(Vec2(15517.f, 100.f));
 	//pPlayer->SetPos(Vec2(15389.f, 460.f));
 	pPlayer->SetScale(Vec2(100.f, 100.f));
 
 	AddObject(LAYER_TYPE::PLAYER, pPlayer);
 
-	CPlatform_BossRoom* pBossRoom = new CPlatform_BossRoom(Vec2(15892.f, 1041.f), Vec2(500.f, 500.f));
+	CPlatform* pPlat = new CPlatform(Vec2(15887.f, 1070.f), Vec2(750.f, 50.f), LAYER_TYPE::PLATFORM);
+	AddObject(LAYER_TYPE::PLATFORM, pPlat);
+
+	CBoss* pBoss = new CBoss(Vec2(16343.f, 1270.f), 30);
+	pBoss->SetTarget(pPlat);
+	AddObject(LAYER_TYPE::BOSS, pBoss);
+
+	CPlatform_BossRoom* pBossRoom = new CPlatform_BossRoom(Vec2(15882.f, 1041.f), Vec2(500.f, 500.f));
+	
 	AddObject(LAYER_TYPE::PLATFORM, pBossRoom);
 
 	LoadPlatform(L"platform\\platform.dat");
@@ -55,7 +67,7 @@ void CLevel_Stage02::Enter()
 
 	CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 950.f));
 
-	CCamera::GetInst()->SetMaxHighWidth(16353.f);
+	CCamera::GetInst()->SetMaxHighWidth(16050.f);
 	CCamera::GetInst()->SetMaxLowWidth(400.f);
 	CCamera::GetInst()->SetMaxHighHeight(1100.f);
 	CCamera::GetInst()->SetMaxLowHeight(950.f);
