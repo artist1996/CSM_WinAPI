@@ -4,6 +4,7 @@ class CState_Jump :
     public CState_Player
 {
 private:
+    CSound* m_pSound;
     float   m_Speed;
 
 public:

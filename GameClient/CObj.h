@@ -31,6 +31,10 @@ private:
 
     DIRECTION           m_eDir;     // 오브젝트의 방향
     
+    int                 m_HitCount; // HP BAR용도
+
+    int                 m_Hp;
+
     bool                m_bDead;    // 삭제 예정상태
 
     bool                m_Hit;
@@ -65,9 +69,15 @@ public:
     bool IsDead()               { return m_bDead; }
     bool IsHit()                { return m_Hit; }
 
+    void MinusHitCount() { m_HitCount += 1; }
+    int GetHitCount()    { return m_HitCount; }     
+
+    void SetHp(int _HP) { m_Hp = _HP; }
+    int GetHp()         { return m_Hp; }
+    void MinusHp() { m_Hp -= 1; }
 
     void Destroy();
-
+    
     CComponent* AddComponent(CComponent* _Component);
 
     template<typename T>

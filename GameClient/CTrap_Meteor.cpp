@@ -131,7 +131,7 @@ void CTrap_Meteor::tick()
 			SetPos(vPos);
 		}
 
-		if (GetStartPos().GetDistance(vPos) > 1000.f)
+		if (GetStartPos().GetDistance(vPos) > 2000.f)
 		{
 			SetPos(GetStartPos());
 		}	

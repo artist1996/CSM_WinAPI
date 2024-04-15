@@ -15,6 +15,8 @@
 #include "CBoss_Soryugen.h"
 #include "CBoss_DiveKick.h"
 #include "CBoss_Breath.h"
+#include "CBoss_Destroy.h"
+#include "CBoss_Dead.h"
 
 CBoss::CBoss()
 	: m_Collider(nullptr)
@@ -40,6 +42,7 @@ CBoss::CBoss(Vec2 _Pos, int _HP)
 	SetName(L"Dragoon");
 	SetPos(_Pos);
 	SetDirection(DIRECTION::LEFT);
+	SetHp(_HP);
 	
 	// Component
 	m_Collider = (CCollider*)AddComponent(new CCollider);
@@ -84,6 +87,8 @@ CBoss::CBoss(Vec2 _Pos, int _HP)
 	m_Animator->LoadAnimation(L"animation\\boss\\right\\SORYUGEN_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\boss\\right\\FALL_RIGHT.anim");
 
+	CTexture* pTex = CAssetMgr::GetInst()->LoadTexture(L"HIT_LEFT", L"texture\\MagmaDragoon_HITLEFT.png");
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"HIT_RIGHT", L"texture\\MagmaDragoon_HITRIGHT.png");
 
 	// FSM
 	m_FSM->AddState(L"ENTER", new CBoss_Enter);
@@ -92,8 +97,8 @@ CBoss::CBoss(Vec2 _Pos, int _HP)
 	m_FSM->AddState(L"SORYUGEN", new CBoss_Soryugen);
 	m_FSM->AddState(L"DIVEKICK", new CBoss_DiveKick);
 	m_FSM->AddState(L"BREATH", new CBoss_Breath);
-	//m_FSM->AddState(L"DESTROY", new CBoss_Destroy);
-	//m_FSM->AddState(L"DEAD", new CBoss_Dead);
+	m_FSM->AddState(L"DESTROY", new CBoss_Destroy);
+	m_FSM->AddState(L"DEAD", new CBoss_Dead);
 }
 
 CBoss::~CBoss()
@@ -119,7 +124,6 @@ void CBoss::tick()
 
 	if (0.1f <= m_Time)
 	{
-		--m_HP;
 		SetHit(false);
 		m_Time = 0.f;
 	}
@@ -127,8 +131,15 @@ void CBoss::tick()
 
 void CBoss::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (!IsHit() && LAYER_TYPE::PLAYER_MISSILE == _OtherObj->GetLayerType())
+	if (!IsHit() && LAYER_TYPE::PLAYER_ATTACK == _OtherObj->GetLayerType())
 	{
+		--m_HP;
+		MinusHp();
 		SetHit(true);
+	}
+
+	if (0 >= m_HP)
+	{
+		m_FSM->ChangeState(L"DESTROY");
 	}
 }

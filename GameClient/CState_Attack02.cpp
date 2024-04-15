@@ -2,9 +2,13 @@
 #include "CState_Attack02.h"
 #include "CPlayer.h"
 
+#include "CSound.h"
+
 CState_Attack02::CState_Attack02()
 	: m_bNext(false)
+	, m_pSound(nullptr)
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"ATTACK02", L"sound\\zero\\ATTACK02.wav");
 }
 
 CState_Attack02::~CState_Attack02()
@@ -14,7 +18,10 @@ CState_Attack02::~CState_Attack02()
 
 void CState_Attack02::Enter()
 {
+	m_pSound->Play();
+
 	Initialize();
+
 
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{

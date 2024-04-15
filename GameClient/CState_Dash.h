@@ -4,7 +4,9 @@ class CState_Dash :
     public CState_Player
 {
 private:
-    bool m_AfterImg;
+    CSound* m_pSound;
+    bool    m_bSound;
+    bool    m_AfterImg;
 
 public:
     virtual void Enter() override;

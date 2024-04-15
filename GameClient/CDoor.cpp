@@ -11,10 +11,13 @@
 
 #include "CEffect_Door.h"
 
+#include "CSound.h"
+
 CDoor::CDoor()
 	: m_Collider(nullptr)
 	, m_Img(nullptr)
 	, m_HP(0)
+	, m_pSound(nullptr)
 {
 }
 
@@ -22,6 +25,7 @@ CDoor::CDoor(Vec2 _Pos, Vec2 _Scale, int _HP)
 	: m_Collider(nullptr)
 	, m_Img(nullptr)
 	, m_HP(_HP)
+	, m_pSound(nullptr)
 {
 	// Info
 	SetPos(_Pos);
@@ -36,7 +40,7 @@ CDoor::CDoor(Vec2 _Pos, Vec2 _Scale, int _HP)
 	
 	// Texture
 	m_Img = CAssetMgr::GetInst()->LoadTexture(L"Door", L"texture\\door.png");
-	
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"DESTROY_DOOR", L"sound\\level\\Door_Destroy.wav");
 }
 
 CDoor::~CDoor()
@@ -54,6 +58,7 @@ void CDoor::tick()
 
 	if (IsDead())
 	{
+		m_pSound->Play();
 		CPlatform_Level* pPlatform = new CPlatform_Level(GetPos());
 		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::PLATFORM, pPlatform);
 

@@ -8,8 +8,16 @@ private:
 
     CAnimator* m_Animator;
 
+    float      m_Dir;
+
+    bool       m_Active;
+    bool       m_Play;
+
 public:
     virtual void tick() override;
+    virtual void render() override;
+
+    void Play(const wstring& _strName, bool _Play);
 
 public:
     CLONE(CEffect_Dash);

@@ -95,8 +95,6 @@ void CAnimator::CreateAnimation(const wstring& _AnimName, CTexture* _Atlas, vect
 
 void CAnimator::LoadAnimation(const wstring& _strRelativeFilePath)
 {
-	// LoadAnimation 함수 개선
-	// Save 할 때에 Animation 이름을 저장 해줬기 때문에 Load 해주고 pAnim의 Name을 insert 해주면 된다.
 	CAnimation* pAnim = new CAnimation;
 	if (FAILED(pAnim->Load(_strRelativeFilePath)))
 	{
@@ -160,6 +158,10 @@ CAnimation* CAnimator::FindByAnimationName(const wstring& _AnimName)
 void CAnimator::Play(const wstring& _AnimName, bool _Repeat)
 {
 	m_CurAnim = FindAnimation(_AnimName);
+
+	if (nullptr == m_CurAnim)
+		return;
+
 	m_CurAnim->Reset();
 	m_Repeat = _Repeat;
 }

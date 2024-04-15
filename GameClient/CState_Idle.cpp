@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CState_Idle.h"
 
-#include "CShadowMgr.h"
+#include "CPlayerEffectMgr.h"
 
 CState_Idle::CState_Idle()
 {
@@ -17,6 +17,9 @@ void CState_Idle::Enter()
 	GetObj()->SetSpeed(300.f);
 	GetCollider()->SetScale(Vec2(70.f, 105.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
+
+
+	CPlayerEffectMgr::GetInst()->SetActive(false);
 
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{
@@ -90,15 +93,17 @@ void CState_Idle::FinalTick()
 
 	if (KEY_PRESSED(KEY::Z) && KEY_TAP(KEY::X))
 	{
+		CPlayerEffectMgr::GetInst()->SetActive(true);
+
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{
-			CShadowMgr::GetInst()->Play(L"JUMP_RIGHT", true);
-			CShadowMgr::GetInst()->SetActive(true);
+			CPlayerEffectMgr::GetInst()->Play(L"JUMP_RIGHT", true);
+			CPlayerEffectMgr::GetInst()->SetActive(true);
 		}
 		else
 		{
-			CShadowMgr::GetInst()->Play(L"JUMP_LEFT", true);
-			CShadowMgr::GetInst()->SetActive(true);
+			CPlayerEffectMgr::GetInst()->Play(L"JUMP_LEFT", true);
+			CPlayerEffectMgr::GetInst()->SetActive(true);
 		}
 		GetObj()->SetSpeed(500.f);
 		GetFSM()->ChangeState(L"JUMP");

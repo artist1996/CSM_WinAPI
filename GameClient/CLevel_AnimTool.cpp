@@ -57,9 +57,11 @@ void CLevel_AnimTool::Enter()
     m_FrameUI->SetPos(Vec2(400.f, 300.f));
     m_FrameUI->SetScale(Vec2(400.f, 300.f));
 
+
     m_AnimationUI = new CAnimationUI;
-    m_AnimationUI->SetPos(Vec2(400.f, 0.f));
-    m_AnimationUI->SetScale(Vec2(400.f, 300.f));
+   m_AnimationUI->SetPos(Vec2(400.f, 0.f));
+   m_AnimationUI->SetScale(Vec2(400.f, 300.f));
+ 
 
     AddObject(LAYER_TYPE::UI, m_AtlasUI);
     AddObject(LAYER_TYPE::UI, m_FrameUI);

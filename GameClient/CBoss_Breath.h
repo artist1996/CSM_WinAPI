@@ -4,10 +4,13 @@ class CBoss_Breath :
     public CState_Boss
 {
 private:
-    int  m_Count;
+    int   m_Count;
+
+    float m_Time;
+    float m_Dir;
 
     bool  m_Animation;
-    float m_Dir;
+    bool  m_Attack;
 
 public:
     virtual void Enter() override;

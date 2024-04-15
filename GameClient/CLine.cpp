@@ -73,7 +73,7 @@ void CLine::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _Othe
 
 		else if (_OtherObj->GetPos().y >= LineY)
 		{
-			_OtherObj->SetPos(_OtherObj->GetPos().x, LineY);
+		    _OtherObj->SetPos(_OtherObj->GetPos().x, LineY);
 		}
 	}
 	

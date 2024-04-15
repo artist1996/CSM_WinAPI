@@ -5,12 +5,17 @@
 #include "CLevelMgr.h"
 #include "CLevel.h"
 
-#include "CShadowMgr.h"
+#include "CPlayerEffectMgr.h"
 #include "CAfterImage.h"
+
+#include "CSound.h"
 
 CState_Dash::CState_Dash()
 	: m_AfterImg(false)
+	, m_pSound(nullptr)
+	, m_bSound(true)
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"DASH", L"sound\\zero\\DASH.wav");
 }
 
 CState_Dash::~CState_Dash()
@@ -26,15 +31,15 @@ void CState_Dash::Enter()
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"DASH_RIGHT", false);
-		CEffect_Dash* pEffect = new CEffect_Dash(GetObj(), Vec2(GetObj()->GetPos().x - 60.f, GetObj()->GetPos().y), Vec2(20.f,20.f));
-		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
+		CPlayerEffectMgr::GetInst()->DashSetPos(Vec2(GetObj()->GetPos().x - 80.f, GetObj()->GetPos().y));
+		CPlayerEffectMgr::GetInst()->PlayDash(L"EFFECT_DASH_RIGHT", false);
 	}
 
 	else if (DIRECTION::LEFT == GetObj()->GetDirection())
 	{
 		GetAnimator()->Play(L"DASH_LEFT", false);
-		CEffect_Dash* pEffect = new CEffect_Dash(GetObj(), Vec2(GetObj()->GetPos().x + 60.f, GetObj()->GetPos().y), Vec2(20.f, 20.f));
-		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
+		CPlayerEffectMgr::GetInst()->DashSetPos(Vec2(GetObj()->GetPos().x + 80.f, GetObj()->GetPos().y));
+		CPlayerEffectMgr::GetInst()->PlayDash(L"EFFECT_DASH_LEFT", false);
 	}
 }
 
@@ -44,6 +49,12 @@ void CState_Dash::FinalTick()
 	
 	if (2 == GetAnimator()->GetCurAnim()->GetCurFrameIdx())
 	{
+		if (m_bSound)
+		{
+			m_pSound->Play();
+			m_bSound = false;
+		}
+
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{
 			GetCollider()->SetScale(Vec2(70.f, 80.f));
@@ -59,21 +70,22 @@ void CState_Dash::FinalTick()
 
 	if (GetAnimator()->GetCurAnim()->IsFinish())
 	{
-		//CShadowMgr::GetInst()->SetActive(false);
+		//CPlayerEffectMgr::GetInst()->SetActive(false);
 		GetFSM()->ChangeState(L"IDLE");
 		return;
 	}
 
 	if (KEY_TAP(KEY::X))
 	{
+		CPlayerEffectMgr::GetInst()->SetActive(true);
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{
-			CShadowMgr::GetInst()->Play(L"JUMP_RIGHT", true);
+			CPlayerEffectMgr::GetInst()->Play(L"JUMP_RIGHT", true);
 		}
 
 		else
 		{
-			CShadowMgr::GetInst()->Play(L"JUMP_LEFT", true);
+			CPlayerEffectMgr::GetInst()->Play(L"JUMP_LEFT", true);
 		}
 		GetObj()->SetSpeed(500.f);
 		GetFSM()->ChangeState(L"JUMP");
@@ -102,8 +114,8 @@ void CState_Dash::FinalTick()
 		{
 			if (m_AfterImg)
 			{
-				CShadowMgr::GetInst()->Play(L"DASH_RIGHT", true);
-				CShadowMgr::GetInst()->SetActive(true);
+				CPlayerEffectMgr::GetInst()->Play(L"DASH_RIGHT", true);
+				CPlayerEffectMgr::GetInst()->SetActive(true);
 				
 				m_AfterImg = false;
 			}
@@ -117,8 +129,8 @@ void CState_Dash::FinalTick()
 		{
 			if (m_AfterImg)
 			{
-				CShadowMgr::GetInst()->Play(L"DASH_LEFT", true);
-				CShadowMgr::GetInst()->SetActive(true);
+				CPlayerEffectMgr::GetInst()->Play(L"DASH_LEFT", true);
+				CPlayerEffectMgr::GetInst()->SetActive(true);
 
 				m_AfterImg = false;
 			}
@@ -130,7 +142,6 @@ void CState_Dash::FinalTick()
 
 	else if (KEY_RELEASED(KEY::Z))
 	{
-		//CShadowMgr::GetInst()->SetActive(false);
 		GetFSM()->ChangeState(L"IDLE");
 		return;
 	}
@@ -139,4 +150,5 @@ void CState_Dash::FinalTick()
 void CState_Dash::Exit()
 {
 	m_AfterImg = false;
+	m_bSound = true;
 }

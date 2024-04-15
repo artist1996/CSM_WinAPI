@@ -17,6 +17,7 @@ CCamera::CCamera()
 	, m_MaxLowHeight(0.f)
 	, m_MaxHighWidth(0.f)
 	, m_MaxLowWidth(0.f)
+	, m_DestroyBoss(false)
 {}
 
 CCamera::~CCamera()
@@ -44,6 +45,13 @@ void CCamera::render()
 {
 	if (m_EffectList.empty())
 		return;
+
+	if (m_DestroyBoss)
+	{
+		RECT rect = { 0, 0, m_FadeTex->GetWidth(), m_FadeTex->GetHeight()};
+		HBRUSH hWhiteBrush = (HBRUSH)GetStockObject(WHITE_BRUSH);
+		FillRect(m_FadeTex->GetDC(), &rect, hWhiteBrush);
+	}
 
 	CAM_EFFECT_INFO& info = m_EffectList.front();
 	
@@ -148,7 +156,6 @@ void CCamera::Move()
 
 void CCamera::CameraEffect()
 {
-	
 	while (true)
 	{
 		if (m_EffectList.empty())

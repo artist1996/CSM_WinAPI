@@ -49,3 +49,11 @@ void CAttack_BattonBomb::tick()
 
 	SetPos(vPos);
 }
+
+void CAttack_BattonBomb::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
+{
+	if (L"ZERO" == _OtherObj->GetName())
+	{
+		Destroy();
+	}
+}

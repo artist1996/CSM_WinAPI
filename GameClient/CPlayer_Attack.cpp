@@ -9,6 +9,7 @@
 #include "CAnimation.h"
 
 #include "CEffect_Saber.h"
+#include "CSound.h"
 
 CPlayer_Attack::CPlayer_Attack(CObj* _Owner, Vec2 _Pos, ATTACK_TYPE _Type)
 	: m_Owner(_Owner)
@@ -17,6 +18,10 @@ CPlayer_Attack::CPlayer_Attack(CObj* _Owner, Vec2 _Pos, ATTACK_TYPE _Type)
 	SetPos(_Pos);
 	SetName(L"PLAYER_ATTACK");
 	m_Collider = (CCollider*)AddComponent(new CCollider);
+
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"SABER", L"sound\\saber\\SABER.wav");
+	m_HitSound = CAssetMgr::GetInst()->LoadSound(L"SABER_HIT", L"sound\\saber\\SABER_HIT.wav");
+	m_pSound->Play();
 }
 
 CPlayer_Attack::~CPlayer_Attack()
@@ -454,15 +459,19 @@ void CPlayer_Attack::Attack_03()
 
 void CPlayer_Attack::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
+	m_HitSound->Play();
+
 	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType()
-		|| L"Meteor" == _OtherObj->GetName())
+		|| LAYER_TYPE::BOSS == _OtherObj->GetLayerType()
+		|| L"Meteor" == _OtherObj->GetName()
+		|| L"Door" == _OtherObj->GetName())
 	{
 		if (ATTACK_TYPE::ATTACK02 == m_eType)
 		{
 			CEffect_Saber* pEffect = new CEffect_Saber(Vec2(
 				m_Collider->GetFinalPos().x + m_Collider->GetScale().x * 0.5f, m_Collider->GetFinalPos().y + m_Collider->GetScale().y * 0.5f),
 				EFFECT_TYPE::EFFECT_TWO);
-			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
+			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);			
 		}
 
 		else
@@ -471,5 +480,19 @@ void CPlayer_Attack::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCol
 				, EFFECT_TYPE::EFFECT_ONE);
 			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
 		}
+	}
+}
+
+void CPlayer_Attack::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
+{
+	if (m_eType == ATTACK_TYPE::ATTACK03)
+	{
+		m_Time += DT;
+	}
+
+	if (0.001f <= m_Time)
+	{
+		m_HitSound->Play();
+		m_Time = 0.f;
 	}
 }

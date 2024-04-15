@@ -3,6 +3,7 @@
 #include "CLevelMgr.h"
 
 #include "CAttack_DiveKick.h"
+#include "CSound.h"
 
 
 CBoss_DiveKick::CBoss_DiveKick()
@@ -10,7 +11,9 @@ CBoss_DiveKick::CBoss_DiveKick()
 	, m_bUP(true)
 	, m_bFirst(true)
 	, m_DiveKick(nullptr)
+	, m_pSound(nullptr)
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"DIVEKICK", L"sound\\boss\\DIVEKICK.wav");
 }
 
 CBoss_DiveKick::~CBoss_DiveKick()
@@ -57,6 +60,7 @@ void CBoss_DiveKick::FinalTick()
 			m_bUP = false;
 			m_bDown = true;
 			GetRigidBody()->UseGravity(false);
+			m_pSound->Play();
 		}
 	}
 

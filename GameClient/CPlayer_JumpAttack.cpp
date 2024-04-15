@@ -4,20 +4,31 @@
 #include "CCollider.h"
 #include "CAnimator.h"
 
+#include "CSound.h"
+
 CPlayer_JumpAttack::CPlayer_JumpAttack()
 	: m_Owner(nullptr)
 	, m_Animator(nullptr)
 	, m_Collider(nullptr)
+	, m_pSound(nullptr)
+	, m_HitSound(nullptr)
 {
 }
 
 CPlayer_JumpAttack::CPlayer_JumpAttack(CObj* _Owner, CAnimator* _Animator, Vec2 _Pos)
 	: m_Owner(_Owner)
 	, m_Animator(_Animator)
+	, m_Collider(nullptr)
+	, m_pSound(nullptr)
+	, m_HitSound(nullptr)
 {
 	SetName(L"PLAYER_JUMPATTACK");
 	SetPos(_Pos);
 	m_Collider = (CCollider*)AddComponent(new CCollider);
+
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"SABER", L"sound\\saber\\SABER.wav");
+	m_HitSound = CAssetMgr::GetInst()->LoadSound(L"SABER_HIT", L"sound\\saber\\SABER_HIT.wav");
+	m_pSound->Play();
 }
 
 CPlayer_JumpAttack::~CPlayer_JumpAttack()
@@ -50,6 +61,11 @@ void CPlayer_JumpAttack::tick()
 	
 	
 	SetPos(vPos);
+}
+
+void CPlayer_JumpAttack::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
+{
+	m_HitSound->Play();
 }
 
 void CPlayer_JumpAttack::JumpAttack()

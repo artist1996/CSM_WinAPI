@@ -32,6 +32,8 @@ public:
             m_Collider = GetObj()->GetComponent<CCollider>();
         }
     }
+
+    void Play(const wstring& _strName) { m_Animator->Play(_strName, false); }
     virtual void Enter() PURE;
     virtual void FinalTick() PURE;
     virtual void Exit() PURE;

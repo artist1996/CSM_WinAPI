@@ -68,7 +68,7 @@ void CLevel_Logo::tick()
 		switch (m_Count)
 		{
 		case 0:
-			ChangeLevel(LEVEL_TYPE::STAGE_01);
+			ChangeLevel(LEVEL_TYPE::SELECT);
 			break;
 		case 1:
 			ChangeLevel(LEVEL_TYPE::EDITOR);
@@ -101,9 +101,12 @@ void CLevel_Logo::render()
 
 void CLevel_Logo::Enter()
 {
-	CEngine::GetInst()->ChangeWindowSize(Vec2(800.f, 600.f), false);
+	//CEngine::GetInst()->ChangeWindowSize(Vec2(800.f, 600.f), false);
 	m_Logo = new CLogo;
 	m_Logo->SetPos(Vec2(0.f, 0.f));
+
+	CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 300.f));
+
 	AddObject(LAYER_TYPE::BACKGROUND, m_Logo);
 }
 

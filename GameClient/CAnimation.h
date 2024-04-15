@@ -43,12 +43,7 @@ public:
     void SetCurFrameIdx(int _Idx) { m_CurFrmIdx = _Idx; }
     int GetCurFrameIdx()          { return m_CurFrmIdx; }
 
-    void Reset()
-    {
-        m_Time = 0.f;
-        m_CurFrmIdx = 0;
-        m_bFinish = false;
-    }
+    void Reset();
 
     void Reset(int _Idx)
     {

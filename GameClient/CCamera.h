@@ -24,6 +24,7 @@ class CCamera
 private:
 	CObj*					m_Owner;
 	CTexture*				m_FadeTex;
+	CTexture*				m_FadTex2;
 	list<CAM_EFFECT_INFO>	m_EffectList;
 
 	Vec2	   m_LookAt;
@@ -35,6 +36,8 @@ private:
 
 	float	   m_MaxHighWidth;
 	float	   m_MaxLowWidth;
+
+	bool	   m_DestroyBoss;
 
 public:
 	Vec2 GetRenderPos(Vec2 _RealPos) { return _RealPos - m_Diff; }
@@ -52,6 +55,8 @@ public:
 	void SetMaxLowHeight(float _MaxLowHeight)   { m_MaxLowHeight = _MaxLowHeight; }
 	void SetMaxHighWidth(float _MaxHighWidth)   { m_MaxHighWidth = _MaxHighWidth; }
 	void SetMaxLowWidth(float _MaxLowWidth)     { m_MaxLowWidth = _MaxLowWidth; }
+	
+	void SetDestroyBoss(bool _boss) { m_DestroyBoss = _boss; }
 
 public:
 	void init();

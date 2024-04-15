@@ -10,8 +10,11 @@ private:
     float   m_Time;
     float   m_CurDir;
 
+    bool    m_Count;
     bool    m_bEncounter;
     bool    m_Attack;
+
+    bool    m_bBreath;
     
 public:
     virtual void Enter() override;

@@ -7,6 +7,8 @@ private:
     CTexture*  m_Img;
     CCollider* m_Collider;
 
+    CSound*    m_pSound;
+
     int        m_HP;
 
 public:

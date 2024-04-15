@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CState_Fall.h"
 
-#include "CShadowMgr.h"
+#include "CPlayerEffectMgr.h"
 
 CState_Fall::CState_Fall()
 {
@@ -19,16 +19,16 @@ void CState_Fall::Enter()
 	GetCollider()->SetScale(Vec2(70.f, 130.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -65.f));
 
-	if (CShadowMgr::GetInst()->GetActive())
+	if (CPlayerEffectMgr::GetInst()->GetActive())
 	{
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{
-			CShadowMgr::GetInst()->Play(L"FALL_RIGHT", true);
+			CPlayerEffectMgr::GetInst()->Play(L"FALL_RIGHT", true);
 		}
 
 		else
 		{
-			CShadowMgr::GetInst()->Play(L"FALL_LEFT", true);
+			CPlayerEffectMgr::GetInst()->Play(L"FALL_LEFT", true);
 		}
 	}
 
@@ -61,12 +61,14 @@ void CState_Fall::FinalTick()
 
 	if (KEY_TAP(KEY::RIGHT))
 	{
+		CPlayerEffectMgr::GetInst()->ChangeCurAnim(L"FALL_RIGHT");
 		GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"FALL_RIGHT"));
 		GetObj()->SetDirection(DIRECTION::RIGHT);
 	}
 
 	else if (KEY_TAP(KEY::LEFT))
 	{
+		CPlayerEffectMgr::GetInst()->ChangeCurAnim(L"FALL_LEFT");
 		GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"FALL_LEFT"));
 		GetObj()->SetDirection(DIRECTION::LEFT);
 	}

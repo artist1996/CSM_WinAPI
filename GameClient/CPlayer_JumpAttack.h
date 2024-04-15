@@ -4,6 +4,9 @@ class CPlayer_JumpAttack :
     public CObj
 {
 private:
+    CSound* m_pSound;
+    CSound* m_HitSound;
+
     CObj* m_Owner;
     
     CCollider* m_Collider;
@@ -14,6 +17,8 @@ public:
     void SetAnimator(CAnimator* _Animator) { m_Animator = _Animator; }
     void SetOwner(CObj* _Owner)            { m_Owner = _Owner; }
     
+    virtual void BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
+
 private:
     void JumpAttack();
 

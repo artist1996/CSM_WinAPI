@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "CState_Attack01.h"
 #include "CPlayer.h"
+#include "CSound.h"
 
 CState_Attack01::CState_Attack01()
 	: m_bNext(false)
+	, m_pSound(nullptr)
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"ATTACK01", L"sound\\zero\\ATTACK01.wav");
 }
 
 CState_Attack01::~CState_Attack01()
@@ -13,6 +16,7 @@ CState_Attack01::~CState_Attack01()
 
 void CState_Attack01::Enter()
 {
+	m_pSound->Play();
 	Initialize();
 
 	GetCollider()->SetScale(Vec2(70.f, 100.f));

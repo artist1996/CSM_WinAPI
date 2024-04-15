@@ -1,10 +1,21 @@
 #include "pch.h"
 #include "CBoss_Soryugen.h"
+#include "CLevelMgr.h"
+
 #include "CAnimation.h"
 
+#include "CAttack_Soryugen.h"
+
+#include "CSound.h"
+
+
 CBoss_Soryugen::CBoss_Soryugen()
-	: m_Fall(true)
+	: m_Soryugen(nullptr)
+	, m_Fall(true)
+	, m_pSound(nullptr)
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"SORYUGEN", L"sound\\boss\\SORYUGEN.wav");
+	//m_pSound->SetVolume(30.f);
 }
 
 CBoss_Soryugen::~CBoss_Soryugen()
@@ -27,6 +38,13 @@ void CBoss_Soryugen::Enter()
 	}
 
 	GetRigidBody()->Jump();
+
+	m_Soryugen = new CAttack_Soryugen(GetObj(), ATTACK_TYPE::ATTACK01);
+	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::BOSS_ATTACK, m_Soryugen);
+	m_Soryugen = new CAttack_Soryugen(GetObj(), ATTACK_TYPE::ATTACK02);
+	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::BOSS_ATTACK, m_Soryugen);
+
+	m_pSound->Play();
 }
 
 void CBoss_Soryugen::FinalTick()
@@ -82,4 +100,5 @@ void CBoss_Soryugen::FinalTick()
 void CBoss_Soryugen::Exit()
 {
 	m_Fall = true;
+	m_Soryugen = nullptr;
 }

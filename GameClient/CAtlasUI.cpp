@@ -50,6 +50,18 @@ CAtlasUI::CAtlasUI()
 	m_vecTex.push_back(pTex);
 	pTex = CAssetMgr::GetInst()->LoadTexture(L"DRAGOON_RIGHT", L"texture\\MagmaDragoon_RIGHT.png");
 	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"HADOUKEN_LEFT", L"texture\\HADOUKEN_LEFT.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"HADOUKEN_RIGHT", L"texture\\HADOUKEN_RIGHT.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"X_RIGHT", L"texture\\X_RIGHT.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"Area1", L"texture\\Loading\\Loading_Area1.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"Area2", L"texture\\Loading\\Loading_Area2.png");
+	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"EFFECT_WALLKICK", L"texture\\EFFECT_WALLKICK.png");
+	m_vecTex.push_back(pTex);
 }
 
 CAtlasUI::~CAtlasUI()

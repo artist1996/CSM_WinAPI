@@ -6,6 +6,7 @@ class CEffect_MonsterDead :
 private:
     CObj*      m_Owner;
     CAnimator* m_Animator;
+    CSound*    m_pSound;
 
 
 public:

@@ -12,6 +12,7 @@
 #include "CCamera.h"
 #include "CSoundMgr.h"
 #include "CTexture.h"
+#include "CPlayerEffectMgr.h"
 
 
 
@@ -85,6 +86,7 @@ void CEngine::progress()
 	// Level Progress
 	// ==============
 	CLevelMgr::GetInst()->progress();
+	CPlayerEffectMgr::GetInst()->tick();
 	CCollisionMgr::GetInst()->tick();
 
 	// =========

@@ -21,8 +21,6 @@ CAnimation::CAnimation()
 	, m_OldBrush(nullptr)
 	, m_Hit(false)
 {
-	CTexture* pTex = CAssetMgr::GetInst()->LoadTexture(L"HIT_LEFT", L"texture\\MagmaDragoon_HITLEFT.png");
-	pTex = CAssetMgr::GetInst()->LoadTexture(L"HIT_RIGHT", L"texture\\MagmaDragoon_HITRIGHT.png");
 }
 
 CAnimation::~CAnimation()
@@ -68,6 +66,10 @@ void CAnimation::render()
 	// 현재 프레임 이미지를 오브젝트 위치에 렌더링
 	
 	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+	
+	if (vRenderPos.x < -20.f || vRenderPos.x > 850.f || vRenderPos.y < -20.f || vRenderPos.y > 650.f)
+		return;
+
 
 	if (L"TOOL" == pLevel->GetName())
 	{
@@ -86,6 +88,58 @@ void CAnimation::render()
 			, m_Atlas->GetDC()
 			, (int)frm.StartPos.x, (int)frm.StartPos.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+		return;
+	}
+
+	if (L"ZERO" == pOwnerObj->GetName())
+	{
+		BLENDFUNCTION bf = {};
+
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+
+		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+	}
+
+	if (LAYER_TYPE::UI == pOwnerObj->GetLayerType())
+	{
+		BLENDFUNCTION bf = {};
+
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+
+		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
+	}
+
+	if (L"EFFECT_DASH" == pOwnerObj->GetName() || L"EFFECT_KICK" == pOwnerObj->GetName())
+	{
+		BLENDFUNCTION bf = {};
+
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+
+		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 	}
 	
 	if (L"Shadow" == pOwnerObj->GetName())
@@ -94,7 +148,7 @@ void CAnimation::render()
 
 		bf.BlendOp = AC_SRC_OVER;
 		bf.BlendFlags = 0;
-		bf.SourceConstantAlpha = 70;
+		bf.SourceConstantAlpha = 105;
 		bf.AlphaFormat = AC_SRC_ALPHA;
 
 		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
@@ -149,7 +203,7 @@ void CAnimation::render()
 				, m_Atlas->GetDC()
 				, (int)frm.StartPos.x, (int)frm.StartPos.y
 				, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
-		}
+		}	
 
 		else
 		{
@@ -198,24 +252,6 @@ void CAnimation::render()
 			, (int)frm.StartPos.x, (int)frm.StartPos.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 		
-	}
-
-	if (L"ZERO" == pOwnerObj->GetName())
-	{
-		BLENDFUNCTION bf = {};
-
-		bf.BlendOp = AC_SRC_OVER;
-		bf.BlendFlags = 0;
-		bf.SourceConstantAlpha = 255;
-		bf.AlphaFormat = AC_SRC_ALPHA;
-
-		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
-			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
-			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
-			, m_Atlas->GetDC()
-			, (int)frm.StartPos.x, (int)frm.StartPos.y
-			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
-		return;
 	}
 
 	if (L"Logo" == m_Animator->GetOwner()->GetName())
@@ -332,13 +368,11 @@ void CAnimation::Save(const wstring& _strRelativeFolderPath)
 
 int CAnimation::Load(const wstring& _strRelativeFilePath)
 {
-	// Load 함수 개선
-
 	wstring strFilePath = CPathMgr::GetInst()->GetContehtPath();
 	strFilePath += _strRelativeFilePath;
 
 	FILE* pFile = nullptr;
-
+	
 	// 파일 개방
 	_wfopen_s(&pFile, strFilePath.c_str(), L"r");
 
@@ -409,7 +443,7 @@ int CAnimation::Load(const wstring& _strRelativeFilePath)
 	}
 
 	
-
+	fclose(pFile);
 
 	return S_OK;
 }
@@ -487,5 +521,18 @@ int CAnimation::LoadAnimation(const wstring& _strFullPath)
 			}
 		}
 	}
+
+	fclose(pFile);
+
 	return S_OK;
+}
+
+void CAnimation::Reset()
+{
+	if (m_Animator->GetOwner()->IsDead())
+		return;
+
+	m_Time = 0.f;
+	m_CurFrmIdx = 0;
+	m_bFinish = false;
 }

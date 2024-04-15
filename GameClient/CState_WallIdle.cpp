@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CState_WallIdle.h"
+#include "CPlayerEffectMgr.h"
 
 CState_WallIdle::CState_WallIdle()
 {
@@ -12,6 +13,8 @@ CState_WallIdle::~CState_WallIdle()
 void CState_WallIdle::Enter()
 {
 	Initialize();
+
+	CPlayerEffectMgr::GetInst()->SetActive(false);
 
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{

@@ -14,8 +14,10 @@ void Safe_Del_Map(map<T1, T2>& _map)
 {
 	for (const auto& pair : _map)
 	{
-		if(nullptr != pair.second)
+		if (nullptr != pair.second)
+		{
 			delete pair.second;
+		}
 	}
 
 	_map.clear();
@@ -28,7 +30,10 @@ void Safe_Del_Vec(vector<T*>& _vec)
 	for (size_t i = 0; i < _vec.size(); ++i)
 	{
 		if (nullptr != _vec[i])
+		{
 			delete _vec[i];
+			_vec[i] = nullptr;
+		}
 	}
 
 	_vec.clear();

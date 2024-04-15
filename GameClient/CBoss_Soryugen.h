@@ -4,7 +4,10 @@ class CBoss_Soryugen :
     public CState_Boss
 {
 private:
-    bool  m_Fall;
+    CObj*   m_Soryugen;
+    CSound* m_pSound;
+
+    bool    m_Fall;
 
 public:
     virtual void Enter() override;

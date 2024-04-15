@@ -5,6 +5,7 @@ class CObj;
 class CCollider;
 class CPlatform;
 class CLine;
+class CSound;
 
 class CLevel :
     public CEntity
@@ -12,7 +13,7 @@ class CLevel :
 private:
     vector<CObj*>       m_arrObj[(UINT)LAYER_TYPE::END];
     vector<CCollider*>  m_arrCollider[(UINT)LAYER_TYPE::END];
-    
+
     SAVE_TYPE           m_Save;
 
 public:

@@ -4,6 +4,7 @@ class CLevel_Stage02 :
     public CLevel
 {
 private:
+    CSound* m_pBGM;
 
 public:
     virtual void begin() override;

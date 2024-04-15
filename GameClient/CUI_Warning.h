@@ -9,6 +9,8 @@ private:
     CObj*      m_Target;
     CAnimator* m_Animator;
 
+    CSound*    m_Sound;
+
     int        m_Count;
 
 public:

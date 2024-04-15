@@ -16,6 +16,8 @@ private:
 public:
     virtual void tick() override;
 
+    virtual void BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
+
 public:
     CLONE(CAttack_BattonBomb);
     CAttack_BattonBomb();

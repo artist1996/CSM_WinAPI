@@ -13,6 +13,9 @@ CAfterImage::CAfterImage(CObj* _Owner, Vec2 _Pos)
 	: m_Owner(_Owner)
 	, m_Animator(nullptr)
 	, m_bActive(false)
+	, m_bRender(false)
+	, m_Time(0.f)
+	, m_RenderTime(0.f)
 {
 	// Info
 	SetName(L"Shadow");
@@ -27,11 +30,13 @@ CAfterImage::CAfterImage(CObj* _Owner, Vec2 _Pos)
 	m_Animator->LoadAnimation(L"animation\\afterimage\\left\\JUMP_LEFT.anim");
 	m_Animator->LoadAnimation(L"animation\\afterimage\\left\\DASH_LEFT.anim");
 	m_Animator->LoadAnimation(L"animation\\afterimage\\left\\FALL_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\afterimage\\left\\WALLKICK_LEFT.anim");
 	
 	// RIGHT
 	m_Animator->LoadAnimation(L"animation\\afterimage\\right\\JUMP_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\afterimage\\right\\DASH_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\afterimage\\right\\FALL_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\afterimage\\right\\WALLKICK_RIGHT.anim");
 }
 
 CAfterImage::~CAfterImage()
@@ -45,46 +50,38 @@ void CAfterImage::Play(const wstring& _strName, bool _Play)
 
 void CAfterImage::tick()
 {
+	CObj::tick();
+
+	if (!m_bActive)
+	{
+		m_RenderTime = 0.f;
+		m_bRender = false;
+	}
+	
 	if (m_bActive)
 	{
-		Vec2 vPos = GetPos();
-		CObj* pObj = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"ZERO");
-		Vec2 vDir = pObj->GetPos() - GetPos();
-
-
-		float fDist = abs(pObj->GetPos().x - vPos.x);
-		if (0.1f > fDist)
-		{
-			m_bActive = false;
-		}
-
-		if (!vDir.IsZero())
-		{
-			vDir.Normalize();
-			vPos += (vDir * 600.f * DT);
-			
-			SetPos(vPos);
-		}
+		m_bRender = true;
+		m_RenderTime += DT;
 	}
 
-	else
-	{
-		SetDirection(m_Owner->GetDirection());
-		if (DIRECTION::RIGHT == GetDirection())
-		{
-			SetPos(Vec2(m_Owner->GetPos().x - 20.f, m_Owner->GetPos().y));
-		}
+	m_Time += DT;
 
-		else if (DIRECTION::LEFT == GetDirection())
-		{
-			SetPos(Vec2(m_Owner->GetPos().x + 20.f, m_Owner->GetPos().y));
-		}
+	if (0.05f <= m_Time)
+	{
+		SetPos(m_Owner->GetPrevPos());
+		m_Time = 0.f;
+	}
+
+	if (0.03f <= m_RenderTime)
+	{
+		//m_bRender = false;
+		m_RenderTime = 0.f;
 	}
 }
 
 void CAfterImage::render()
 {
-	if (m_bActive)
+	if (m_bRender)
 	{
 		m_Animator->render();
 	}

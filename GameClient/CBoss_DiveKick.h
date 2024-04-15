@@ -4,14 +4,15 @@ class CBoss_DiveKick :
     public CState_Boss
 {
 private:
-    CObj* m_DiveKick;
+    CObj*   m_DiveKick;
+    CSound* m_pSound;
 
-    Vec2  m_CenterPos;
-    Vec2  m_Dir;
+    Vec2    m_CenterPos;
+    Vec2    m_Dir;
 
-    bool  m_bUP;
-    bool  m_bDown;
-    bool  m_bFirst;
+    bool    m_bUP;
+    bool    m_bDown;
+    bool    m_bFirst;
 
 public:
     virtual void Enter() override;

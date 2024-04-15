@@ -4,6 +4,7 @@ class CBoss_Enter :
     public CState_Boss
 {
 private:
+    CSound* m_pBGM;
 
 public:
     virtual void Enter() override;

@@ -16,6 +16,7 @@ void CState_Start::Enter()
 {
 	Initialize();
 	GetAnimator()->Play(L"START", false);
+	GetRigidBody()->UseGravity(true);
 }
 
 void CState_Start::FinalTick()

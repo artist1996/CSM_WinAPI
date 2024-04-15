@@ -1,8 +1,13 @@
 #include "pch.h"
 #include "CState_Hit.h"
 
+#include "CPlayerEffectMgr.h"
+#include "CSound.h"
+
 CState_Hit::CState_Hit()
+	: m_pSound(nullptr)
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"HIT", L"sound\\zero\\HIT.wav");
 }
 
 CState_Hit::~CState_Hit()
@@ -11,7 +16,10 @@ CState_Hit::~CState_Hit()
 
 void CState_Hit::Enter()
 {
+	m_pSound->Play();
 	Initialize();
+
+	CPlayerEffectMgr::GetInst()->SetActive(false);
 
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{

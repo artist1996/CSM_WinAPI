@@ -1,8 +1,12 @@
 #include "pch.h"
 #include "CState_WallEnter.h"
 
+#include "CSound.h"
+
 CState_WallEnter::CState_WallEnter()
+	: m_pSound(nullptr)
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"WALL_ENTER", L"sound\\zero\\WALL_ENTER.wav");
 }
 
 CState_WallEnter::~CState_WallEnter()
@@ -26,6 +30,8 @@ void CState_WallEnter::Enter()
 		GetCollider()->SetOffsetPos(Vec2(-10.f, -55.f));
 		GetAnimator()->Play(L"WALL_ENTER_LEFT", false);
 	}
+
+	m_pSound->Play();
 }
 
 void CState_WallEnter::FinalTick()

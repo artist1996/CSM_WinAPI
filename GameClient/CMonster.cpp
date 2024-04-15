@@ -10,6 +10,7 @@
 #include "CMonsterTrace.h"
 
 #include "CEffect_MonsterDead.h"
+#include "CSound.h"
 
 CMonster::CMonster()
 	: m_HP(0)
@@ -70,7 +71,7 @@ void CMonster::render()
 void CMonster::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj
 							, CCollider* _OtherCollider)
 {
-	if (_OtherObj->GetName() == L"PLAYER_ATTACK")
+	if (LAYER_TYPE::PLAYER_ATTACK == _OtherObj->GetLayerType())
 	{
 		--m_HP;
 		SetHit(true);

@@ -7,12 +7,15 @@
 #include "CLevel_Logo.h"
 #include "CLevel_Editor.h"
 #include "CLevel_AnimTool.h"
+#include "CLevel_Select.h"
+#include "CLevel_Loading.h"
 #include "CLevel_Stage01.h"
 #include "CLevel_Stage02.H"
 
 CLevelMgr::CLevelMgr()
 	: m_arrLevel{}
 	, m_pCurrentLevel(nullptr)
+	, m_pPrevLevel(nullptr)
 {
 }
 
@@ -27,12 +30,14 @@ void CLevelMgr::init()
 	// 모든 레벨 생성
 	m_arrLevel[(UINT)LEVEL_TYPE::LOGO_START] = new CLevel_Logo;
 	m_arrLevel[(UINT)LEVEL_TYPE::EDITOR] = new CLevel_Editor;
+	m_arrLevel[(UINT)LEVEL_TYPE::SELECT] = new CLevel_Select;
+	m_arrLevel[(UINT)LEVEL_TYPE::LOADING] = new CLevel_Loading;
 	m_arrLevel[(UINT)LEVEL_TYPE::STAGE_01] = new CLevel_Stage01;
 	m_arrLevel[(UINT)LEVEL_TYPE::STAGE_02] = new CLevel_Stage02;
 	m_arrLevel[(UINT)LEVEL_TYPE::TOOL] = new CLevel_AnimTool;
 	m_arrLevel[(UINT)LEVEL_TYPE::TOOL]->SetName(L"TOOL");
 	
-	// 초기 레벨 지정
+	// 초기 레벨 지정a
 	::ChangeLevel(LEVEL_TYPE::STAGE_02);
 }
 

@@ -4,7 +4,9 @@ class CState_Attack02 :
     public CState_Player
 {
 private:
-    bool m_bNext;
+    CSound* m_pSound;
+    bool    m_bNext;
+    
 
 public:
     virtual void Enter() override;

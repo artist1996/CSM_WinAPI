@@ -3,6 +3,10 @@
 #include "CKeyMgr.h"
 #include "CCollisionMgr.h"
 #include "CCamera.h"
+#include "CPlayerEffectMgr.h"
+#include "CLevelMgr.h"
+#include "CSoundMgr.h"
+#include "CSound.h"
 
 #include "CPlayer.h"
 #include "CForce.h"
@@ -24,9 +28,12 @@
 #include "CStage01.h"
 
 #include "CDoor.h"
-#include "CShadowMgr.h"
+#include "CPlayerEffectMgr.h"
+
+#include "CUI_Ready.h"
 
 CLevel_Stage01::CLevel_Stage01()
+	: m_pBGM(nullptr)
 {
 	SetName(L"Stage01");
 }
@@ -40,6 +47,11 @@ void CLevel_Stage01::begin()
 {
 	CLevel::begin();
 	//CCamera::GetInst()->SetCameraEffect(CAM_EFFECT::FADE_IN, 5.f);
+
+	m_pBGM = CAssetMgr::GetInst()->LoadSound(L"VOLCANO", L"sound\\level\\Volcano.wav");
+	CSoundMgr::GetInst()->RegisterToBGM(m_pBGM);
+	m_pBGM->SetVolume(20.f);
+	m_pBGM->Play(true);
 }
 
 void CLevel_Stage01::tick()
@@ -74,31 +86,15 @@ void CLevel_Stage01::Enter()
 	// Player
 	CObj* pObject = new CPlayer;
 	pObject->SetName(L"ZERO");
+	//pObject->SetPos(18236.f, 0.f);
 	pObject->SetPos(400.f, 0.f);
-	//pObject->SetPos(400.f, 0.f);
 	pObject->SetScale(100.f, 100.f);
 	AddObject(LAYER_TYPE::PLAYER, pObject);
-	
-	//CMonster_Mettool* pMettool = new CMonster_Mettool(Vec2(400.f, 300.f), Vec2(50.f, 50.f), 1, 200.f);
-	//AddObject(LAYER_TYPE::MONSTER, pMettool);
-	//
-	//CMonster_Raiden* pRaiden = new CMonster_Raiden(Vec2(600.f, 300.f), Vec2(150.f, 180.f), 10, 200.f);
-	//AddObject(LAYER_TYPE::MONSTER, pRaiden);
-	//
-	//CMonster_GigaDeath* pGigaDeath = new CMonster_GigaDeath(Vec2(300.f, 300.f), Vec2(200.f, 180.f), 5, 200.f);
-	//AddObject(LAYER_TYPE::MONSTER, pGigaDeath);
 
-	//CMonster_Batton* pBatton = new CMonster_Batton(Vec2(900.f, 300.f), Vec2(50.f, 70.f), 1, 200.f);
-	//AddObject(LAYER_TYPE::MONSTER, pBatton);
-	//
-	//CTrap_Meteor* pMeteor = new CTrap_Meteor(Vec2(900.f, 300.f), OBJ_ID::METEOR_UP);
-	//AddObject(LAYER_TYPE::TRAP, pMeteor);
-	//
+	CPlayerEffectMgr::GetInst()->Init();
+	
 	CTrap_Eruption* pEruption = new CTrap_Eruption(Vec2(9787.f, 1439.f), OBJ_ID::ERUPTION);
 	AddObject(LAYER_TYPE::TRAP, pEruption);
-	//
-	//pMeteor = new CTrap_Meteor(Vec2(1100.f, 300.f), OBJ_ID::METEOR_DOWN);
-	//AddObject(LAYER_TYPE::TRAP, pMeteor);
 
 	//Camera
 	CPlatform_Camera* pPlatform = new CPlatform_Camera(Vec2(3751.f, 1437.f), Vec2(300.f, 300.f), PLATFORM_CAMERA::MAX_HEIGHT);
@@ -108,10 +104,13 @@ void CLevel_Stage01::Enter()
 	CDoor* pDoor = new CDoor(Vec2(18936.f, 214.f), Vec2(100.f, 100.f), 10);
 	AddObject(LAYER_TYPE::PLATFORM, pDoor);
 
+	CUI* pReadyUI = new CUI_Ready(Vec2(400.f, 400.f));
+	AddObject(LAYER_TYPE::UI, pReadyUI);
+
 	CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 400.f));
 	CCamera::GetInst()->SetMaxHighWidth(18751.f);
 	CCamera::GetInst()->SetMaxLowWidth(400.f);
-	CCamera::GetInst()->SetMaxHighHeight(300.f);
+	CCamera::GetInst()->SetMaxHighHeight(200.f);
 	CCamera::GetInst()->SetMaxLowHeight(1236.f);
 	
 
@@ -124,19 +123,24 @@ void CLevel_Stage01::Enter()
 	// 레벨 충돌 설정하기
 	CCollisionMgr::GetInst()->CollisionCheckClear();
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER);
-	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::MONSTER);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_ATTACK, LAYER_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::PLAYER);
-	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::PLATFORM);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_ATTACK, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::MONSTER_MISSILE, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::MONSTER_MISSILE, LAYER_TYPE::LINE);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::MONSTER);
-	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_MISSILE, LAYER_TYPE::TRAP);
-	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::SHADOW);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_ATTACK, LAYER_TYPE::TRAP);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::EFFECT);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER_MISSILE);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRAP);
+
+	CLevelMgr::GetInst()->SetPrevLevel(this);
 }
 
 void CLevel_Stage01::Exit()
 {
 	DeleteAllObjects();
-	CShadowMgr::GetInst()->clear();
+	CPlayerEffectMgr::GetInst()->clear();
+	CSoundMgr::GetInst()->RegisterToBGM(nullptr);
 }

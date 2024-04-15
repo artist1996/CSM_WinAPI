@@ -35,6 +35,7 @@
 #include "CState_Block.h"
 #include "CState_WallKick.h"
 #include "CState_Hit.h"
+#include "CState_Victory.h"
 
 void BeGround()
 {
@@ -54,6 +55,7 @@ CPlayer::CPlayer()
 	, m_Invincible(false)
 	, m_InvincibleTime(0.f)
 {
+	SetHp(15);
 	// Player 의 컴포넌트 설정
 	m_BodyCol = (CCollider*)AddComponent(new CCollider);
 	m_Animator = (CAnimator*)AddComponent(new CAnimator);
@@ -85,6 +87,7 @@ CPlayer::CPlayer()
 	m_Animator->LoadAnimation(L"animation\\player\\right\\WALLKICK_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\right\\HIT_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\right\\LANDING_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\right\\VICTORY_RIGHT.anim");
 
 
 	// Left Animation
@@ -114,7 +117,7 @@ CPlayer::CPlayer()
 	m_RigidBody->SetInitWalkSpeed(200.f);
 	m_RigidBody->SetFriction(2000.f);
 
-	m_RigidBody->UseGravity(true);
+	m_RigidBody->UseGravity(false);
 	m_RigidBody->SetMaxGravitySpeed(2000.f);
 	m_RigidBody->SetJumpSpeed(600.f);
 	
@@ -137,8 +140,9 @@ CPlayer::CPlayer()
 	m_FSM->AddState(L"BLOCK", new CState_Block);
 	m_FSM->AddState(L"WALLKICK", new CState_WallKick);
 	m_FSM->AddState(L"HIT", new CState_Hit);
+	m_FSM->AddState(L"VICTORY", new CState_Victory);
 
-	m_FSM->ChangeState(L"START");
+	//m_FSM->ChangeState(L"START");
 }
 
 CPlayer::CPlayer(const CPlayer& _Other)
@@ -148,6 +152,10 @@ CPlayer::CPlayer(const CPlayer& _Other)
 	, m_BodyCol(nullptr)
 	, m_Animator(nullptr)
 	, m_RigidBody(nullptr)
+	, m_FSM(nullptr)
+	, m_Invincible(false)
+	, m_InvincibleTime(0.f)
+	, m_eState(PLAYER_STATE::END)
 {
 	m_BodyCol = GetComponent<CCollider>();
 	m_Animator = GetComponent<CAnimator>();
@@ -163,13 +171,13 @@ void CPlayer::CreateAttack(ATTACK_TYPE _Type)
 	CPlayer_Attack* pAttack = new CPlayer_Attack(this, GetPos(), _Type);
 	pAttack->SetAnimator(m_Animator);
 	pAttack->SetOwner(this);
-	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::PLAYER_MISSILE, pAttack);
+	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::PLAYER_ATTACK, pAttack);
 }
 
 void CPlayer::CreateJumpAttack()
 {
 	CPlayer_JumpAttack* pJumpAttack = new CPlayer_JumpAttack(this, m_Animator, GetPos());
-	CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(LAYER_TYPE::PLAYER_MISSILE, pJumpAttack);
+	CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(LAYER_TYPE::PLAYER_ATTACK, pJumpAttack);
 }
 
 void CPlayer::begin()
@@ -212,21 +220,21 @@ void CPlayer::tick()
 void CPlayer::render()
 {
 	CObj::render();
-
-	Vec2 vPos =	GetRenderPos();
-	Vec2 vScale = GetScale();
-
-	Rectangle(DC, vPos.x - 10.f, vPos.y - 10.f, vPos.x + 5.f, vPos.y + 5.f);
 }
 
 void CPlayer::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType())
+	if (LAYER_TYPE::BOSS == _OtherObj->GetLayerType() 
+		|| LAYER_TYPE::MONSTER == _OtherObj->GetLayerType()
+		|| LAYER_TYPE::TRAP == _OtherObj->GetLayerType()
+		|| LAYER_TYPE::MONSTER_MISSILE == _OtherObj->GetLayerType()
+		|| LAYER_TYPE::BOSS_ATTACK == _OtherObj->GetLayerType())
 	{
 		if (!m_Invincible)
 		{
 			m_Invincible = true;
 			m_FSM->ChangeState(L"HIT");
+			MinusHp();
 		}
 	}
 }

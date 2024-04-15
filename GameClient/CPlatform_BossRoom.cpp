@@ -34,7 +34,7 @@ void CPlatform_BossRoom::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, 
 	if (L"ZERO" == _OtherObj->GetName())
 	{
 		CUI_Warning* pUI = new CUI_Warning;
-		pUI->SetPos(Vec2(GetPos().x, 1100.f));
+		pUI->SetPos(Vec2(GetPos().x + 50.f, 1100.f));
 		pUI->SetTarget(CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Dragoon"));
 		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pUI);
 		Destroy();

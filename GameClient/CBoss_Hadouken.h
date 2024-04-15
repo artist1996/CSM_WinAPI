@@ -5,6 +5,10 @@ class CBoss_Hadouken :
     public CState_Boss
 {
 private:
+    CSound* m_pSound;
+    bool    m_Spawn;
+    bool    m_Spawn2;
+
 
 public:
     virtual void Enter() override;

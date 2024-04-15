@@ -37,7 +37,7 @@ void CPlatform_Level::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCo
 {
 	if (L"ZERO" == _OtherObj->GetName())
 	{
-		ChangeLevel(LEVEL_TYPE::STAGE_02);
+		ChangeLevel(LEVEL_TYPE::LOADING);
 		return;
 	}
 }

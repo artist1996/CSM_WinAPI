@@ -1,9 +1,13 @@
 #include "pch.h"
 #include "CState_Jump.h"
 
+#include "CSound.h"
+
 CState_Jump::CState_Jump()
 	: m_Speed(0.f)
+	, m_pSound(nullptr)
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"JUMP", L"sound\\zero\\JUMP.wav");
 }
 
 CState_Jump::~CState_Jump()
@@ -12,6 +16,7 @@ CState_Jump::~CState_Jump()
 
 void CState_Jump::Enter()
 {
+	m_pSound->Play();
 	Initialize();
 	GetRigidBody()->Jump();
 

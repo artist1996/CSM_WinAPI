@@ -4,6 +4,7 @@ class CState_Landing :
     public CState_Player
 {
 private:
+    CSound* m_pSound;
 
 public:
     virtual void Enter() override;
@@ -14,4 +15,3 @@ public:
     CState_Landing();
     ~CState_Landing();
 };
-

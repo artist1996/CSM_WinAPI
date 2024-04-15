@@ -18,7 +18,7 @@ private:
     int         m_HP;
 
     float       m_Time;
-
+    
 public:
     void SetTarget(CObj* _Target) { m_TargetPlatform = _Target; }
 

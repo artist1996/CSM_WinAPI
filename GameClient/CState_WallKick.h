@@ -4,6 +4,7 @@ class CState_WallKick :
     public CState_Player
 {
 private:
+    CSound* m_pSound;
     bool    m_bAirMove;
 
 public:

@@ -5,11 +5,14 @@ class CPlayer_Attack :
 {
 private:
     CObj*       m_Owner;
+    CSound*     m_pSound;
+    CSound*     m_HitSound;
 
     CCollider*  m_Collider;
     CAnimator*  m_Animator;
 
     ATTACK_TYPE m_eType;
+    float       m_Time;
     
 private:
     void Attack_01();
@@ -23,6 +26,7 @@ public:
 
 public:
     virtual void BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
+    virtual void OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
 
 public:
     CLONE(CPlayer_Attack);
