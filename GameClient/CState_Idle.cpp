@@ -15,20 +15,36 @@ void CState_Idle::Enter()
 {
 	Initialize();
 	GetObj()->SetSpeed(300.f);
-	GetCollider()->SetScale(Vec2(70.f, 105.f));
+	GetCollider()->SetScale(Vec2(90.f, 105.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
 
 
 	CPlayerEffectMgr::GetInst()->SetActive(false);
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"IDLE_RIGHT", true);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_IDLE_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_IDLE_LEFT", true);
+		}
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	else
 	{
-		GetAnimator()->Play(L"IDLE_LEFT", true);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"IDLE_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"IDLE_LEFT", true);
+		}
 	}
 }
 

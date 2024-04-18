@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "CPlayer_JumpAttack.h"
+#include "CLevelMgr.h"
 #include "CAnimation.h"
 #include "CCollider.h"
 #include "CAnimator.h"
+
+#include "CEffect_Saber.h"
 
 #include "CSound.h"
 
@@ -66,6 +69,15 @@ void CPlayer_JumpAttack::tick()
 void CPlayer_JumpAttack::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
 	m_HitSound->Play();
+
+	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType()
+		|| LAYER_TYPE::BOSS == _OtherObj->GetLayerType()
+		|| L"Meteor" == _OtherObj->GetName()
+		|| L"Door" == _OtherObj->GetName())
+	{
+		CEffect_Saber* pEffect = new CEffect_Saber(m_Collider->GetFinalPos(), EFFECT_TYPE::EFFECT_ONE);
+		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
+	}
 }
 
 void CPlayer_JumpAttack::JumpAttack()

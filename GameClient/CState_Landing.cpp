@@ -21,17 +21,34 @@ void CState_Landing::Enter()
 	
 	GetRigidBody()->SetWall(false);
 
-	GetCollider()->SetScale(Vec2(70.f, 105.f));
+	GetCollider()->SetScale(Vec2(90.f, 105.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"LANDING_RIGHT", false);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_LANDING_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_LANDING_LEFT", false);
+		}
+		return;
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	else if(!GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"LANDING_LEFT", false);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"LANDING_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"LANDING_LEFT", false);
+		}
 	}
 }
 

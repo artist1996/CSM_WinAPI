@@ -7,7 +7,7 @@
 CHUD_PlayerHP::CHUD_PlayerHP()
 	: m_Img(nullptr)
 {
-	SetPos(Vec2(57.f, 62.f));
+	SetPos(Vec2(57.f, 70.f));
 	m_Img = CAssetMgr::GetInst()->LoadTexture(L"GREENHP", L"texture\\hud\\HP_Bar.png");
 	m_Owner = CLevelMgr::GetInst()->FindObjectByName(L"ZERO");
 }

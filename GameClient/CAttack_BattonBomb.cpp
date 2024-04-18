@@ -3,6 +3,8 @@
 #include "CAnimator.h"
 #include "CCollider.h"
 #include "CAnimation.h"
+#include "CLevelMgr.h"
+#include "CEffect_MonsterDead.h"
 
 CAttack_BattonBomb::CAttack_BattonBomb()
 	: m_Owner(nullptr)
@@ -52,8 +54,10 @@ void CAttack_BattonBomb::tick()
 
 void CAttack_BattonBomb::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (L"ZERO" == _OtherObj->GetName())
+	if (L"HitBox" == _OtherCollider->GetName())
 	{
 		Destroy();
+		CEffect_MonsterDead* pEffect = new CEffect_MonsterDead(this);
+		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
 	}
 }

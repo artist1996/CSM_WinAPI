@@ -8,6 +8,8 @@ private:
     CCollider*    m_Collider;
     bool          m_Boss;
 
+    OBJ_ID        m_ID;
+
 public:
     virtual void begin() override;
 

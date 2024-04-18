@@ -13,6 +13,7 @@ CTrap_Eruption::CTrap_Eruption()
 	, m_Animator(nullptr)
 	, m_Time(0.f)
 	, m_bActive(true)
+	, m_Range(0.f)
 {
 }
 
@@ -21,10 +22,13 @@ CTrap_Eruption::CTrap_Eruption(Vec2 _Pos, OBJ_ID _ID)
 	, m_Animator(nullptr)
 	, m_Time(0.f)
 	, m_bActive(true)
+	, m_Range(0.f)
 {
 	// Info
+	SetName(L"ERUPTION");
 	SetPos(_Pos);
-	SetScale(10.f, 10.f);
+	SetScale(0.f, 0.f);
+	SetHp(0);
 	SetID(_ID);
 
 	// Component

@@ -166,7 +166,6 @@ bool CCollisionMgr::IsCollision(CCollider* _Left, CCollider* _Right)
 				return true;
 			}
 		}
-		return false;
 	}
 
 	else

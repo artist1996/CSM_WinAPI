@@ -10,6 +10,7 @@
 
 CPlatform::CPlatform()
 	: m_Boss(true)
+	, m_ID(OBJ_ID::END)
 {
 	//SetScale(Vec2(500.f, 100.f));
 	m_Collider = (CCollider*)AddComponent(new CCollider);
@@ -18,6 +19,7 @@ CPlatform::CPlatform()
 
 CPlatform::CPlatform(const Vec2& _StartPos, const Vec2& _EndPos)
 	: m_Boss(true)
+	, m_ID(OBJ_ID::END)
 {
 	SetPos(_StartPos);
 	SetScale(_EndPos);
@@ -27,6 +29,7 @@ CPlatform::CPlatform(const Vec2& _StartPos, const Vec2& _EndPos)
 
 CPlatform::CPlatform(Vec2 _Pos, Vec2 _Scale, LAYER_TYPE _type)
 	: m_Boss(true)
+	, m_ID(OBJ_ID::END)
 {
 	SetPos(_Pos);
 	SetScale(_Scale);
@@ -47,6 +50,7 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		_OtherObj->SetPos(_OtherObj->GetPos().x, GetPos().y - GetScale().y * 0.5f);
 		pRB->SetGround(true);
 	}
 
@@ -115,14 +119,21 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 
 void CPlatform::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (L"ZERO" == _OtherObj->GetName())
+	//if (L"ZERO" == _OtherObj->GetName())
+	//{
+	//	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+	//	Vec2 PrevPos = _OtherObj->GetPrevPos();
+	//	Vec2 vOtherObjPos = _OtherObj->GetPos();
+	//	Vec2 vOtherObjScale = _OtherObj->GetScale();
+	//	Vec2 vPos = GetPos();
+	//	Vec2 vScale = GetScale();	
+	//}
+
+	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
-		Vec2 PrevPos = _OtherObj->GetPrevPos();
-		Vec2 vOtherObjPos = _OtherObj->GetPos();
-		Vec2 vOtherObjScale = _OtherObj->GetScale();
-		Vec2 vPos = GetPos();
-		Vec2 vScale = GetScale();	
+		_OtherObj->SetPos(_OtherObj->GetPos().x, GetPos().y - GetScale().y * 0.5f);
+		pRB->SetGround(true);
 	}
 }
 

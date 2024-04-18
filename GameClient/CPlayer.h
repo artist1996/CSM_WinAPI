@@ -11,6 +11,7 @@ class CPlayer :
 private:
     CTexture*       m_PlayerImg;
 
+    CCollider*      m_HitBox;
     CCollider*      m_BodyCol;
     CAnimator*      m_Animator;
     CRigidBody*     m_RigidBody;
@@ -18,6 +19,9 @@ private:
 
     float           m_InvincibleTime;
     bool            m_Invincible;
+
+    bool            m_AlwaysInvincible;
+    bool            m_BlackZero;
 
     float           m_Speed;
     
@@ -32,10 +36,15 @@ public:
     virtual void OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
     virtual void EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) override;
 
+    virtual bool IsInvicible() override { return m_Invincible; }
+    virtual bool IsAlways() override    { return m_AlwaysInvincible; }
+
     float GetSpeed()                    { return m_Speed; }
 
     void SetState(PLAYER_STATE _eState) { m_eState = _eState; }
     PLAYER_STATE GetState()             { return m_eState; }
+
+    virtual bool IsBlack() override { return m_BlackZero; }
 
 public:
     void CreateAttack(ATTACK_TYPE _Type);

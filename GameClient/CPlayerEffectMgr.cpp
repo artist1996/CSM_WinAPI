@@ -19,7 +19,11 @@ CPlayerEffectMgr::CPlayerEffectMgr()
 {}
 
 CPlayerEffectMgr::~CPlayerEffectMgr()
-{}
+{
+	//Safe_Del_Vec(m_vecDash);
+	//Safe_Del_Vec(m_vecKick);
+	//Safe_Del_Vec(m_vecShadow);
+}
 
 void CPlayerEffectMgr::Init()
 {

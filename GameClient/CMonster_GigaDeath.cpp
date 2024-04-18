@@ -43,6 +43,7 @@ CMonster_GigaDeath::CMonster_GigaDeath(Vec2 _Pos, Vec2 _Scale, int _HP, float _D
 
 	// RigidBody
 	m_RigidBody->UseGravity(true);
+	m_RigidBody->SetMaxGravitySpeed(50.f);
 
 	// Collider
 	m_Collider->SetOffsetPos(Vec2(0.f, -90.f));

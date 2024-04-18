@@ -22,17 +22,34 @@ void CState_Attack02::Enter()
 
 	Initialize();
 
-
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"ATTACK02_RIGHT", false);
-		static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_ATTACK02_RIGHT", false);
+			static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_ATTACK02_LEFT", false);
+			static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
+		}
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	else
 	{
-		GetAnimator()->Play(L"ATTACK02_LEFT", false);
-		static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"ATTACK02_RIGHT", false);
+			static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"ATTACK02_LEFT", false);
+			static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK02);
+		}
 	}
 }
 

@@ -55,19 +55,43 @@ void CPlayer_Attack::Attack_01()
 		return;
 	}
 	
-	if (DIRECTION::RIGHT == m_Owner->GetDirection() && L"ATTACK01_RIGHT" != m_Animator->GetCurAnim()->GetName())
+	if (m_Owner->IsBlack())
 	{
-		Destroy();
-		return;
+		if (DIRECTION::RIGHT == m_Owner->GetDirection()
+			&& L"BLACK_ATTACK01_RIGHT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
+
+		else if (DIRECTION::LEFT == m_Owner->GetDirection()
+			&& L"BLACK_ATTACK01_LEFT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
 	}
 
-	else if (DIRECTION::LEFT == m_Owner->GetDirection() && L"ATTACK01_LEFT" != m_Animator->GetCurAnim()->GetName())
+	else if (!m_Owner->IsBlack())
 	{
-		Destroy();
-		return;
+		if (DIRECTION::RIGHT == m_Owner->GetDirection()
+			&& L"ATTACK01_RIGHT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
+
+		else if (DIRECTION::LEFT == m_Owner->GetDirection()
+			&& L"ATTACK01_LEFT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
 	}
 
-	if (L"ATTACK01_RIGHT" == m_Animator->GetCurAnim()->GetName())
+
+	if (L"ATTACK01_RIGHT" == m_Animator->GetCurAnim()->GetName() 
+		|| L"BLACK_ATTACK01_RIGHT" == m_Animator->GetCurAnim()->GetName())
 	{
 		if (2 == m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
@@ -118,7 +142,8 @@ void CPlayer_Attack::Attack_01()
 
 	}
 
-	else if (L"ATTACK01_LEFT" == m_Animator->GetCurAnim()->GetName())
+	else if (L"ATTACK01_LEFT" == m_Animator->GetCurAnim()->GetName()
+		|| L"BLACK_ATTACK01_LEFT" == m_Animator->GetCurAnim()->GetName())
 	{
 		if (2 == m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
@@ -176,19 +201,42 @@ void CPlayer_Attack::Attack_02()
 		return;
 	}
 
-	if (DIRECTION::RIGHT == m_Owner->GetDirection() && L"ATTACK02_RIGHT" != m_Animator->GetCurAnim()->GetName())
+	if (m_Owner->IsBlack())
 	{
-		Destroy();
-		return;
+		if (DIRECTION::RIGHT == m_Owner->GetDirection()
+			&& L"BLACK_ATTACK02_RIGHT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
+
+		else if (DIRECTION::LEFT == m_Owner->GetDirection()
+			&& L"BLACK_ATTACK02_LEFT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
 	}
 
-	else if (DIRECTION::LEFT == m_Owner->GetDirection() && L"ATTACK02_LEFT" != m_Animator->GetCurAnim()->GetName())
+	else if (!m_Owner->IsBlack())
 	{
-		Destroy();
-		return;
+		if (DIRECTION::RIGHT == m_Owner->GetDirection()
+			&& L"ATTACK02_RIGHT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
+
+		else if (DIRECTION::LEFT == m_Owner->GetDirection()
+			&& L"ATTACK02_LEFT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
 	}
 
-	if (L"ATTACK02_RIGHT" == m_Animator->GetCurAnim()->GetName())
+	if (L"ATTACK02_RIGHT" == m_Animator->GetCurAnim()->GetName()
+		|| L"BLACK_ATTACK02_RIGHT" == m_Animator->GetCurAnim()->GetName())
 	{
 		if (0 == m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
@@ -198,7 +246,7 @@ void CPlayer_Attack::Attack_02()
 
 		if (1 == m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
-			m_Collider->SetOffsetPos(Vec2(60.f,-55.f));
+			m_Collider->SetOffsetPos(Vec2(60.f, -55.f));
 			m_Collider->SetScale(Vec2(75.f, 30.f));
 		}
 
@@ -250,7 +298,8 @@ void CPlayer_Attack::Attack_02()
 		}
 	}
 
-	else if (L"ATTACK02_LEFT" == m_Animator->GetCurAnim()->GetName())
+	else if (L"ATTACK02_LEFT" == m_Animator->GetCurAnim()->GetName()
+	     || L"BLACK_ATTACK02_RIGHT" == m_Animator->GetCurAnim()->GetName())
 	{
 		if (0 == m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
@@ -320,19 +369,44 @@ void CPlayer_Attack::Attack_03()
 		return;
 	}
 
-	if (DIRECTION::RIGHT == m_Owner->GetDirection() && L"ATTACK03_RIGHT" != m_Animator->GetCurAnim()->GetName())
+	if (m_Owner->IsBlack())
 	{
-		Destroy();
-		return;
+		if (DIRECTION::RIGHT == m_Owner->GetDirection()
+			&& L"BLACK_ATTACK03_RIGHT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
+
+		else if (DIRECTION::LEFT == m_Owner->GetDirection()
+			&& L"BLACK_ATTACK03_LEFT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
 	}
 
-	else if (DIRECTION::LEFT == m_Owner->GetDirection() && L"ATTACK03_LEFT" != m_Animator->GetCurAnim()->GetName())
+	else if (!m_Owner->IsBlack())
 	{
-		Destroy();
-		return;
+		if (DIRECTION::RIGHT == m_Owner->GetDirection()
+			&& L"ATTACK03_RIGHT" != m_Animator->GetCurAnim()->GetName()
+			|| L"BLACK_ATTACK03_RIGHT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
+
+		else if (DIRECTION::LEFT == m_Owner->GetDirection()
+			&& L"ATTACK03_LEFT" != m_Animator->GetCurAnim()->GetName()
+			|| L"BLACK_ATTACK03_LEFT" != m_Animator->GetCurAnim()->GetName())
+		{
+			Destroy();
+			return;
+		}
 	}
 
-	if (L"ATTACK03_RIGHT" == m_Animator->GetCurAnim()->GetName())
+	if (L"ATTACK03_RIGHT" == m_Animator->GetCurAnim()->GetName()
+		|| L"BLACK_ATTACK03_RIGHT" == m_Animator->GetCurAnim()->GetName())
 	{
 		if (0 == m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
@@ -394,7 +468,8 @@ void CPlayer_Attack::Attack_03()
 		}
 	}
 
-	else if (L"ATTACK03_LEFT" == m_Animator->GetCurAnim()->GetName())
+	else if (L"ATTACK03_LEFT" == m_Animator->GetCurAnim()->GetName()
+		|| L"BLACK_ATTACK03_LEFT" == m_Animator->GetCurAnim()->GetName())
 	{
 		if (0 == m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
@@ -469,14 +544,14 @@ void CPlayer_Attack::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCol
 		if (ATTACK_TYPE::ATTACK02 == m_eType)
 		{
 			CEffect_Saber* pEffect = new CEffect_Saber(Vec2(
-				m_Collider->GetFinalPos().x + m_Collider->GetScale().x * 0.5f, m_Collider->GetFinalPos().y + m_Collider->GetScale().y * 0.5f),
+				m_Collider->GetFinalPos().x , m_Collider->GetFinalPos().y),
 				EFFECT_TYPE::EFFECT_TWO);
 			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);			
 		}
 
 		else
 		{
-			CEffect_Saber* pEffect = new CEffect_Saber(Vec2(m_Collider->GetFinalPos().x + m_Collider->GetScale().x * 0.5f, m_Collider->GetFinalPos().y + m_Collider->GetScale().y * 0.5f)
+			CEffect_Saber* pEffect = new CEffect_Saber(Vec2(m_Collider->GetFinalPos().x, m_Collider->GetFinalPos().y)
 				, EFFECT_TYPE::EFFECT_ONE);
 			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
 		}

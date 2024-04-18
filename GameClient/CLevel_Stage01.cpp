@@ -22,6 +22,7 @@
 
 #include "CPlatform.h"
 #include "CPlatform_Camera.h"
+#include "CPlatform_Respawn.h"
 #include "CLine.h"
 #include "CPathMgr.h"
 #include "CTexture.h"
@@ -97,12 +98,12 @@ void CLevel_Stage01::Enter()
 	AddObject(LAYER_TYPE::TRAP, pEruption);
 
 	//Camera
+	CPlatform_Respawn* pRespawn = new CPlatform_Respawn(Vec2(3651.f, 1437.f), Vec2(300.f, 300.f));
+	AddObject(LAYER_TYPE::PLATFORM, pRespawn);
 	CPlatform_Camera* pPlatform = new CPlatform_Camera(Vec2(3751.f, 1437.f), Vec2(300.f, 300.f), PLATFORM_CAMERA::MAX_HEIGHT);
 	AddObject(LAYER_TYPE::PLATFORM, pPlatform);
 	pPlatform = new CPlatform_Camera(Vec2(16291.f, 1441.f), Vec2(300.f, 300.f), PLATFORM_CAMERA::MAX_HEIGHT2);
 	AddObject(LAYER_TYPE::PLATFORM, pPlatform);
-	CDoor* pDoor = new CDoor(Vec2(18936.f, 214.f), Vec2(100.f, 100.f), 10);
-	AddObject(LAYER_TYPE::PLATFORM, pDoor);
 
 	CUI* pReadyUI = new CUI_Ready(Vec2(400.f, 400.f));
 	AddObject(LAYER_TYPE::UI, pReadyUI);
@@ -112,6 +113,8 @@ void CLevel_Stage01::Enter()
 	CCamera::GetInst()->SetMaxLowWidth(400.f);
 	CCamera::GetInst()->SetMaxHighHeight(200.f);
 	CCamera::GetInst()->SetMaxLowHeight(1236.f);
+	CCamera::GetInst()->SetCamSpeed(1000.f);
+
 	
 
 	// Load
@@ -119,6 +122,10 @@ void CLevel_Stage01::Enter()
 	LoadLine(L"line\\line.dat");
 	LoadMonster(L"monster\\monster.dat");
 	LoadTrap(L"trap\\trap.dat");
+	LoadDeathPlatform(L"platform\\death.dat");
+
+	CDoor* pDoor = new CDoor(Vec2(18936.f, 214.f), Vec2(100.f, 100.f), 10);
+	AddObject(LAYER_TYPE::TRAP, pDoor);
 	
 	// 레벨 충돌 설정하기
 	CCollisionMgr::GetInst()->CollisionCheckClear();
@@ -126,7 +133,6 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_ATTACK, LAYER_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::PLAYER);
-	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_ATTACK, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::MONSTER_MISSILE, LAYER_TYPE::PLATFORM);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::MONSTER_MISSILE, LAYER_TYPE::LINE);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::LINE, LAYER_TYPE::MONSTER);
@@ -134,6 +140,9 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::EFFECT);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER_MISSILE);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRAP);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::TRAP, LAYER_TYPE::LINE);
+	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TILE);
+	//CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_ATTACK, LAYER_TYPE::PLATFORM);
 
 	CLevelMgr::GetInst()->SetPrevLevel(this);
 }

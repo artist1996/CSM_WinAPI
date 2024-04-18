@@ -223,11 +223,14 @@
     <ClInclude Include="CMonster_Raiden.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CPanel.h" />
+    <ClInclude Include="CParticle.h" />
     <ClInclude Include="CPathMgr.h" />
     <ClInclude Include="CPlatform.h" />
     <ClInclude Include="CPlatform_BossRoom.h" />
     <ClInclude Include="CPlatform_Camera.h" />
+    <ClInclude Include="CPlatform_Death.h" />
     <ClInclude Include="CPlatform_Level.h" />
+    <ClInclude Include="CPlatform_Respawn.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPlayer_Attack.h" />
     <ClInclude Include="CPlayer_JumpAttack.h" />
@@ -252,6 +255,7 @@
     <ClInclude Include="CState_Boss.h" />
     <ClInclude Include="CState_Dash.h" />
     <ClInclude Include="CBoss_Dead.h" />
+    <ClInclude Include="CState_Dead.h" />
     <ClInclude Include="CState_Enter.h" />
     <ClInclude Include="CState_Fall.h" />
     <ClInclude Include="CState_Fastfall.h" />
@@ -379,11 +383,14 @@
     <ClCompile Include="CMonster_Raiden.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CPanel.cpp" />
+    <ClCompile Include="CParticle.cpp" />
     <ClCompile Include="CPathMgr.cpp" />
     <ClCompile Include="CPlatform.cpp" />
     <ClCompile Include="CPlatform_BossRoom.cpp" />
     <ClCompile Include="CPlatform_Camera.cpp" />
+    <ClCompile Include="CPlatform_Death.cpp" />
     <ClCompile Include="CPlatform_Level.cpp" />
+    <ClCompile Include="CPlatform_Respawn.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayer_Attack.cpp" />
     <ClCompile Include="CPlayer_JumpAttack.cpp" />
@@ -408,6 +415,7 @@
     <ClCompile Include="CState_Boss.cpp" />
     <ClCompile Include="CState_Dash.cpp" />
     <ClCompile Include="CBoss_Dead.cpp" />
+    <ClCompile Include="CState_Dead.cpp" />
     <ClCompile Include="CState_Enter.cpp" />
     <ClCompile Include="CState_Fall.cpp" />
     <ClCompile Include="CState_Fastfall.cpp" />

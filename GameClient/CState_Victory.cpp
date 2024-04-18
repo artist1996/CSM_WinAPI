@@ -28,14 +28,30 @@ void CState_Victory::Enter()
 {
 	Initialize();
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"VICTORY_RIGHT", false);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_VICTORY_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_VICTORY_LEFT", false);
+		}
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	else
 	{
-		GetAnimator()->Play(L"VICTORY_LEFT", false);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"VICTORY_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"VICTORY_LEFT", false);
+		}
 	}
 
 	GetRigidBody()->UseGravity(false);

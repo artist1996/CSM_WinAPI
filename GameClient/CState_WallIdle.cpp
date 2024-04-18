@@ -16,14 +16,30 @@ void CState_WallIdle::Enter()
 
 	CPlayerEffectMgr::GetInst()->SetActive(false);
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"WALL_IDLE_RIGHT", true);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_WALLIDLE_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_WALLIDLE_LEFT", true);
+		}
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	else
 	{
-		GetAnimator()->Play(L"WALL_IDLE_LEFT", true);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"WALL_IDLE_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"WALL_IDLE_LEFT", true);
+		}
 	}
 }
 

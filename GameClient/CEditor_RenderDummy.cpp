@@ -92,7 +92,7 @@ void CEditor_RenderDummy::render()
 	bf.AlphaFormat = AC_SRC_ALPHA;
 
 	AlphaBlend(DC, (int)(vRenderPos.x - m_Img->GetWidth() * 0.5f)
-				 , (int)(vRenderPos.y - m_Img->GetHeight() * 0.5f)
+				 , (int)(vRenderPos.y - m_Img->GetHeight())
 				 , m_Img->GetWidth(), m_Img->GetHeight()
 				 , m_Img->GetDC()
 				 , 0 ,0

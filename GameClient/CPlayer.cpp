@@ -36,6 +36,7 @@
 #include "CState_WallKick.h"
 #include "CState_Hit.h"
 #include "CState_Victory.h"
+#include "CState_Dead.h"
 
 void BeGround()
 {
@@ -54,18 +55,27 @@ CPlayer::CPlayer()
 	, m_eState(PLAYER_STATE::IDLE)
 	, m_Invincible(false)
 	, m_InvincibleTime(0.f)
+	, m_HitBox(nullptr)
+	, m_AlwaysInvincible(false)
+	, m_BlackZero(false)
 {
 	SetHp(15);
 	// Player 의 컴포넌트 설정
 	m_BodyCol = (CCollider*)AddComponent(new CCollider);
+	m_HitBox = (CCollider*)AddComponent(new CCollider);
 	m_Animator = (CAnimator*)AddComponent(new CAnimator);
 	m_RigidBody = (CRigidBody*)AddComponent(new CRigidBody);
 	m_FSM = (CFSM*)AddComponent(new CFSM);
 
 	m_BodyCol->SetName(L"Body Collider");
 	m_BodyCol->SetOffsetPos(Vec2(0.f, -50.f));
-	m_BodyCol->SetScale(Vec2(90.f,90.f));
+	m_BodyCol->SetScale(Vec2(100.f,90.f));
 	m_BodyCol->SetActive(true);
+
+	m_HitBox->SetName(L"HitBox");
+	m_HitBox->SetOffsetPos(Vec2(0.f, -50.f));
+	m_HitBox->SetScale(Vec2(40.f, 40.f));
+	m_HitBox->SetActive(true);
 	
 	//Right Animation
 	m_Animator->LoadAnimation(L"animation\\player\\right\\WALK_RIGHT.anim");
@@ -88,6 +98,7 @@ CPlayer::CPlayer()
 	m_Animator->LoadAnimation(L"animation\\player\\right\\HIT_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\right\\LANDING_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\right\\VICTORY_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\right\\DEAD_RIGHT.anim");
 
 
 	// Left Animation
@@ -109,6 +120,40 @@ CPlayer::CPlayer()
 	m_Animator->LoadAnimation(L"animation\\player\\left\\HIT_LEFT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\left\\LANDING_LEFT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\left\\VICTORY_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\right\\DEAD_LEFT.anim");
+
+
+	// Black Zero Right
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_ATTACK01_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_ATTACK02_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_ATTACK03_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_VICTORY_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_WALLIDLE_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_DASH_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_FALL_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_FASTFALL_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_IDLE_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_JUMP_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_LANDING_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_WALK_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_WALLENTER_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_WALLKICK_RIGHT.anim");
+
+	// Black Zero Left
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_ATTACK01_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_ATTACK02_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_ATTACK03_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_VICTORY_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_WALLIDLE_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_DASH_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_FALL_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_FASTFALL_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_IDLE_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_JUMP_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_LANDING_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_WALK_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_WALLENTER_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_WALLKICK_LEFT.anim");
 
 
 	// Rigidbody
@@ -141,6 +186,7 @@ CPlayer::CPlayer()
 	m_FSM->AddState(L"WALLKICK", new CState_WallKick);
 	m_FSM->AddState(L"HIT", new CState_Hit);
 	m_FSM->AddState(L"VICTORY", new CState_Victory);
+	m_FSM->AddState(L"DEAD", new CState_Dead);
 
 	//m_FSM->ChangeState(L"START");
 }
@@ -156,6 +202,8 @@ CPlayer::CPlayer(const CPlayer& _Other)
 	, m_Invincible(false)
 	, m_InvincibleTime(0.f)
 	, m_eState(PLAYER_STATE::END)
+	, m_HitBox(nullptr)
+	, m_BlackZero(false)
 {
 	m_BodyCol = GetComponent<CCollider>();
 	m_Animator = GetComponent<CAnimator>();
@@ -208,10 +256,31 @@ void CPlayer::tick()
 		m_InvincibleTime += DT;
 	}
 
-	if (1.f <= m_InvincibleTime)
+	if (3.f <= m_InvincibleTime)
 	{
 		m_Invincible = false;
 		m_InvincibleTime = 0.f;
+	}
+
+	if (KEY_TAP(KEY::O))
+	{
+		m_AlwaysInvincible = true;
+		m_BlackZero = true;
+
+		if (DIRECTION::RIGHT == GetDirection())
+		{
+			m_Animator->Play(L"BLACK_IDLE_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetDirection())
+		{
+			m_Animator->Play(L"BLACK_IDLE_LEFT", true);
+		}
+	}
+
+	else if (KEY_TAP(KEY::I))
+	{
+		m_AlwaysInvincible = false;
 	}
 
 	SetPos(vPos);
@@ -224,17 +293,20 @@ void CPlayer::render()
 
 void CPlayer::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (LAYER_TYPE::BOSS == _OtherObj->GetLayerType() 
-		|| LAYER_TYPE::MONSTER == _OtherObj->GetLayerType()
-		|| LAYER_TYPE::TRAP == _OtherObj->GetLayerType()
-		|| LAYER_TYPE::MONSTER_MISSILE == _OtherObj->GetLayerType()
-		|| LAYER_TYPE::BOSS_ATTACK == _OtherObj->GetLayerType())
+	if (L"HitBox" == _OwnCollider->GetName() && !m_AlwaysInvincible)
 	{
-		if (!m_Invincible)
+		if (LAYER_TYPE::BOSS == _OtherObj->GetLayerType()
+			|| LAYER_TYPE::MONSTER == _OtherObj->GetLayerType()
+			|| LAYER_TYPE::TRAP == _OtherObj->GetLayerType()
+			|| LAYER_TYPE::MONSTER_MISSILE == _OtherObj->GetLayerType()
+			|| LAYER_TYPE::BOSS_ATTACK == _OtherObj->GetLayerType())
 		{
-			m_Invincible = true;
-			m_FSM->ChangeState(L"HIT");
-			MinusHp();
+			if (!m_Invincible)
+			{
+				m_Invincible = true;
+				m_FSM->ChangeState(L"HIT");
+				MinusHp();
+			}
 		}
 	}
 }

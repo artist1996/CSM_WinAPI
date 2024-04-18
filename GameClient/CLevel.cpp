@@ -5,6 +5,7 @@
 #include "CCollider.h"
 #include "CPathMgr.h"
 #include "CPlatform.h"
+#include "CPlatform_Death.h"
 #include "CLine.h"
 #include "CMonster.h"
 #include "CMonster_Mettool.h"
@@ -153,6 +154,58 @@ void CLevel::DeleteObjects(LAYER_TYPE _Type)
 	}
 
 	vecObj.clear();
+}
+
+void CLevel::pop_back(LAYER_TYPE _Type)
+{
+	if (m_arrObj[(UINT)_Type].empty())
+		return;
+
+	CObj* pObj = m_arrObj[(UINT)_Type].back();
+	pObj->Destroy();
+	m_arrObj[(UINT)_Type].pop_back();
+}
+
+void CLevel::SaveDeathPlatform(const wstring& _strRelativePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+	if (SAVE_TYPE::STAGE01 == m_Save)
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (SAVE_TYPE::STAGE02 == m_Save)
+	{
+		strFullPath += L"stage02\\";
+	}
+
+	FILE* pFile = nullptr;
+
+	strFullPath += _strRelativePath;
+
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"wb");
+
+	size_t len = m_arrObj[(UINT)LAYER_TYPE::TILE].size();
+
+	fwrite(&len, sizeof(size_t), 1, pFile);
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"파일 개방 실패", L"Error", MB_OK);
+		return;
+	}
+
+	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::TILE].size(); ++i)
+	{
+		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::TILE][i]->GetPos();
+		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::TILE][i]->GetScale();
+
+		fwrite(&vPos, sizeof(Vec2), 1, pFile);
+		fwrite(&vScale, sizeof(Vec2), 1, pFile);
+	}
+
+	fclose(pFile);
 }
 
 void CLevel::SavePlatform(const wstring& _strRelativePath)
@@ -314,16 +367,33 @@ void CLevel::SaveTrap(const wstring& _strRelativePath)
 
 	for (size_t i = 0; i < m_arrObj[(UINT)LAYER_TYPE::TRAP].size(); ++i)
 	{
-		OBJ_ID ID = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetID();
-		Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetPos();
-		Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetScale();
-		int HP = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetHP();
-		float Range = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetRange();
-		fwrite(&ID, sizeof(OBJ_ID), 1, pFile);
-		fwrite(&vPos, sizeof(Vec2), 1, pFile);
-		fwrite(&vScale, sizeof(Vec2), 1, pFile);
-		fwrite(&HP, sizeof(int), 1, pFile);
-		fwrite(&Range, sizeof(float), 1, pFile);
+		if (L"ERUPTION" == m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetName())
+		{
+			OBJ_ID ID = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetID();
+			Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetPos();
+			Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetScale();
+			int HP = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetHp();
+			float Range = dynamic_cast<CTrap_Eruption*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetRange();
+			fwrite(&ID, sizeof(OBJ_ID), 1, pFile);
+			fwrite(&vPos, sizeof(Vec2), 1, pFile);
+			fwrite(&vScale, sizeof(Vec2), 1, pFile);
+			fwrite(&HP, sizeof(int), 1, pFile);
+			fwrite(&Range, sizeof(float), 1, pFile);
+		}
+
+		else
+		{
+			OBJ_ID ID = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetID();
+			Vec2 vPos = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetPos();
+			Vec2 vScale = m_arrObj[(UINT)LAYER_TYPE::TRAP][i]->GetScale();
+			int HP = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetHP();
+			float Range = dynamic_cast<CEditor_RenderDummy*>(m_arrObj[(UINT)LAYER_TYPE::TRAP][i])->GetRange();
+			fwrite(&ID, sizeof(OBJ_ID), 1, pFile);
+			fwrite(&vPos, sizeof(Vec2), 1, pFile);
+			fwrite(&vScale, sizeof(Vec2), 1, pFile);
+			fwrite(&HP, sizeof(int), 1, pFile);
+			fwrite(&Range, sizeof(float), 1, pFile);
+		}
 	}
 
 	fclose(pFile);
@@ -361,6 +431,7 @@ void CLevel::LoadPlatform(const wstring& _strRelativePath)
 		Vec2 vScale;
 		fread(&vPos, sizeof(Vec2), 1, pFile);
 		fread(&vScale, sizeof(Vec2), 1, pFile);
+
 		CPlatform* pPlatform = new CPlatform(vPos, vScale);
 		AddObject(LAYER_TYPE::PLATFORM, pPlatform);
 	}
@@ -536,6 +607,272 @@ void CLevel::LoadTrap(const wstring& _strRelativePath)
 			CTrap_Eruption* pTrap = new CTrap_Eruption(vPos, ID);
 			AddObject(LAYER_TYPE::TRAP, pTrap);
 		}
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadDeathPlatform(const wstring& _strRelativePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	if (L"Stage01" == GetName())
+	{
+		strFullPath += L"stage01\\";
+	}
+
+	else if (L"Stage02" == GetName())
+	{
+		strFullPath += L"stage02\\";
+	}
+
+	strFullPath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"File 개방 실패", L"LINE", MB_OK);
+		return;
+	}
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		Vec2 vPos;
+		Vec2 vScale;
+
+		fread(&vPos, sizeof(Vec2), 1, pFile);
+		fread(&vScale, sizeof(Vec2), 1, pFile);
+
+		CPlatform_Death* pPlatform = new CPlatform_Death(vPos, vScale);
+		AddObject(LAYER_TYPE::TILE, pPlatform);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadEditorLine(const wstring& _strFilePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	strFullPath += _strFilePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"File 개방 실패", L"LINE", MB_OK);
+		return;
+	}
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		Vec2 vStartPos;
+		Vec2 vEndPos;
+
+		fread(&vStartPos, sizeof(Vec2), 1, pFile);
+		fread(&vEndPos, sizeof(Vec2), 1, pFile);
+
+		CLine* pLine = new CLine(vStartPos, vEndPos);
+		AddObject(LAYER_TYPE::LINE, pLine);
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadEditorMonster(const wstring& _strFilePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	strFullPath += _strFilePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"File 개방 실패", L"MONSTER", MB_OK);
+		return;
+	}	
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		OBJ_ID ID;
+		Vec2 vPos;
+		Vec2 vScale;
+		int HP = 0;
+		float DetectRange = 0.f;
+
+		fread(&ID, sizeof(OBJ_ID), 1, pFile);
+		fread(&vPos, sizeof(Vec2), 1, pFile);
+		fread(&vScale, sizeof(Vec2), 1, pFile);
+		fread(&HP, sizeof(int), 1, pFile);
+		fread(&DetectRange, sizeof(float), 1, pFile);
+		
+		if (OBJ_ID::METTOOL == ID)
+		{
+			// Mettool
+			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, vScale, ID, HP, DetectRange);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
+		}
+
+		else if (OBJ_ID::RAIDEN == ID)
+		{
+			// Raiden			
+			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, vScale, ID, HP, DetectRange);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
+		}
+
+		else if (OBJ_ID::GIGADEATH == ID)
+		{
+			// GIGADEATH
+			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, vScale, ID, HP, DetectRange);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
+		}
+
+		else if (OBJ_ID::BATTON == ID)
+		{
+			// BATTON
+			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, vScale, ID, HP, DetectRange);
+			AddObject(LAYER_TYPE::MONSTER, pMonster);
+		}
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadEditorTrap(const wstring& _strFilePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	strFullPath += _strFilePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"File 개방 실패", L"TRAP", MB_OK);
+		return;
+	}
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		OBJ_ID ID;
+		Vec2 vPos;
+		Vec2 vScale;
+		int HP = 0;
+		float Range = 0.f;
+
+		fread(&ID, sizeof(OBJ_ID), 1, pFile);
+		fread(&vPos, sizeof(Vec2), 1, pFile);
+		fread(&vScale, sizeof(Vec2), 1, pFile);
+		fread(&HP, sizeof(int), 1, pFile);
+		fread(&Range, sizeof(float), 1, pFile);
+
+		if (OBJ_ID::METEOR_DOWN == ID)
+		{
+			CEditor_RenderDummy* pTrap = new CEditor_RenderDummy(vPos, vScale, ID, HP, Range);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
+
+		else if (OBJ_ID::METEOR_UP == ID)
+		{
+			CEditor_RenderDummy* pTrap = new CEditor_RenderDummy(vPos, vScale, ID, HP, Range);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
+
+		else if (OBJ_ID::ERUPTION == ID)
+		{
+			CTrap_Eruption* pTrap = new CTrap_Eruption(vPos, ID);
+			AddObject(LAYER_TYPE::TRAP, pTrap);
+		}
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadEditorDeathPlatform(const wstring& _strFilePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	strFullPath += _strFilePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"File 개방 실패", L"PLATFORM", MB_OK);
+		return;
+	}
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		Vec2 vPos;
+		Vec2 vScale;
+		fread(&vPos, sizeof(Vec2), 1, pFile);
+		fread(&vScale, sizeof(Vec2), 1, pFile);
+
+		CPlatform_Death* pPlatform = new CPlatform_Death(vPos, vScale);
+		AddObject(LAYER_TYPE::TILE, pPlatform);
+
+	}
+
+	fclose(pFile);
+}
+
+void CLevel::LoadEditorPlatform(const wstring& _strFilePath)
+{
+	wstring strFullPath = CPathMgr::GetInst()->GetContehtPath();
+
+	strFullPath += _strFilePath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFullPath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"File 개방 실패", L"PLATFORM", MB_OK);
+		return;
+	}
+
+	size_t len = 0;
+	fread(&len, sizeof(size_t), 1, pFile);
+
+	for (size_t i = 0; i < len; ++i)
+	{
+		Vec2 vPos;
+		Vec2 vScale;
+		fread(&vPos, sizeof(Vec2), 1, pFile);
+		fread(&vScale, sizeof(Vec2), 1, pFile);
+
+		CPlatform* pPlatform = new CPlatform(vPos, vScale);
+		AddObject(LAYER_TYPE::PLATFORM, pPlatform);
+		
 	}
 
 	fclose(pFile);

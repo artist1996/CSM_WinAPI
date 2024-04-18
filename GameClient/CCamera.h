@@ -29,6 +29,8 @@ private:
 
 	Vec2	   m_LookAt;
 	Vec2	   m_Diff;
+	float	   m_RespawnPos;
+
 	float	   m_CamSpeed;
 
 	float	   m_MaxHighHeight;
@@ -55,8 +57,14 @@ public:
 	void SetMaxLowHeight(float _MaxLowHeight)   { m_MaxLowHeight = _MaxLowHeight; }
 	void SetMaxHighWidth(float _MaxHighWidth)   { m_MaxHighWidth = _MaxHighWidth; }
 	void SetMaxLowWidth(float _MaxLowWidth)     { m_MaxLowWidth = _MaxLowWidth; }
+
+	void SetRespawnPos(float _Pos) { m_RespawnPos = _Pos; }
 	
 	void SetDestroyBoss(bool _boss) { m_DestroyBoss = _boss; }
+
+	void SetCamSpeed(float _Speed) { m_CamSpeed = _Speed; }
+
+	float GetRespawnPos() { return m_RespawnPos; }
 
 public:
 	void init();

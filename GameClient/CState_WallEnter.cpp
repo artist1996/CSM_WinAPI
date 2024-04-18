@@ -17,18 +17,38 @@ void CState_WallEnter::Enter()
 {
 	Initialize();
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetCollider()->SetScale(Vec2(70.f, 115.f));
-		GetCollider()->SetOffsetPos(Vec2(10.f, -55.f));
-		GetAnimator()->Play(L"WALL_ENTER_RIGHT", false);
-	}
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetCollider()->SetScale(Vec2(90.f, 115.f));
+			GetCollider()->SetOffsetPos(Vec2(10.f, -55.f));
+			GetAnimator()->Play(L"BLACK_WALLENTER_RIGHT", false);
+		}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetCollider()->SetScale(Vec2(90.f, 115.f));
+			GetCollider()->SetOffsetPos(Vec2(-10.f, -55.f));
+			GetAnimator()->Play(L"BLACK_WALLENTER_LEFT", false);
+		}
+	}
+	
+	else
 	{
-		GetCollider()->SetScale(Vec2(70.f, 115.f));
-		GetCollider()->SetOffsetPos(Vec2(-10.f, -55.f));
-		GetAnimator()->Play(L"WALL_ENTER_LEFT", false);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetCollider()->SetScale(Vec2(90.f, 115.f));
+			GetCollider()->SetOffsetPos(Vec2(10.f, -55.f));
+			GetAnimator()->Play(L"WALL_ENTER_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetCollider()->SetScale(Vec2(90.f, 115.f));
+			GetCollider()->SetOffsetPos(Vec2(-10.f, -55.f));
+			GetAnimator()->Play(L"WALL_ENTER_LEFT", false);
+		}
 	}
 
 	m_pSound->Play();

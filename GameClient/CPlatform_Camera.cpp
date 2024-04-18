@@ -39,6 +39,7 @@ void CPlatform_Camera::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CC
 		case PLATFORM_CAMERA::MAX_HEIGHT:
 		{
 			CCamera::GetInst()->SetMaxHighHeight(1293.f);
+			CCamera::GetInst()->SetCamSpeed(6000.f);
 			Destroy();
 		}
 		break;
@@ -46,6 +47,7 @@ void CPlatform_Camera::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CC
 		case PLATFORM_CAMERA::MAX_HEIGHT2:
 		{
 			CCamera::GetInst()->SetMaxHighHeight(300.f);
+			CCamera::GetInst()->SetCamSpeed(6000.f);
 			Destroy();
 		}
 		break;

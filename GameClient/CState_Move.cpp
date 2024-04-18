@@ -13,14 +13,30 @@ void CState_Move::Enter()
 {
 	Initialize();
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"WALK_RIGHT", true);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_WALK_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_WALK_LEFT", true);
+		}
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	else
 	{
-		GetAnimator()->Play(L"WALK_LEFT", true);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"WALK_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"WALK_LEFT", true);
+		}
 	}
 }
 

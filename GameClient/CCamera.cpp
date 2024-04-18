@@ -18,6 +18,7 @@ CCamera::CCamera()
 	, m_MaxHighWidth(0.f)
 	, m_MaxLowWidth(0.f)
 	, m_DestroyBoss(false)
+	, m_RespawnPos(0.f)
 {}
 
 CCamera::~CCamera()
@@ -129,7 +130,7 @@ void CCamera::Move()
 				{
 					vDir.Normalize();
 				}
-				m_LookAt.y += vDir.y * 6000.f * DT;
+				m_LookAt.y += vDir.y * m_CamSpeed * DT;
 			}
 		}
 

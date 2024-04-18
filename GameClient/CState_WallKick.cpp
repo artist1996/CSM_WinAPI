@@ -24,17 +24,36 @@ void CState_WallKick::Enter()
 	
 	m_pSound->Play();
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
+	{
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 
-	{
-		GetAnimator()->Play(L"WALLKICK_RIGHT", false);
-		CPlayerEffectMgr::GetInst()->Play(L"WALLKICK_RIGHT", false);
+		{
+			GetAnimator()->Play(L"BLACK_WALLKICK_RIGHT", false);
+			CPlayerEffectMgr::GetInst()->Play(L"WALLKICK_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_WALLKICK_LEFT", false);
+			CPlayerEffectMgr::GetInst()->Play(L"WALLKICK_LEFT", false);
+		}
 	}
-	
-	else if(DIRECTION::LEFT == GetObj()->GetDirection())
+
+	else
 	{
-		GetAnimator()->Play(L"WALLKICK_LEFT", false);
-		CPlayerEffectMgr::GetInst()->Play(L"WALLKICK_LEFT", false);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+
+		{
+			GetAnimator()->Play(L"WALLKICK_RIGHT", false);
+			CPlayerEffectMgr::GetInst()->Play(L"WALLKICK_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"WALLKICK_LEFT", false);
+			CPlayerEffectMgr::GetInst()->Play(L"WALLKICK_LEFT", false);
+		}
 	}
 
 	CPlayerEffectMgr::GetInst()->KickSetPos(GetObj()->GetPos());

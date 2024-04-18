@@ -13,8 +13,6 @@ private:
 	int						m_LogSpace;
 	Vec2					m_LogStartPos;
 
-
-
 public:
 	void AddDbgRenderInfo(const tDbgRenderInfo& _info)	{m_RenderList.push_back(_info);}
 	void AddDbgLog(const tDbgLog& _info) { m_LogList.push_back(_info); }

@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CState_Fastfall.h"
 
+#include "CPlayerEffectMgr.h"
+
 CState_Fastfall::CState_Fastfall()
 {
 }
@@ -13,14 +15,43 @@ void CState_Fastfall::Enter()
 {
 	Initialize();
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (CPlayerEffectMgr::GetInst()->GetActive())
 	{
-		GetAnimator()->Play(L"FASTFALL_RIGHT", true);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			CPlayerEffectMgr::GetInst()->Play(L"FALL_RIGHT", true);
+		}
+		
+		else
+		{
+			CPlayerEffectMgr::GetInst()->Play(L"FALL_LEFT", true);
+		}
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"FASTFALL_LEFT", true);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_FASTFALL_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_FASTFALL_LEFT", true);
+		}
+	}
+
+	else
+	{
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"FASTFALL_RIGHT", true);
+		}
+	
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"FASTFALL_LEFT", true);
+		}
 	}
 }
 
@@ -42,14 +73,32 @@ void CState_Fastfall::FinalTick()
 
 	if (KEY_TAP(KEY::RIGHT))
 	{
-		GetObj()->SetDirection(DIRECTION::RIGHT);
-		GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"FASTFALL_RIGHT"));
+		CPlayerEffectMgr::GetInst()->ChangeCurAnim(L"FALL_RIGHT");
+		if (GetObj()->IsBlack())
+		{
+			GetObj()->SetDirection(DIRECTION::RIGHT);
+			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"BLACK_FASTFALL_RIGHT"));
+		}
+		else
+		{
+			GetObj()->SetDirection(DIRECTION::RIGHT);
+			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"FASTFALL_RIGHT"));
+		}
 	}
 
 	else if (KEY_TAP(KEY::LEFT))
 	{
-		GetObj()->SetDirection(DIRECTION::LEFT);
-		GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"FASTFALL_LEFT"));
+		CPlayerEffectMgr::GetInst()->ChangeCurAnim(L"FALL_LEFT");
+		if(GetObj()->IsBlack())
+		{ 
+			GetObj()->SetDirection(DIRECTION::LEFT);
+			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"BLACK_FASTFALL_LEFT"));
+		}
+		else
+		{
+			GetObj()->SetDirection(DIRECTION::LEFT);
+			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"FASTFALL_LEFT"));
+		}
 	}
 	
 	if (KEY_PRESSED(KEY::RIGHT))

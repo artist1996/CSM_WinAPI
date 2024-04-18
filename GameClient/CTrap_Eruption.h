@@ -8,11 +8,13 @@ private:
     CAnimator*  m_Animator;
     
     float       m_Time;
+    float       m_Range;
 
     bool        m_bActive;
 
 public:
     virtual void tick() override;
+    float GetRange() { return m_Range; }
 
 public:
     CLONE(CTrap_Eruption);

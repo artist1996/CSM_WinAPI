@@ -19,19 +19,37 @@ void CState_Attack01::Enter()
 	m_pSound->Play();
 	Initialize();
 
-	GetCollider()->SetScale(Vec2(70.f, 100.f));
+	GetCollider()->SetScale(Vec2(90.f, 100.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"ATTACK01_RIGHT", false);
-		static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK01);
-	}
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_ATTACK01_RIGHT", false);
+			static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK01);
+		}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_ATTACK01_LEFT", false);
+			static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK01);
+		}
+	}
+	
+	else
 	{
-		GetAnimator()->Play(L"ATTACK01_LEFT", false);
-		static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK01);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"ATTACK01_RIGHT", false);
+			static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK01);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"ATTACK01_LEFT", false);
+			static_cast<CPlayer*>(GetObj())->CreateAttack(ATTACK_TYPE::ATTACK01);
+		}
 	}
 }
 

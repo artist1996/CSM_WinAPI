@@ -239,12 +239,6 @@
     <Filter Include="03. Game\05. Object\06. Platform\03. Level">
       <UniqueIdentifier>{33cdfa47-957b-4f1a-a141-5beb74b5a499}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Game\05. Object\06. Platform\04. Magma">
-      <UniqueIdentifier>{9e8d2cb9-cbd4-430f-8ff1-a54219a2d0bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Game\05. Object\06. Platform\05. BossRoom">
-      <UniqueIdentifier>{6fbf22cf-b4a0-4829-ad92-771fae4d1e79}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Game\05. Object\10. Effect">
       <UniqueIdentifier>{b73471f7-b9f1-4a2e-9743-4a52dcc3b6ac}</UniqueIdentifier>
     </Filter>
@@ -472,6 +466,21 @@
     </Filter>
     <Filter Include="03. Game\05. Object\15. Dummy\04. MagmaDummy">
       <UniqueIdentifier>{274818e5-00f6-4219-a057-6985aa7848e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\10. Effect\01. Player\04. Particle">
+      <UniqueIdentifier>{079e8329-d0c7-473e-a808-7cddd9797cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\06. Platform\04. Death">
+      <UniqueIdentifier>{9e8d2cb9-cbd4-430f-8ff1-a54219a2d0bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\06. Platform\05. BossRoom">
+      <UniqueIdentifier>{6fbf22cf-b4a0-4829-ad92-771fae4d1e79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\05. Object\06. Platform\06. Respawn">
+      <UniqueIdentifier>{badcb439-c3a6-47fa-80db-39da67fbed60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Game\08. Module\02. State\01. PlayerState\State\10. Dead">
+      <UniqueIdentifier>{6a9fbde9-7461-4803-9628-02639165f4ce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -937,6 +946,18 @@
     <ClInclude Include="CDummy_Magma.h">
       <Filter>03. Game\05. Object\15. Dummy\04. MagmaDummy</Filter>
     </ClInclude>
+    <ClInclude Include="CParticle.h">
+      <Filter>03. Game\05. Object\10. Effect\01. Player\04. Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlatform_Death.h">
+      <Filter>03. Game\05. Object\06. Platform\04. Death</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlatform_Respawn.h">
+      <Filter>03. Game\05. Object\06. Platform\06. Respawn</Filter>
+    </ClInclude>
+    <ClInclude Include="CState_Dead.h">
+      <Filter>03. Game\08. Module\02. State\01. PlayerState\State\10. Dead</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -1395,6 +1416,18 @@
     </ClCompile>
     <ClCompile Include="CDummy_Magma.cpp">
       <Filter>03. Game\05. Object\15. Dummy\04. MagmaDummy</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticle.cpp">
+      <Filter>03. Game\05. Object\10. Effect\01. Player\04. Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlatform_Death.cpp">
+      <Filter>03. Game\05. Object\06. Platform\04. Death</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlatform_Respawn.cpp">
+      <Filter>03. Game\05. Object\06. Platform\06. Respawn</Filter>
+    </ClCompile>
+    <ClCompile Include="CState_Dead.cpp">
+      <Filter>03. Game\08. Module\02. State\01. PlayerState\State\10. Dead</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

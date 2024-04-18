@@ -32,7 +32,7 @@ void CBatton_Idle::FinalTick()
 
 	Vec2 vPos = GetObj()->GetPos();
 
-	if (vPos.GetDistance(pTarget->GetPos()) < 300.f)
+	if (vPos.GetDistance(pTarget->GetPos()) < 500.f)
 	{
 		m_Move = true;
 	}

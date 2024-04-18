@@ -45,6 +45,7 @@ CMonster_Raiden::CMonster_Raiden(Vec2 _Pos, Vec2 _Scale, int _HP, float _DetectR
 
 	// RigidBody
 	m_RigidBody->UseGravity(true);
+	m_RigidBody->SetMaxGravitySpeed(50.f);
 
 	// Collider
 	m_Collider->SetOffsetPos(Vec2(0.f, -90.f));
@@ -75,4 +76,5 @@ void CMonster_Raiden::begin()
 	m_FSM->SetBlackboardData(L"DetectRange", DATA_TYPE::FLOAT, &Range);
 
 	m_FSM->ChangeState(L"IDLE");
+
 }

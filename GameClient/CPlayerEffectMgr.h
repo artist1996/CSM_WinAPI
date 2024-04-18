@@ -10,7 +10,7 @@ class CPlayerEffectMgr
 
 private:
 	vector<CEffect_Dash*> m_vecDash;
-	vector<CEffect_Kick*>  m_vecKick;
+	vector<CEffect_Kick*> m_vecKick;
 	vector<CAfterImage*>  m_vecShadow;
 
 	size_t				  m_DashCount;

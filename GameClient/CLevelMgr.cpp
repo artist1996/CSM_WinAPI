@@ -37,8 +37,8 @@ void CLevelMgr::init()
 	m_arrLevel[(UINT)LEVEL_TYPE::TOOL] = new CLevel_AnimTool;
 	m_arrLevel[(UINT)LEVEL_TYPE::TOOL]->SetName(L"TOOL");
 	
-	// 초기 레벨 지정a
-	::ChangeLevel(LEVEL_TYPE::STAGE_02);
+	// 초기 레벨 지정
+	::ChangeLevel(LEVEL_TYPE::LOGO_START);
 }
 
 void CLevelMgr::progress()

@@ -66,10 +66,6 @@ void CAnimation::render()
 	// 현재 프레임 이미지를 오브젝트 위치에 렌더링
 	
 	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
-	
-	if (vRenderPos.x < -20.f || vRenderPos.x > 850.f || vRenderPos.y < -20.f || vRenderPos.y > 650.f)
-		return;
-
 
 	if (L"TOOL" == pLevel->GetName())
 	{
@@ -90,6 +86,10 @@ void CAnimation::render()
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 		return;
 	}
+
+	
+	if (vRenderPos.x < -100.f || vRenderPos.x > 1000.f || vRenderPos.y < -100.f || vRenderPos.y > 750.f)
+		return;
 
 	if (L"ZERO" == pOwnerObj->GetName())
 	{
@@ -144,6 +144,31 @@ void CAnimation::render()
 	
 	if (L"Shadow" == pOwnerObj->GetName())
 	{
+		if (CLevelMgr::GetInst()->FindObjectByName(L"ZERO")->IsBlack())
+		{
+			if (DIRECTION::LEFT == CLevelMgr::GetInst()->FindObjectByName(L"ZERO")->GetDirection())
+			{
+				m_Atlas = CAssetMgr::GetInst()->FindTexture(L"BLACKAfterImage_Left");
+			}
+
+			else
+			{
+				m_Atlas = CAssetMgr::GetInst()->FindTexture(L"BLACKAfterImage_Right");
+			}
+		}
+
+		else if (!CLevelMgr::GetInst()->FindObjectByName(L"ZERO")->IsBlack())
+		{
+			if (DIRECTION::LEFT == CLevelMgr::GetInst()->FindObjectByName(L"ZERO")->GetDirection())
+			{
+				m_Atlas = CAssetMgr::GetInst()->FindTexture(L"AfterImage_Left");
+			}
+
+			else
+			{
+				m_Atlas = CAssetMgr::GetInst()->FindTexture(L"AfterImage_Right");
+			}
+		}
 		BLENDFUNCTION bf = {};
 
 		bf.BlendOp = AC_SRC_OVER;

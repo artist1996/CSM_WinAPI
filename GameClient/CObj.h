@@ -21,6 +21,9 @@ private:
     Vec2                m_Pos;      // 위치
     Vec2                m_Scale;    // 크기
     Vec2                m_PrevPos;  // 이전 위치
+    Vec2                m_RespawnPos;
+
+
     vector<CComponent*> m_vecCom;   // 보유 컴포넌트들
 
     CAnimator*          m_Animator;
@@ -50,6 +53,8 @@ public:
     void SetPos(float _x, float _y)             { m_Pos.x = _x; m_Pos.y = _y; }
     void SetScale(float _width, float _height)  { m_Scale.x = _width; m_Scale.y = _height; }
 
+    void SetRespawnPos(Vec2 _Pos) { m_RespawnPos = _Pos; }
+
     void SetHit(bool _Hit) { m_Hit = _Hit; }
 
     Vec2 GetPos()               { return m_Pos; }
@@ -57,6 +62,7 @@ public:
     const Vec2& GetPrevPos()    { return m_PrevPos; }
     LAYER_TYPE GetLayerType()   { return m_Type; }
     Vec2 GetRenderPos()         { return CCamera::GetInst()->GetRenderPos(m_Pos); }
+    Vec2 GetRespawnPos()        { return m_RespawnPos; }
 
     void SetDirection(DIRECTION _eDir)  { m_eDir = _eDir; }
     DIRECTION GetDirection()            { return m_eDir; }
@@ -69,6 +75,10 @@ public:
     bool IsDead()               { return m_bDead; }
     bool IsHit()                { return m_Hit; }
 
+    virtual bool IsInvicible() { return 0; }
+    virtual bool IsAlways()    { return 0; }
+    virtual bool IsBlack() { return false; }
+
     void MinusHitCount() { m_HitCount += 1; }
     int GetHitCount()    { return m_HitCount; }     
 
@@ -77,6 +87,7 @@ public:
     void MinusHp() { m_Hp -= 1; }
 
     void Destroy();
+    
     
     CComponent* AddComponent(CComponent* _Component);
 

@@ -39,6 +39,9 @@ protected:
     void DeleteAllObjects();
     void DeleteObjects(LAYER_TYPE _Type);
 
+    void pop_back(LAYER_TYPE _Type);
+
+    void SaveDeathPlatform(const wstring& _strRelativePath);
     void SavePlatform(const wstring& _strRelativePath);
     void SaveLine(const wstring& _strRelativePath);
     void SaveMonster(const wstring& _strRelativePath);
@@ -48,8 +51,15 @@ protected:
     void LoadLine(const wstring& _strRelativePath);
     void LoadMonster(const wstring& _strRelativePath);
     void LoadTrap(const wstring& _strRelativePath);
+    void LoadDeathPlatform(const wstring& _strRelativePath);
 
     void SetSaveType(SAVE_TYPE _Type) { m_Save = _Type; }
+
+    void LoadEditorPlatform(const wstring& _strFilePath);
+    void LoadEditorLine(const wstring& _strFilePath);
+    void LoadEditorMonster(const wstring& _strFilePath);
+    void LoadEditorTrap(const wstring& _strFilePath);
+    void LoadEditorDeathPlatform(const wstring& _strFilePath);
 
 public:
     CLONE_DISABLE(CLevel)

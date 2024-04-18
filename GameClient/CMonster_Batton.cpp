@@ -73,10 +73,6 @@ void CMonster_Batton::begin()
 	m_FSM->ChangeState(L"IDLE");
 }
 
-void CMonster_Batton::tick()
-{
-}
-
 void CMonster_Batton::render()
 {
 	CObj::render();

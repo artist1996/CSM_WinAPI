@@ -52,7 +52,7 @@ CMonster_Mettool::CMonster_Mettool(Vec2 _Pos, Vec2 _Scale, int _HP, float _Detec
 
 	// RigidBody
 	m_RigidBody->UseGravity(true);
-	m_RigidBody->SetMaxGravitySpeed(500.f);
+	m_RigidBody->SetMaxGravitySpeed(50.f);
 	
 	// FSM
 	m_FSM->AddState(L"IDLE", new CMettool_Idle);

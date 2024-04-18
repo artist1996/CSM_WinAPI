@@ -60,6 +60,8 @@ void CLine::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _Othe
 
 	if (pRB->IsGround())
 	{
+		pRB->UseGravity(false);
+
 		M = (vEnd.y - vStart.y) / (vEnd.x - vStart.x);
 
 		B = vStart.y - (M * vStart.x);
@@ -75,6 +77,11 @@ void CLine::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _Othe
 		{
 		    _OtherObj->SetPos(_OtherObj->GetPos().x, LineY);
 		}
+	}
+
+	else
+	{
+		pRB->UseGravity(true);
 	}
 	
 }

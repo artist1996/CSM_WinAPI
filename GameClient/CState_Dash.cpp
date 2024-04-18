@@ -28,18 +28,38 @@ void CState_Dash::Enter()
 	
 	m_AfterImg = true;
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"DASH_RIGHT", false);
-		CPlayerEffectMgr::GetInst()->DashSetPos(Vec2(GetObj()->GetPos().x - 80.f, GetObj()->GetPos().y));
-		CPlayerEffectMgr::GetInst()->PlayDash(L"EFFECT_DASH_RIGHT", false);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_DASH_RIGHT", false);
+			CPlayerEffectMgr::GetInst()->DashSetPos(Vec2(GetObj()->GetPos().x - 80.f, GetObj()->GetPos().y));
+			CPlayerEffectMgr::GetInst()->PlayDash(L"EFFECT_DASH_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_DASH_LEFT", false);
+			CPlayerEffectMgr::GetInst()->DashSetPos(Vec2(GetObj()->GetPos().x + 80.f, GetObj()->GetPos().y));
+			CPlayerEffectMgr::GetInst()->PlayDash(L"EFFECT_DASH_LEFT", false);
+		}
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	else
 	{
-		GetAnimator()->Play(L"DASH_LEFT", false);
-		CPlayerEffectMgr::GetInst()->DashSetPos(Vec2(GetObj()->GetPos().x + 80.f, GetObj()->GetPos().y));
-		CPlayerEffectMgr::GetInst()->PlayDash(L"EFFECT_DASH_LEFT", false);
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"DASH_RIGHT", false);
+			CPlayerEffectMgr::GetInst()->DashSetPos(Vec2(GetObj()->GetPos().x - 80.f, GetObj()->GetPos().y));
+			CPlayerEffectMgr::GetInst()->PlayDash(L"EFFECT_DASH_RIGHT", false);
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"DASH_LEFT", false);
+			CPlayerEffectMgr::GetInst()->DashSetPos(Vec2(GetObj()->GetPos().x + 80.f, GetObj()->GetPos().y));
+			CPlayerEffectMgr::GetInst()->PlayDash(L"EFFECT_DASH_LEFT", false);
+		}
 	}
 }
 

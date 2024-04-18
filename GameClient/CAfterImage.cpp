@@ -37,6 +37,9 @@ CAfterImage::CAfterImage(CObj* _Owner, Vec2 _Pos)
 	m_Animator->LoadAnimation(L"animation\\afterimage\\right\\DASH_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\afterimage\\right\\FALL_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\afterimage\\right\\WALLKICK_RIGHT.anim");
+
+	CTexture* pTex = CAssetMgr::GetInst()->LoadTexture(L"BLACKAfterImage_Left", L"texture\\BLACK_AFTERIMAGE_LEFT.png");
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"BLACKAfterImage_Right", L"texture\\BLACK_AFTERIMAGE_RIGHT.png");
 }
 
 CAfterImage::~CAfterImage()

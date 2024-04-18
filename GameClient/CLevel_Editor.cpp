@@ -7,6 +7,7 @@
 
 #include "CTile.h"
 #include "CPlatform.h"
+#include "CPlatform_Death.h"
 #include "CLine.h"
 #include "CCollider.h"
 #include "CTexture.h"
@@ -25,6 +26,7 @@
 #include "CMonster_Batton.h"
 
 #include "CTrap_Meteor.h"
+#include "CTrap_Eruption.h"
 
 #include "CEditor_RenderDummy.h"
 
@@ -50,6 +52,7 @@ CLevel_Editor::CLevel_Editor()
 
 CLevel_Editor::~CLevel_Editor()
 {
+	DeleteAllObjects();
 }
 
 void CLevel_Editor::begin()
@@ -64,18 +67,44 @@ void CLevel_Editor::tick()
 
 	if (KEY_TAP(KEY::_1))
 	{
+		DeleteObjects(LAYER_TYPE::BACKGROUND);
+		DeleteObjects(LAYER_TYPE::PLATFORM);
+		DeleteObjects(LAYER_TYPE::MONSTER);
+		DeleteObjects(LAYER_TYPE::LINE);
+		DeleteObjects(LAYER_TYPE::TRAP);
+
 		m_BackGround = new CStage01;
 		m_BackGround->SetPos(Vec2(0.f, 0.f));
 		AddObject(LAYER_TYPE::BACKGROUND, m_BackGround);
 		SetSaveType(SAVE_TYPE::STAGE01);
+
+
+		LoadEditorLine(L"stage01\\line\\line.dat");
+		LoadEditorPlatform(L"stage01\\platform\\platform.dat");
+		LoadEditorMonster(L"stage01\\monster\\monster.dat");
+		LoadEditorTrap(L"stage01\\trap\\trap.dat");
+		LoadEditorDeathPlatform(L"stage01\\platform\\death.dat");
 	}
 
 	else if (KEY_TAP(KEY::_2))
 	{
+		DeleteObjects(LAYER_TYPE::BACKGROUND);
+		DeleteObjects(LAYER_TYPE::PLATFORM);
+		DeleteObjects(LAYER_TYPE::MONSTER);
+		DeleteObjects(LAYER_TYPE::LINE);
+		DeleteObjects(LAYER_TYPE::TRAP);
+
 		m_BackGround = new CStage02;
 		m_BackGround->SetPos(Vec2(0.f, 0.f));
 		AddObject(LAYER_TYPE::BACKGROUND, m_BackGround);
-		SetSaveType(SAVE_TYPE::STAGE02);			
+		SetSaveType(SAVE_TYPE::STAGE02);
+
+
+		LoadEditorLine(L"stage02\\line\\line.dat");
+		LoadEditorPlatform(L"stage02\\platform\\platform.dat");
+		LoadEditorMonster(L"stage02\\monster\\monster.dat");
+		LoadEditorTrap(L"stage02\\trap\\trap.dat");
+		LoadEditorDeathPlatform(L"stage02\\platform\\death.dat");
 	}
 
 	if (KEY_TAP(KEY::_9))
@@ -181,6 +210,8 @@ void CLevel_Editor::tick()
 		SaveLine(L"line\\line.dat");
 		SaveMonster(L"monster\\monster.dat");
 		SaveTrap(L"trap\\trap.dat");
+		SaveDeathPlatform(L"platform\\death.dat");
+		//ChangeLevel(LEVEL_TYPE::LOGO_START);
 	}
 
 	else if (KEY_TAP(KEY::Y))
@@ -194,6 +225,34 @@ void CLevel_Editor::tick()
 	if (KEY_TAP(KEY::C))
 	{
 		ChangeLevel(LEVEL_TYPE::LOGO_START);
+	}
+
+	if (KEY_PRESSED(KEY::CTRL) && KEY_TAP(KEY::Z))
+	{
+		if (m_Type == MAP_TYPE::TRAP)
+		{
+			pop_back(LAYER_TYPE::TRAP);
+		}
+
+		else if (m_Type == MAP_TYPE::MONSTER)
+		{
+			pop_back(LAYER_TYPE::MONSTER);
+		}
+
+		else if (m_Type == MAP_TYPE::PLATFORM)
+		{
+			pop_back(LAYER_TYPE::PLATFORM);
+		}
+
+		else if (m_Type == MAP_TYPE::LINE)
+		{
+			pop_back(LAYER_TYPE::LINE);
+		}
+	}
+
+	if (KEY_PRESSED(KEY::CTRL) && KEY_TAP(KEY::X))
+	{
+		pop_back(LAYER_TYPE::TILE);
 	}
 }
 
@@ -237,6 +296,28 @@ void CLevel_Editor::Platform()
 		AddObject(LAYER_TYPE::PLATFORM, pPlatform);
 		memset(&m_tInfo, 0, sizeof(tInfo));
 	}
+
+	if (KEY_TAP(KEY::RBTN))
+	{
+		m_tInfo.StartPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+	}
+
+	else if (KEY_PRESSED(KEY::RBTN))
+	{
+		m_tInfo.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+	}
+
+	else if (KEY_RELEASED(KEY::RBTN))
+	{
+		m_tInfo.EndPos = CCamera::GetInst()->GetRealPos(CKeyMgr::GetInst()->GetMousePos());
+		float x = (m_tInfo.StartPos.x + m_tInfo.EndPos.x) * 0.5f;
+		float y = (m_tInfo.StartPos.y + m_tInfo.EndPos.y) * 0.5f;
+		float width = fabs(m_tInfo.EndPos.x - m_tInfo.StartPos.x);
+		float height = fabs(m_tInfo.EndPos.y - m_tInfo.StartPos.y);
+		CPlatform_Death* pPlatform = new CPlatform_Death(Vec2(x, y), Vec2(width, height));
+		AddObject(LAYER_TYPE::TILE, pPlatform);
+		memset(&m_tInfo, 0, sizeof(tInfo));
+	}
 }
 
 void CLevel_Editor::Line()
@@ -277,12 +358,14 @@ void CLevel_Editor::Monster()
 		{
 			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, Vec2(150.f, 180.f), OBJ_ID::RAIDEN, 6, 200.f);
 			AddObject(LAYER_TYPE::MONSTER, pMonster);
+			return;
 		}
 
 		else if (OBJ_ID::GIGADEATH == m_ID)
 		{
 			CEditor_RenderDummy* pMonster = new CEditor_RenderDummy(vPos, Vec2(200.f, 180.f), OBJ_ID::GIGADEATH, 5, 200.f);
 			AddObject(LAYER_TYPE::MONSTER, pMonster);
+			return;
 		}
 
 		else if (OBJ_ID::BATTON == m_ID)
@@ -314,7 +397,7 @@ void CLevel_Editor::Trap()
 		
 		else if (OBJ_ID::ERUPTION == m_ID)
 		{
-			CEditor_RenderDummy* pTrap = new CEditor_RenderDummy(vPos, Vec2(10.f, 10.f), OBJ_ID::ERUPTION, 0, 200.f);
+			CTrap_Eruption* pTrap = new CTrap_Eruption(vPos, OBJ_ID::ERUPTION);
 			AddObject(LAYER_TYPE::TRAP, pTrap);
 		}
 	}
