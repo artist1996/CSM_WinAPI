@@ -17,7 +17,7 @@ void CState_Idle::Enter()
 	GetObj()->SetSpeed(300.f);
 	GetCollider()->SetScale(Vec2(90.f, 105.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
-
+	GetHitBox()->SetOffsetPos(Vec2(0.f, -50.f));
 
 	CPlayerEffectMgr::GetInst()->SetActive(false);
 

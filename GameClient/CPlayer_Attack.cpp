@@ -14,6 +14,8 @@
 CPlayer_Attack::CPlayer_Attack(CObj* _Owner, Vec2 _Pos, ATTACK_TYPE _Type)
 	: m_Owner(_Owner)
 	, m_eType(_Type)
+	, m_Animator(nullptr)
+	, m_Time(0.f)
 {
 	SetPos(_Pos);
 	SetName(L"PLAYER_ATTACK");
@@ -299,7 +301,7 @@ void CPlayer_Attack::Attack_02()
 	}
 
 	else if (L"ATTACK02_LEFT" == m_Animator->GetCurAnim()->GetName()
-	     || L"BLACK_ATTACK02_RIGHT" == m_Animator->GetCurAnim()->GetName())
+	     || L"BLACK_ATTACK02_LEFT" == m_Animator->GetCurAnim()->GetName())
 	{
 		if (0 == m_Animator->GetCurAnim()->GetCurFrameIdx())
 		{
@@ -543,9 +545,8 @@ void CPlayer_Attack::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCol
 	{
 		if (ATTACK_TYPE::ATTACK02 == m_eType)
 		{
-			CEffect_Saber* pEffect = new CEffect_Saber(Vec2(
-				m_Collider->GetFinalPos().x , m_Collider->GetFinalPos().y),
-				EFFECT_TYPE::EFFECT_TWO);
+			CEffect_Saber* pEffect = new CEffect_Saber(Vec2(m_Collider->GetFinalPos().x , m_Collider->GetFinalPos().y)
+				, EFFECT_TYPE::EFFECT_TWO);
 			SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);			
 		}
 

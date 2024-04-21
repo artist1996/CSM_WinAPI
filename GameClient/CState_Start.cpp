@@ -3,9 +3,11 @@
 #include "CRigidBody.h"
 #include "CAnimator.h"
 #include "CAnimation.h"
+#include "CSound.h"
 
 CState_Start::CState_Start()
 {
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"START", L"sound\\zero\\START.wav");
 }
 
 CState_Start::~CState_Start()
@@ -16,6 +18,7 @@ void CState_Start::Enter()
 {
 	Initialize();
 	GetAnimator()->Play(L"START", false);
+	m_pSound->Play();
 	GetRigidBody()->UseGravity(true);
 }
 

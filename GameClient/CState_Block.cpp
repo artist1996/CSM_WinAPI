@@ -14,6 +14,7 @@ CState_Block::~CState_Block()
 void CState_Block::Enter()
 {
 	Initialize();
+	GetObj()->SetSpeed(300.f);
 	CPlayerEffectMgr::GetInst()->SetActive(false);
 
 	GetRigidBody()->SetWall(false);

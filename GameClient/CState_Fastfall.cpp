@@ -103,14 +103,20 @@ void CState_Fastfall::FinalTick()
 	
 	if (KEY_PRESSED(KEY::RIGHT))
 	{
-		vPos += Vec2(1.f, 0.f) * GetObj()->GetSpeed() * DT;
-		GetObj()->SetPos(vPos);
+		if (!GetRigidBody()->IsPrevWall())
+		{
+			vPos += Vec2(1.f, 0.f) * GetObj()->GetSpeed() * DT;
+			GetObj()->SetPos(vPos);
+		}
 	}
 
 	else if (KEY_PRESSED(KEY::LEFT))
 	{
-		vPos += Vec2(-1.f, 0.f) * GetObj()->GetSpeed() * DT;
-		GetObj()->SetPos(vPos);
+		if (!GetRigidBody()->IsPrevWall())
+		{
+			vPos += Vec2(-1.f, 0.f) * GetObj()->GetSpeed() * DT;
+			GetObj()->SetPos(vPos);
+		}
 	}
 
 	if (KEY_TAP(KEY::C))

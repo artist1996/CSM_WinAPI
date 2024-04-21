@@ -33,10 +33,14 @@ void CPlatform_BossRoom::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, 
 {
 	if (L"ZERO" == _OtherObj->GetName())
 	{
-		CUI_Warning* pUI = new CUI_Warning;
-		pUI->SetPos(Vec2(GetPos().x + 50.f, 1100.f));
-		pUI->SetTarget(CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Dragoon"));
-		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pUI);
+		//CUI_Warning* pUI = new CUI_Warning;
+		//pUI->SetPos(Vec2(GetPos().x + 50.f, 1100.f));
+		////pUI->SetPos(400.f, 300.f);
+		//pUI->SetTarget(CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Dragoon"));
+		//SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::UI, pUI);
+		CObj* pUI = CLevelMgr::GetInst()->FindObjectByName(L"WARNING_UI");
+		static_cast<CUI_Warning*>(pUI)->Play();
 		Destroy();
+		CCamera::GetInst()->SetEnterBoss(true);
 	}
 }

@@ -8,6 +8,7 @@ class CLevel_Logo :
     public CLevel
 {
 private:
+    CSound*   m_pSound;
     CLogo*    m_Logo;
     CTexture* m_Img;
     

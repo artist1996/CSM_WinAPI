@@ -35,6 +35,8 @@
 
 CLevel_Stage01::CLevel_Stage01()
 	: m_pBGM(nullptr)
+	, m_Time(0.f)
+	, m_Ready(true)
 {
 	SetName(L"Stage01");
 }
@@ -58,6 +60,17 @@ void CLevel_Stage01::begin()
 void CLevel_Stage01::tick()
 {
 	CLevel::tick();
+
+	if (m_Ready)
+		m_Time += DT;
+
+	if (1.f <= m_Time)
+	{
+		CUI* pReadyUI = new CUI_Ready(Vec2(400.f, 400.f));
+		AddObject(LAYER_TYPE::UI, pReadyUI);
+		m_Ready = false;
+		m_Time = 0.f;
+	}
 
 	if (KEY_TAP(KEY::LBTN))
 	{
@@ -105,9 +118,6 @@ void CLevel_Stage01::Enter()
 	pPlatform = new CPlatform_Camera(Vec2(16291.f, 1441.f), Vec2(300.f, 300.f), PLATFORM_CAMERA::MAX_HEIGHT2);
 	AddObject(LAYER_TYPE::PLATFORM, pPlatform);
 
-	CUI* pReadyUI = new CUI_Ready(Vec2(400.f, 400.f));
-	AddObject(LAYER_TYPE::UI, pReadyUI);
-
 	CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 400.f));
 	CCamera::GetInst()->SetMaxHighWidth(18751.f);
 	CCamera::GetInst()->SetMaxLowWidth(400.f);
@@ -142,7 +152,6 @@ void CLevel_Stage01::Enter()
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRAP);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::TRAP, LAYER_TYPE::LINE);
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TILE);
-	//CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_ATTACK, LAYER_TYPE::PLATFORM);
 
 	CLevelMgr::GetInst()->SetPrevLevel(this);
 }

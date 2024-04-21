@@ -32,6 +32,8 @@ private:
 
     bool    m_Jump;              // 점프 중인지 체크
 
+    bool    m_Ceiling;           // 천장 체크
+
     float   m_JumpSpeed;         // 점프 속력
 
     CALL_BACK m_GroundFunc;
@@ -125,6 +127,8 @@ public:
 
     void SetJump(bool _Jump) { m_Jump = _Jump; }
 
+    void SetCeiling(bool _Ceiling) { m_Ceiling = _Ceiling; }
+    bool GetCeiling()              { return m_Ceiling; }
 
     void UseGravity(bool _UseGravity)
     {

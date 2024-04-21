@@ -107,10 +107,29 @@ public:
         return nullptr;
     }
 
+    template<typename T>
+    T* GetComponent(const wstring& _strName)
+    {
+        for (size_t i = 0; i < m_vecCom.size(); ++i)
+        {
+            T* pComponent = dynamic_cast<T*>(m_vecCom[i]);
+
+            if (_strName != pComponent->GetName())
+                continue;
+
+            if (_strName == pComponent->GetName())
+            {
+                return pComponent;
+            }
+        }
+
+        return nullptr;
+    }
+
 public:
     virtual void begin();
     virtual void tick();            // 오브젝트가 매 프레임마다 해야할 작업을 구현
-    virtual void finaltick() final;// 오브젝트가 소유한 컴포넌트가 매 프레임마다 해야할 작업을 구현
+    virtual void finaltick() final; // 오브젝트가 소유한 컴포넌트가 매 프레임마다 해야할 작업을 구현
     virtual void render();
 
     virtual void BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider) {}
@@ -119,7 +138,7 @@ public:
     
 
 public:
-    virtual CObj* Clone() = 0; // { return new CObj(*this); }
+    virtual CObj* Clone() PURE;
 
 public:
     CObj();

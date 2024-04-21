@@ -13,6 +13,7 @@ CRigidBody::CRigidBody()
 	, m_Wall(false)
 	, m_UseGravity(false)
 	, m_PrevWall(false)
+	, m_Ceiling(false)
 {
 }
 

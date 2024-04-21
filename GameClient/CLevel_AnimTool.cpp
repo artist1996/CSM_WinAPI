@@ -37,10 +37,10 @@ void CLevel_AnimTool::tick()
 {
     CLevel::tick();
 
-    //if (KEY_TAP(KEY::_0))
-    //{
-    //    ChangeLevel(LEVEL_TYPE::LOGO_START);
-    //}
+    if (KEY_TAP(KEY::V))
+    {
+        ChangeLevel(LEVEL_TYPE::LOGO_START);
+    }
 }
 
 void CLevel_AnimTool::Enter()

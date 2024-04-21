@@ -22,6 +22,8 @@ void CState_Jump::Enter()
 	Initialize();
 	GetRigidBody()->Jump();
 
+	GetHitBox()->SetOffsetPos(Vec2(0.f, -70.f));
+
 	if (CPlayerEffectMgr::GetInst()->GetActive())
 	{
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
@@ -79,16 +81,23 @@ void CState_Jump::FinalTick()
 		{
 			GetObj()->SetDirection(DIRECTION::RIGHT);
 			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"BLACK_JUMP_RIGHT"));
-			vPos += Vec2(1.f, 0.f) * GetObj()->GetSpeed() * DT;
-			GetObj()->SetPos(vPos);
+
+			if (!GetRigidBody()->IsPrevWall())
+			{
+				vPos += Vec2(1.f, 0.f) * GetObj()->GetSpeed() * DT;
+				GetObj()->SetPos(vPos);
+			}
 		}
 
 		else if (!GetObj()->IsBlack())
 		{
 			GetObj()->SetDirection(DIRECTION::RIGHT);
 			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"JUMP_RIGHT"));
-			vPos += Vec2(1.f, 0.f) * GetObj()->GetSpeed() * DT;
-			GetObj()->SetPos(vPos);
+			if (!GetRigidBody()->IsPrevWall())
+			{
+				vPos += Vec2(1.f, 0.f) * GetObj()->GetSpeed() * DT;
+				GetObj()->SetPos(vPos);
+			}
 		}
 	}
 
@@ -100,16 +109,22 @@ void CState_Jump::FinalTick()
 		{
 			GetObj()->SetDirection(DIRECTION::LEFT);
 			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"BLACK_JUMP_LEFT"));
-			vPos += Vec2(-1.f, 0.f) * GetObj()->GetSpeed() * DT;
-			GetObj()->SetPos(vPos);
+			if (!GetRigidBody()->IsPrevWall())
+			{
+				vPos += Vec2(-1.f, 0.f) * GetObj()->GetSpeed() * DT;
+				GetObj()->SetPos(vPos);
+			}
 		}
 
 		else if(!GetObj()->IsBlack())
 		{
 			GetObj()->SetDirection(DIRECTION::LEFT);
 			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"JUMP_LEFT"));
-			vPos += Vec2(-1.f, 0.f) * GetObj()->GetSpeed() * DT;
-			GetObj()->SetPos(vPos);
+			if (!GetRigidBody()->IsPrevWall())
+			{
+				vPos += Vec2(-1.f, 0.f) * GetObj()->GetSpeed() * DT;
+				GetObj()->SetPos(vPos);
+			}
 		}
 	}
 

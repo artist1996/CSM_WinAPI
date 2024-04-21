@@ -55,6 +55,9 @@ void CState_Victory::Enter()
 	}
 
 	GetRigidBody()->UseGravity(false);
+	GetRigidBody()->SetGround(false);
+	GetCollider()->SetActive(false);
+	GetHitBox()->SetActive(false);
 	CCamera::GetInst()->SetOwner(nullptr);
 }
 

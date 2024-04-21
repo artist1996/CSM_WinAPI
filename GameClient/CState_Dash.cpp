@@ -78,19 +78,20 @@ void CState_Dash::FinalTick()
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{
 			GetCollider()->SetScale(Vec2(70.f, 80.f));
-			GetCollider()->SetOffsetPos(Vec2(17.f, -35.f));
+			GetCollider()->SetOffsetPos(Vec2(15.f, -35.f));
+			GetHitBox()->SetOffsetPos(Vec2(15.f, -40.f));
 		}
 
 		else if (DIRECTION::LEFT == GetObj()->GetDirection())
 		{
 			GetCollider()->SetScale(Vec2(70.f, 80.f));
 			GetCollider()->SetOffsetPos(Vec2(0.f, -35.f));
+			GetHitBox()->SetOffsetPos(Vec2(0.f, -40.f));
 		}
 	}
 
 	if (GetAnimator()->GetCurAnim()->IsFinish())
 	{
-		//CPlayerEffectMgr::GetInst()->SetActive(false);
 		GetFSM()->ChangeState(L"IDLE");
 		return;
 	}

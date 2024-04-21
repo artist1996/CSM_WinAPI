@@ -66,6 +66,8 @@ CAtlasUI::CAtlasUI()
 	m_vecTex.push_back(pTex);
 	pTex = CAssetMgr::GetInst()->LoadTexture(L"BLACKZERO_LEFT", L"texture\\BLACKZERO_LEFT.png");
 	m_vecTex.push_back(pTex);
+	pTex = CAssetMgr::GetInst()->LoadTexture(L"EFFECT_WALL_RIGHT", L"texture\\EFFECT_WALLKICK_RIGHT.png");
+	m_vecTex.push_back(pTex);
 }
 
 CAtlasUI::~CAtlasUI()

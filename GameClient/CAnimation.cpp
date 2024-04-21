@@ -11,6 +11,7 @@
 #include "CLevelMgr.h"
 
 #include "CLevel.h"
+#include "CUI.h"
 
 CAnimation::CAnimation()
 	: m_Animator(nullptr)
@@ -259,7 +260,6 @@ void CAnimation::render()
 	}
 
 	if (LAYER_TYPE::MONSTER == pOwnerObj->GetLayerType()
-		|| LAYER_TYPE::TRAP == pOwnerObj->GetLayerType() 
 		|| LAYER_TYPE::MONSTER_MISSILE == pOwnerObj->GetLayerType()
 		|| LAYER_TYPE::BOSS_ATTACK == pOwnerObj->GetLayerType())
 	{
@@ -276,7 +276,23 @@ void CAnimation::render()
 			, m_Atlas->GetDC()
 			, (int)frm.StartPos.x, (int)frm.StartPos.y
 			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
-		
+	}
+
+	if (LAYER_TYPE::TRAP == pOwnerObj->GetLayerType())
+	{
+		BLENDFUNCTION bf = {};
+
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+
+		AlphaBlend(DC, (int)(vRenderPos.x - frm.SliceSize.x * 0.5f) + (int)frm.Offset.x
+			, (int)(vRenderPos.y - frm.SliceSize.y) + (int)frm.Offset.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y
+			, m_Atlas->GetDC()
+			, (int)frm.StartPos.x, (int)frm.StartPos.y
+			, (int)frm.SliceSize.x, (int)frm.SliceSize.y, bf);
 	}
 
 	if (L"Logo" == m_Animator->GetOwner()->GetName())

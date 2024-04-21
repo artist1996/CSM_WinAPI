@@ -14,16 +14,34 @@ void CState_Rakuouha::Enter()
 {
 	Initialize();
 
-	if (DIRECTION::RIGHT == GetObj()->GetDirection())
+	if (GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"RAKUOUHA_RIGHT", false);
-		dynamic_cast<CPlayer*>(GetObj())->CreateJumpAttack();
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_JUMPATTACK_RIGHT", false);
+			static_cast<CPlayer*>(GetObj())->CreateJumpAttack();
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"BLACK_JUMPATTACK_LEFT", false);
+			static_cast<CPlayer*>(GetObj())->CreateJumpAttack();
+		}
 	}
 
-	else if (DIRECTION::LEFT == GetObj()->GetDirection())
+	else if (!GetObj()->IsBlack())
 	{
-		GetAnimator()->Play(L"RAKUOUHA_LEFT", false);
-		dynamic_cast<CPlayer*>(GetObj())->CreateJumpAttack();
+		if (DIRECTION::RIGHT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"RAKUOUHA_RIGHT", false);
+			static_cast<CPlayer*>(GetObj())->CreateJumpAttack();
+		}
+
+		else if (DIRECTION::LEFT == GetObj()->GetDirection())
+		{
+			GetAnimator()->Play(L"RAKUOUHA_LEFT", false);
+			static_cast<CPlayer*>(GetObj())->CreateJumpAttack();
+		}
 	}
 }
 
@@ -31,16 +49,34 @@ void CState_Rakuouha::FinalTick()
 {
 	Vec2 vPos = GetObj()->GetPos();
 
-	if (KEY_TAP(KEY::RIGHT))
+	if (!GetObj()->IsBlack())
 	{
-		GetObj()->SetDirection(DIRECTION::RIGHT);
-		GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"RAKUOUHA_RIGHT"));
+		if (KEY_TAP(KEY::RIGHT))
+		{
+			GetObj()->SetDirection(DIRECTION::RIGHT);
+			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"RAKUOUHA_RIGHT"));
+		}
+
+		else if (KEY_TAP(KEY::LEFT))
+		{
+			GetObj()->SetDirection(DIRECTION::LEFT);
+			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"RAKUOUHA_LEFT"));
+		}
 	}
 
-	else if (KEY_TAP(KEY::LEFT))
+	else if (GetObj()->IsBlack())
 	{
-		GetObj()->SetDirection(DIRECTION::LEFT);
-		GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"RAKUOUHA_LEFT"));
+		if (KEY_TAP(KEY::RIGHT))
+		{
+			GetObj()->SetDirection(DIRECTION::RIGHT);
+			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"BLACK_JUMPATTACK_RIGHT"));
+		}
+
+		else if (KEY_TAP(KEY::LEFT))
+		{
+			GetObj()->SetDirection(DIRECTION::LEFT);
+			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"BLACK_JUMPATTACK_LEFT"));
+		}
 	}
 
 	if (KEY_PRESSED(KEY::RIGHT))

@@ -59,15 +59,6 @@ void CBoss_Idle::FinalTick()
 	CObj* pTargetPlatform = GetBlackboardData<CObj*>(L"TargetPlatform");
 	Vec2 vPos = GetObj()->GetPos();
 
-	if (m_bEncounter)
-	{
-		if (2 == GetAnimator()->GetCurAnim()->GetCurFrameIdx())
-		{
-			// HP Bar UI »ý¼º
-			// m_bEncounter = false;
-		}
-	}
-
 	m_CurDir = m_Dir;
 
 	if (vPos.x - pTarget->GetPos().x < 0.f)
@@ -114,11 +105,6 @@ void CBoss_Idle::FinalTick()
 		m_Attack = true;
 		m_Count = true;
 	}
-
-	//if (m_Attack)
-	//{
-	//	GetFSM()->ChangeState(L"BREATH");
-	//}
 
 	if (m_Attack)
 	{

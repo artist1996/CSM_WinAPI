@@ -9,6 +9,9 @@ class CLevel_Stage01 :
 public:
     CSound* m_pBGM;
 
+    float m_Time;
+    bool  m_Ready;
+
 public:
     virtual void begin() override;
     virtual void tick() override;

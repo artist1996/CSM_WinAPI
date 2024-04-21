@@ -186,6 +186,11 @@ void CLevel::SaveDeathPlatform(const wstring& _strRelativePath)
 
 	_wfopen_s(&pFile, strFullPath.c_str(), L"wb");
 
+	if (nullptr == pFile)
+	{
+		MessageBox(CEngine::GetInst()->GetMainWnd(), L"파일 개방 실패", L"Error", MB_OK);
+	}
+
 	size_t len = m_arrObj[(UINT)LAYER_TYPE::TILE].size();
 
 	fwrite(&len, sizeof(size_t), 1, pFile);

@@ -16,11 +16,13 @@ private:
     CRigidBody* m_Rigidbody;
     CAnimator*  m_Animator;
     CCollider*  m_Collider;
+    CCollider*  m_HitBox;
 
 protected:
     CRigidBody* GetRigidBody() { return m_Rigidbody; }
     CAnimator* GetAnimator()   { return m_Animator; }
     CCollider* GetCollider()   { return m_Collider; }
+    CCollider* GetHitBox()     { return m_HitBox; }
 
 public:
     void Initialize()
@@ -30,6 +32,7 @@ public:
             m_Rigidbody = GetObj()->GetComponent<CRigidBody>();
             m_Animator = GetObj()->GetComponent<CAnimator>();
             m_Collider = GetObj()->GetComponent<CCollider>();
+            m_HitBox = GetObj()->GetComponent<CCollider>(L"HitBox");
         }
     }
 

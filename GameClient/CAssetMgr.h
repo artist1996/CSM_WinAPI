@@ -18,6 +18,8 @@ public:
 	CTexture* CreateTexture(const wstring& _Key, UINT _Width, UINT _Height);
 	CTexture* FindTexture(const wstring& _Key);
 
+	void ClearTexture() { Safe_Del_Map(m_mapTex); }
+
 	CSound* LoadSound(const wstring& _Key, const wstring& _strRelativePath);
 	CSound* FindSound(const wstring& _Key);
 };

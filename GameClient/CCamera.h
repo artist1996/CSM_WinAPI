@@ -41,6 +41,9 @@ private:
 
 	bool	   m_DestroyBoss;
 
+	bool	   m_EnterBoss;
+	bool	   m_Return;
+
 public:
 	Vec2 GetRenderPos(Vec2 _RealPos) { return _RealPos - m_Diff; }
 	Vec2 GetRealPos(Vec2 _RenderPos) { return m_Diff + _RenderPos; }
@@ -63,6 +66,9 @@ public:
 	void SetDestroyBoss(bool _boss) { m_DestroyBoss = _boss; }
 
 	void SetCamSpeed(float _Speed) { m_CamSpeed = _Speed; }
+
+	void SetEnterBoss(bool _Enter) { m_EnterBoss = _Enter; }
+	void SetReturn(bool _Return)   { m_Return = _Return; }
 
 	float GetRespawnPos() { return m_RespawnPos; }
 

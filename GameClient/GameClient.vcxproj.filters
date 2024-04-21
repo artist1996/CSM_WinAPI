@@ -482,6 +482,9 @@
     <Filter Include="03. Game\08. Module\02. State\01. PlayerState\State\10. Dead">
       <UniqueIdentifier>{6a9fbde9-7461-4803-9628-02639165f4ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Game\05. Object\10. Effect\01. Player\05. Wall">
+      <UniqueIdentifier>{433b93c3-4519-45de-9751-67f0bbe3a433}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -958,6 +961,9 @@
     <ClInclude Include="CState_Dead.h">
       <Filter>03. Game\08. Module\02. State\01. PlayerState\State\10. Dead</Filter>
     </ClInclude>
+    <ClInclude Include="CEffect_Wall.h">
+      <Filter>03. Game\05. Object\10. Effect\01. Player\05. Wall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameClient.rc">
@@ -1428,6 +1434,9 @@
     </ClCompile>
     <ClCompile Include="CState_Dead.cpp">
       <Filter>03. Game\08. Module\02. State\01. PlayerState\State\10. Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect_Wall.cpp">
+      <Filter>03. Game\05. Object\10. Effect\01. Player\05. Wall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

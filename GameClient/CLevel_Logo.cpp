@@ -5,11 +5,13 @@
 #include "CAssetMgr.h"
 #include "CTexture.h"
 #include "CLogo.h"
+#include "CSound.h"
 
 CLevel_Logo::CLevel_Logo()
 	: m_Logo(nullptr)
 	, m_Img(nullptr)
 	, m_Count(0)
+	, m_pSound(nullptr)
 {
 	m_Img = CAssetMgr::GetInst()->LoadTexture(L"GameStart", L"texture\\GameStart.png");
 }
@@ -22,6 +24,7 @@ CLevel_Logo::~CLevel_Logo()
 void CLevel_Logo::begin()
 {
 	CLevel::begin();
+	m_pSound = CAssetMgr::GetInst()->LoadSound(L"TITLE_ENTER", L"sound\\level\\TITLE_ENTER.wav");
 }
 
 void CLevel_Logo::tick()
@@ -65,9 +68,11 @@ void CLevel_Logo::tick()
 	
 	if (KEY_TAP(KEY::ENTER))
 	{
+		m_pSound->Play();
 		switch (m_Count)
 		{
 		case 0:
+			CCamera::GetInst()->SetCameraEffect(CAM_EFFECT::FADE_IN, 3.f);
 			ChangeLevel(LEVEL_TYPE::SELECT);
 			break;
 		case 1:

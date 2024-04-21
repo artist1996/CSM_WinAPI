@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CState_WallIdle.h"
+
+#include "CLevelMgr.h"
 #include "CPlayerEffectMgr.h"
+#include "CEffect_Wall.h"
+
 
 CState_WallIdle::CState_WallIdle()
 {
@@ -16,16 +20,21 @@ void CState_WallIdle::Enter()
 
 	CPlayerEffectMgr::GetInst()->SetActive(false);
 
+	CEffect_Wall* pEffect = new CEffect_Wall(GetObj(), GetRigidBody());
+	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
+
 	if (GetObj()->IsBlack())
 	{
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{
 			GetAnimator()->Play(L"BLACK_WALLIDLE_RIGHT", true);
+			GetHitBox()->SetOffsetPos(Vec2(10.f, -60.f));
 		}
 
 		else if (DIRECTION::LEFT == GetObj()->GetDirection())
 		{
 			GetAnimator()->Play(L"BLACK_WALLIDLE_LEFT", true);
+			GetHitBox()->SetOffsetPos(Vec2(-10.f, -60.f));
 		}
 	}
 
@@ -34,11 +43,13 @@ void CState_WallIdle::Enter()
 		if (DIRECTION::RIGHT == GetObj()->GetDirection())
 		{
 			GetAnimator()->Play(L"WALL_IDLE_RIGHT", true);
+			GetHitBox()->SetOffsetPos(Vec2(10.f, -60.f));
 		}
 
 		else if (DIRECTION::LEFT == GetObj()->GetDirection())
 		{
 			GetAnimator()->Play(L"WALL_IDLE_LEFT", true);
+			GetHitBox()->SetOffsetPos(Vec2(-10.f, -60.f));
 		}
 	}
 }

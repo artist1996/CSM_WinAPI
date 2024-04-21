@@ -28,6 +28,7 @@ CDoor::CDoor(Vec2 _Pos, Vec2 _Scale, int _HP)
 	, m_pSound(nullptr)
 {
 	// Info
+	SetName(L"Door");
 	SetPos(_Pos);
 	SetScale(_Scale);
 	
@@ -95,7 +96,7 @@ void CDoor::render()
 
 void CDoor::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	if (L"PLAYER_ATTACK" == _OtherObj->GetName())
+	if (LAYER_TYPE::PLAYER_ATTACK == _OtherObj->GetLayerType())
 	{
 		--m_HP;
 	}

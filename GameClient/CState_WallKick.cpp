@@ -107,8 +107,11 @@ void CState_WallKick::FinalTick()
 				if (KEY_PRESSED(KEY::RIGHT))
 				{
 					GetObj()->SetDirection(DIRECTION::RIGHT);
-					vPos += Vec2(1.f, 0.f) * 400.f * DT;
-					GetObj()->SetPos(vPos);
+					if (!GetRigidBody()->GetCeiling() && !GetRigidBody()->IsPrevWall())
+					{
+						vPos += Vec2(1.f, 0.f) * 400.f * DT;
+						GetObj()->SetPos(vPos);
+					}
 				}
 
 				else if (KEY_TAP(KEY::LEFT))
@@ -123,8 +126,11 @@ void CState_WallKick::FinalTick()
 				if (KEY_PRESSED(KEY::LEFT))
 				{
 					GetObj()->SetDirection(DIRECTION::LEFT);
-					vPos += Vec2(-1.f, 0.f) * 400.f * DT;
-					GetObj()->SetPos(vPos);
+					if (!GetRigidBody()->GetCeiling() && !GetRigidBody()->IsPrevWall())
+					{
+						vPos += Vec2(-1.f, 0.f) * 400.f * DT;
+						GetObj()->SetPos(vPos);
+					}
 				}
 				
 				else if (KEY_TAP(KEY::RIGHT))

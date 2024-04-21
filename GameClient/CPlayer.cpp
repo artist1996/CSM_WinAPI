@@ -138,6 +138,7 @@ CPlayer::CPlayer()
 	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_WALK_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_WALLENTER_RIGHT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_WALLKICK_RIGHT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\right\\BLACK_JUMPATTACK_RIGHT.anim");
 
 	// Black Zero Left
 	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_ATTACK01_LEFT.anim");
@@ -154,6 +155,7 @@ CPlayer::CPlayer()
 	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_WALK_LEFT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_WALLENTER_LEFT.anim");
 	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_WALLKICK_LEFT.anim");
+	m_Animator->LoadAnimation(L"animation\\player\\blackzero\\left\\BLACK_JUMPATTACK_LEFT.anim");
 
 
 	// Rigidbody
@@ -204,6 +206,7 @@ CPlayer::CPlayer(const CPlayer& _Other)
 	, m_eState(PLAYER_STATE::END)
 	, m_HitBox(nullptr)
 	, m_BlackZero(false)
+	, m_AlwaysInvincible(false)
 {
 	m_BodyCol = GetComponent<CCollider>();
 	m_Animator = GetComponent<CAnimator>();

@@ -95,7 +95,7 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 			
 		else if (_OtherObj->GetPos().y > vPos.y - vScale.y * 0.5f
 			&& _OtherObj->GetPos().y - _OtherObj->GetScale().y * 0.5f < vPos.y + vScale.y * 0.5f
-			&& _OtherObj->GetPos().x < vPos.x - vScale.x * 0.5f
+			&& _OtherObj->GetPos().x <= vPos.x - vScale.x * 0.5f
 			&& _OtherObj->GetPos().x < vPos.x
 			&& !pRB->IsGround())
 		{
@@ -106,7 +106,7 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 			
 		else if (_OtherObj->GetPos().y > vPos.y - vScale.y * 0.5f
 			&& _OtherObj->GetPos().y - _OtherObj->GetScale().y * 0.5f < vPos.y + vScale.y * 0.5f
-			&& _OtherObj->GetPos().x > vPos.x - vScale.x * 0.5f
+			&& _OtherObj->GetPos().x >= vPos.x + vScale.x * 0.5f
 			&& _OtherObj->GetPos().x > vPos.x
 			&& !pRB->IsGround())
 		{
@@ -114,20 +114,49 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 			pFSM->ChangeState(L"WALL_ENTER");
 			return;
 		}
+
+		else if (_OtherObj->GetPos().y > vPos.y + vScale.y * 0.5f
+			&& _OtherObj->GetPos().x > vPos.x - vPos.x * 0.5f
+			&& _OtherObj->GetPos().x < vPos.x + vPos.x * 0.5f)
+		{
+			pRB->SetJump(false);
+			pRB->SetCeiling(true);
+			pRB->SetVelocityByGravity(Vec2(0.f, 1.f));
+			pFSM->ChangeState(L"FALL");
+			return;
+		}
 	}
 }
 
 void CPlatform::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)
 {
-	//if (L"ZERO" == _OtherObj->GetName())
-	//{
-	//	CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
-	//	Vec2 PrevPos = _OtherObj->GetPrevPos();
-	//	Vec2 vOtherObjPos = _OtherObj->GetPos();
-	//	Vec2 vOtherObjScale = _OtherObj->GetScale();
-	//	Vec2 vPos = GetPos();
-	//	Vec2 vScale = GetScale();	
-	//}
+	if (L"Body Collider" == _OtherCollider->GetName())
+	{
+		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		Vec2 PrevPos = _OtherObj->GetPrevPos();
+		Vec2 vOtherObjPos = _OtherObj->GetPos();
+		Vec2 vOtherObjScale = _OtherObj->GetScale();
+		Vec2 vPos = GetPos();
+		Vec2 vScale = GetScale();
+
+		if (pRB->IsGround() && !pRB->IsBlock())
+		{
+			_OtherObj->SetPos(Vec2(_OtherObj->GetPos().x, vPos.y - vScale.y * 0.5f));
+		}
+
+		if (!pRB->IsGround() && pRB->IsWall())
+		{
+			if (DIRECTION::RIGHT == _OtherObj->GetDirection())
+			{
+				_OtherObj->SetPos(Vec2((vPos.x - vScale.x * 0.5f) - 45.f, _OtherObj->GetPos().y));
+			}
+
+			else if (DIRECTION::LEFT == _OtherObj->GetDirection())
+			{
+				_OtherObj->SetPos(Vec2((vPos.x + vScale.x * 0.5f) + 45.f, _OtherObj->GetPos().y));
+			}
+		}
+	}
 
 	if (LAYER_TYPE::MONSTER == _OtherObj->GetLayerType())
 	{
@@ -172,5 +201,7 @@ void CPlatform::EndOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* 
 			pRB->SetGround(false);
 			return;
 		}
+
+		pRB->SetCeiling(false);
 	}
 }

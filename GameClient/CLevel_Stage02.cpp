@@ -22,8 +22,12 @@
 
 #include "CDummy_Magma.h"
 
+#include "CUI_Warning.h"
+
 CLevel_Stage02::CLevel_Stage02()
 	: m_pBGM(nullptr)
+	, m_Time(0.f)
+	, m_Ready(true)
 {
 	SetName(L"Stage02");
 }
@@ -47,6 +51,18 @@ void CLevel_Stage02::begin()
 void CLevel_Stage02::tick()
 {
 	CLevel::tick();
+
+	if (m_Ready)
+		m_Time += DT;
+
+	if (1.f <= m_Time)
+	{
+		CUI* pReadyUI = new CUI_Ready(Vec2(400.f, 950.f));
+		AddObject(LAYER_TYPE::UI, pReadyUI);
+		m_Ready = false;
+		m_Time = 0.f;
+	}
+
 }
 
 void CLevel_Stage02::Enter()
@@ -84,12 +100,9 @@ void CLevel_Stage02::Enter()
 	pBoss->SetTarget(pPlat);
 	AddObject(LAYER_TYPE::BOSS, pBoss);
 
-	CPlatform_BossRoom* pBossRoom = new CPlatform_BossRoom(Vec2(15882.f, 1041.f), Vec2(500.f, 500.f));
+	CPlatform_BossRoom* pBossRoom = new CPlatform_BossRoom(Vec2(15932.f, 1041.f), Vec2(500.f, 500.f));
 	
 	AddObject(LAYER_TYPE::PLATFORM, pBossRoom);
-
-	CUI* pReady = new CUI_Ready(Vec2(400.f, 950.f));
-	AddObject(LAYER_TYPE::UI, pReady);
 
 	CDummy_Magma* pMagma = new CDummy_Magma;
 	AddObject(LAYER_TYPE::DUMMY, pMagma);
@@ -98,6 +111,11 @@ void CLevel_Stage02::Enter()
 	LoadTrap(L"trap\\trap.dat");
 	LoadMonster(L"monster\\monster.dat");
 
+	CUI_Warning* pUI = new CUI_Warning;
+	pUI->SetPos(Vec2(16002.f, 1100.f));
+	//pUI->SetPos(400.f, 300.f);
+	pUI->SetTarget(FindObjectByName(L"Dragoon"));
+	AddObject(LAYER_TYPE::UI, pUI);
 
 	CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 950.f));
 	

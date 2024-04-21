@@ -16,6 +16,8 @@ private:
 public:
     virtual void tick_ui() override;
     void SetTarget(CObj* _Target) { m_Target = _Target; }
+    
+    void Play();
 
 public:
     CLONE(CUI_Warning);

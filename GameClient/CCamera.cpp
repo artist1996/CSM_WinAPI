@@ -19,6 +19,8 @@ CCamera::CCamera()
 	, m_MaxLowWidth(0.f)
 	, m_DestroyBoss(false)
 	, m_RespawnPos(0.f)
+	, m_EnterBoss(false)
+	, m_Return(false)
 {}
 
 CCamera::~CCamera()
@@ -81,6 +83,53 @@ void CCamera::Move()
 	{
 		Vec2 vDir = m_Owner->GetPos();
 
+		if (m_EnterBoss)
+		{
+			if (m_LookAt.x >= m_MaxHighWidth)
+			{
+				m_LookAt.x = m_MaxHighWidth;
+			}
+
+			else
+			{
+				if (!vDir.IsZero())
+				{
+					vDir.Normalize();
+				}
+
+				m_LookAt.x += 1.f * 100.f * DT;
+				
+				if (m_LookAt.y > m_MaxLowHeight)
+				{
+					m_LookAt.y = m_MaxLowHeight;
+				}
+
+				else
+				{
+					m_LookAt.y += 1.f * 500.f * DT;
+				}
+			}
+			return;
+		}
+
+		if (m_Return)
+		{
+			if (!vDir.IsZero())
+			{
+				vDir.Normalize();
+			}
+
+			m_LookAt.x -= 1.f * 500.f * DT;
+
+			if (m_Owner->GetPos().x >= m_LookAt.x)
+			{
+				m_Return = false;
+			}
+
+			return;
+		}
+
+
 		if (m_Owner->GetPos().x <= m_MaxLowWidth)
 		{
 			m_LookAt.x = m_MaxLowWidth;			// MaxLowWidth
@@ -107,7 +156,7 @@ void CCamera::Move()
 
 		else
 		{
-			if (m_LookAt.y - m_Owner->GetPos().y > 50.f)
+			if (m_LookAt.y - m_Owner->GetPos().y > 30.f)
 			{
 				if (!vDir.IsZero())
 				{

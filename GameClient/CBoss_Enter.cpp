@@ -43,6 +43,7 @@ void CBoss_Enter::FinalTick()
 
 	if (GetRigidBody()->IsGround())
 	{
+		CCamera::GetInst()->SetEnterBoss(true);
 		GetFSM()->ChangeState(L"IDLE");
 	}
 }
@@ -53,6 +54,8 @@ void CBoss_Enter::Exit()
 	CSoundMgr::GetInst()->RegisterToBGM(m_pBGM);
 	m_pBGM->SetVolume(20.f);
 	m_pBGM->Play(true);
+	CCamera::GetInst()->SetEnterBoss(false);
+	CCamera::GetInst()->SetReturn(true);
 
 	CCollisionMgr::GetInst()->CollisionCheck(LAYER_TYPE::PLAYER_ATTACK, LAYER_TYPE::BOSS);
 }

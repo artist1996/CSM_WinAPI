@@ -118,8 +118,12 @@ void CState_Fall::FinalTick()
 			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"BLACK_FALL_RIGHT"));
 			GetObj()->SetDirection(DIRECTION::RIGHT);
 		}
-		vPos += Vec2(1.f, 0.f) * GetObj()->GetSpeed() * DT;
-		GetObj()->SetPos(vPos);
+
+		if (!GetRigidBody()->GetCeiling() && !GetRigidBody()->IsPrevWall())
+		{
+			vPos += Vec2(1.f, 0.f) * GetObj()->GetSpeed() * DT;
+			GetObj()->SetPos(vPos);
+		}
 	}
 
 	else if (KEY_PRESSED(KEY::LEFT))
@@ -130,8 +134,12 @@ void CState_Fall::FinalTick()
 			GetAnimator()->SetCurAnim(GetAnimator()->FindAnimation(L"BLACK_FALL_LEFT"));
 			GetObj()->SetDirection(DIRECTION::LEFT);
 		}
-		vPos += Vec2(-1.f, 0.f) * GetObj()->GetSpeed() * DT;
-		GetObj()->SetPos(vPos);
+
+		if (!GetRigidBody()->GetCeiling() && !GetRigidBody()->IsPrevWall())
+		{
+			vPos += Vec2(-1.f, 0.f) * GetObj()->GetSpeed() * DT;
+			GetObj()->SetPos(vPos);
+		}
 	}
 
 	if (GetAnimator()->GetCurAnim()->IsFinish() && !GetRigidBody()->IsGround())
