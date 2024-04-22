@@ -38,6 +38,8 @@ private:
 
     int                 m_Hp;
 
+    int                 m_Life;
+
     bool                m_bDead;    // 삭제 예정상태
 
     bool                m_Hit;
@@ -56,6 +58,10 @@ public:
     void SetRespawnPos(Vec2 _Pos) { m_RespawnPos = _Pos; }
 
     void SetHit(bool _Hit) { m_Hit = _Hit; }
+
+    void SetLife(int _Life) { m_Life = _Life; }
+    int GetLife() { return m_Life; }
+    void MinusLife() { --m_Life; }
 
     Vec2 GetPos()               { return m_Pos; }
     Vec2 GetScale()             { return m_Scale; }

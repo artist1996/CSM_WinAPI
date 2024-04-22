@@ -106,6 +106,30 @@ void CBoss_Idle::FinalTick()
 		m_Count = true;
 	}
 
+	if (KEY_TAP(KEY::Q))
+	{
+		GetFSM()->ChangeState(L"HADOUKEN");
+		return;
+	}
+
+	else if (KEY_TAP(KEY::W))
+	{
+		GetFSM()->ChangeState(L"SORYUGEN");
+		return;
+	}
+
+	else if (KEY_TAP(KEY::E))
+	{
+		GetFSM()->ChangeState(L"DIVEKICK");
+		return;
+	}
+
+	else if (KEY_TAP(KEY::R))
+	{
+		GetFSM()->ChangeState(L"BREATH");
+		return;
+	}
+
 	if (m_Attack)
 	{
 		switch (m_Rand)

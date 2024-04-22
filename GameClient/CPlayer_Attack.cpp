@@ -391,16 +391,14 @@ void CPlayer_Attack::Attack_03()
 	else if (!m_Owner->IsBlack())
 	{
 		if (DIRECTION::RIGHT == m_Owner->GetDirection()
-			&& L"ATTACK03_RIGHT" != m_Animator->GetCurAnim()->GetName()
-			|| L"BLACK_ATTACK03_RIGHT" != m_Animator->GetCurAnim()->GetName())
+			&& L"ATTACK03_RIGHT" != m_Animator->GetCurAnim()->GetName())
 		{
 			Destroy();
 			return;
 		}
 
 		else if (DIRECTION::LEFT == m_Owner->GetDirection()
-			&& L"ATTACK03_LEFT" != m_Animator->GetCurAnim()->GetName()
-			|| L"BLACK_ATTACK03_LEFT" != m_Animator->GetCurAnim()->GetName())
+			&& L"ATTACK03_LEFT" != m_Animator->GetCurAnim()->GetName())
 		{
 			Destroy();
 			return;

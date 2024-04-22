@@ -12,6 +12,7 @@ CState_Dead::CState_Dead()
 	, m_Dead(false)
 	, m_Time(0.f)
 	, m_FadeTime(0.f)
+	, m_ChangeStateTime(0.f)
 {
 	m_pSound = CAssetMgr::GetInst()->LoadSound(L"ZERO_DEAD", L"sound\\zero\\DEAD.wav");
 }
@@ -26,6 +27,7 @@ void CState_Dead::Enter()
 	Initialize();
 	GetRigidBody()->UseGravity(false);
 	CPlayerEffectMgr::GetInst()->SetActive(false);
+	
 
 	if (DIRECTION::RIGHT == GetObj()->GetDirection())
 	{
@@ -89,4 +91,6 @@ void CState_Dead::Exit()
 	m_Dead = false;
 	m_Time = 0.f;
 	m_FadeTime = 0.f;
+
+	//GetObj()->MinusLife();
 }

@@ -59,7 +59,17 @@ CPlayer::CPlayer()
 	, m_AlwaysInvincible(false)
 	, m_BlackZero(false)
 {
+	SetName(L"ZERO");
 	SetHp(15);
+	if (L"Stage01" == CLevelMgr::GetInst()->GetCurrentLevel()->GetName())
+	{
+		SetLife(2);
+	}
+
+	else if (L"Stage02" == CLevelMgr::GetInst()->GetCurrentLevel()->GetName())
+	{
+		SetLife(1);
+	}
 	// Player 의 컴포넌트 설정
 	m_BodyCol = (CCollider*)AddComponent(new CCollider);
 	m_HitBox = (CCollider*)AddComponent(new CCollider);
@@ -189,7 +199,6 @@ CPlayer::CPlayer()
 	m_FSM->AddState(L"HIT", new CState_Hit);
 	m_FSM->AddState(L"VICTORY", new CState_Victory);
 	m_FSM->AddState(L"DEAD", new CState_Dead);
-
 	//m_FSM->ChangeState(L"START");
 }
 
@@ -284,6 +293,17 @@ void CPlayer::tick()
 	else if (KEY_TAP(KEY::I))
 	{
 		m_AlwaysInvincible = false;
+		m_BlackZero = false;
+
+		if (DIRECTION::RIGHT == GetDirection())
+		{
+			m_Animator->Play(L"IDLE_RIGHT", true);
+		}
+
+		else if (DIRECTION::LEFT == GetDirection())
+		{
+			m_Animator->Play(L"IDLE_LEFT", true);
+		}
 	}
 
 	SetPos(vPos);

@@ -99,6 +99,7 @@ void CLevel_Stage01::Enter()
 	CEngine::GetInst()->ChangeWindowSize(Vec2(800.f, 600.f), false);
 	// Player
 	CObj* pObject = new CPlayer;
+	pObject->SetLife(2);
 	pObject->SetName(L"ZERO");
 	//pObject->SetPos(18236.f, 0.f);
 	pObject->SetPos(400.f, 0.f);

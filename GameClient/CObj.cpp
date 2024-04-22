@@ -19,6 +19,8 @@ CObj::CObj()
 	, m_ID(OBJ_ID::END)
 	, m_Hit(false)
 	, m_HitCount(0)
+	, m_Life(0)
+	, m_Hp(0)
 {
 }
 
@@ -35,6 +37,7 @@ CObj::CObj(const CObj& _Other)
 	, m_Speed(0.f)
 	, m_Hit(false)
 	, m_HitCount(0)
+	, m_Life(_Other.m_Life)
 {
 	for (size_t i = 0; i < _Other.m_vecCom.size(); ++i)
 	{

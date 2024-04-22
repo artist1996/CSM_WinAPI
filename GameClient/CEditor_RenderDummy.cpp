@@ -22,52 +22,37 @@ CEditor_RenderDummy::CEditor_RenderDummy(Vec2 _Pos, Vec2 _Scale, OBJ_ID _ID, int
 	// Texture
 	if (OBJ_ID::BATTON == m_ID)
 	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"Batton", L"texture\\render_dummy\\dummy_batton.png");
+		m_Img = CAssetMgr::GetInst()->LoadTexture(L"Batton_RenderDummy", L"texture\\render_dummy\\dummy_batton.png");
 	}
 
 	else if (OBJ_ID::METTOOL == m_ID)
 	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"Mettool", L"texture\\render_dummy\\dummy_mettool.png");
+		m_Img = CAssetMgr::GetInst()->LoadTexture(L"Mettool_RenderDummy", L"texture\\render_dummy\\dummy_mettool.png");
 	}
 
 	else if (OBJ_ID::GIGADEATH == m_ID)
 	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"GigaDeath", L"texture\\render_dummy\\dummy_gigadeath.png");
+		m_Img = CAssetMgr::GetInst()->LoadTexture(L"GigaDeath_RenderDummy", L"texture\\render_dummy\\dummy_gigadeath.png");
 	}
 
 	else if (OBJ_ID::RAIDEN == m_ID)
 	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"Raiden", L"texture\\render_dummy\\dummy_raiden.png");
+		m_Img = CAssetMgr::GetInst()->LoadTexture(L"Raiden_RenderDummy", L"texture\\render_dummy\\dummy_raiden.png");
 	}
 
 	else if (OBJ_ID::METEOR_UP == m_ID)
 	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"MeteorUp", L"texture\\render_dummy\\dummy_meteorup.png");
+		m_Img = CAssetMgr::GetInst()->LoadTexture(L"MeteorUp_RenderDummy", L"texture\\render_dummy\\dummy_meteorup.png");
 	}
 
 	else if (OBJ_ID::METEOR_DOWN == m_ID)
 	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"MeteorDown", L"texture\\render_dummy\\dummy_meteordown.png");
-	}
-
-	else if (OBJ_ID::METEOR_DIAGONAL == m_ID)
-	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"MeteorDiagonal", L"texture\\render_dummy\\dummy_meteordiagonal.png");
-	}
-
-	else if (OBJ_ID::METEOR_LEFT == m_ID)
-	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"MeteorLeft", L"texture\\render_dummy\\dummy_meteorleft.png");
-	}
-
-	else if (OBJ_ID::METEOR_RIGHT == m_ID)
-	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"MeteorRight", L"texture\\render_dummy\\dummy_meteorright.png");
+		m_Img = CAssetMgr::GetInst()->LoadTexture(L"MeteorDown_RenderDummy", L"texture\\render_dummy\\dummy_meteordown.png");
 	}
 
 	else if (OBJ_ID::ERUPTION == m_ID)
 	{
-		m_Img = CAssetMgr::GetInst()->LoadTexture(L"EruptionRender", L"texture\\render_dummy\\dummy_eruption.png");
+		m_Img = CAssetMgr::GetInst()->LoadTexture(L"EruptionRender_RenderDummy", L"texture\\render_dummy\\dummy_eruption.png");
 	}
 }
 

@@ -29,6 +29,8 @@ void CState_Enter::Enter()
 
 	CHUD_PlayerHP* pHP = new CHUD_PlayerHP;
 	SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::UI, pHP);
+
+	GetObj()->SetHp(15);
 }
 
 void CState_Enter::FinalTick()
