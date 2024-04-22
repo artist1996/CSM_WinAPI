@@ -332,6 +332,19 @@ void CPlayer::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* 
 			}
 		}
 	}
+
+	else
+	{
+		if (L"Mettool Missile" == _OtherObj->GetName())
+		{
+			if (!m_Invincible)
+			{
+				m_Invincible = true;
+				m_FSM->ChangeState(L"HIT");
+				MinusHp();
+			}
+		}
+	}
 }
 
 void CPlayer::OnOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider* _OtherCollider)

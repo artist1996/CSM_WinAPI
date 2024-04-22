@@ -8,7 +8,6 @@ class CMissile :
 {
 private:
     CObj*       m_Owner;
-    CForce*     m_Force;
 
     CAnimator*  m_Animator;
     CCollider*  m_Collider;

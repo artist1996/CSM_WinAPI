@@ -27,6 +27,7 @@ CMissile::CMissile(Vec2 _Pos, Vec2 _Scale, CObj* _Owner)
 	, m_Dir(0.f)
 {
 	// Info
+	SetName(L"Mettool Missile");
 	SetPos(_Pos);
 	SetScale(_Scale);
 	m_CenterPos = _Pos;
