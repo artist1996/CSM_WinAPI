@@ -67,7 +67,7 @@ void CLevel_Stage02::tick()
 
 void CLevel_Stage02::Enter()
 {
-
+	CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 940.f));
 	CObj* pBackGround = new CStage02;
 	AddObject(LAYER_TYPE::BACKGROUND, pBackGround);
 
@@ -113,11 +113,8 @@ void CLevel_Stage02::Enter()
 
 	CUI_Warning* pUI = new CUI_Warning;
 	pUI->SetPos(Vec2(16002.f, 1100.f));
-	//pUI->SetPos(400.f, 300.f);
 	pUI->SetTarget(FindObjectByName(L"Dragoon"));
 	AddObject(LAYER_TYPE::UI, pUI);
-
-	CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 950.f));
 	
 	CCamera::GetInst()->SetMaxHighWidth(16050.f);
 	CCamera::GetInst()->SetMaxLowWidth(400.f);

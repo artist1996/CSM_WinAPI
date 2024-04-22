@@ -49,4 +49,9 @@ void CLevel_Loading::Exit()
 {
 	DeleteAllObjects();
 	m_Time = 0.f;
+
+	if (L"Stage01" == CLevelMgr::GetInst()->GetPrevLevel()->GetName())
+	{
+		CCamera::GetInst()->SetCameraLookAt(Vec2(400.f, 940.f));
+	}
 }

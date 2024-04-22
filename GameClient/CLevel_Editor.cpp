@@ -104,7 +104,6 @@ void CLevel_Editor::tick()
 		LoadEditorPlatform(L"stage02\\platform\\platform.dat");
 		LoadEditorMonster(L"stage02\\monster\\monster.dat");
 		LoadEditorTrap(L"stage02\\trap\\trap.dat");
-		LoadEditorDeathPlatform(L"stage02\\platform\\death.dat");
 	}
 
 	if (KEY_TAP(KEY::_9))

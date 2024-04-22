@@ -38,6 +38,7 @@ CMonster_Mettool::CMonster_Mettool(Vec2 _Pos, Vec2 _Scale, int _HP, float _Detec
 	// Collider
 	m_Collider->SetOffsetPos(Vec2(0.f, -25.f));
 	m_Collider->SetScale(GetScale());
+	m_Collider->SetActive(true);
 
 	// Animator
 	m_Animator->LoadAnimation(L"animation\\monster\\mettool\\left\\IDLE_LEFT.anim");
@@ -52,7 +53,7 @@ CMonster_Mettool::CMonster_Mettool(Vec2 _Pos, Vec2 _Scale, int _HP, float _Detec
 
 	// RigidBody
 	m_RigidBody->UseGravity(true);
-	m_RigidBody->SetMaxGravitySpeed(50.f);
+	m_RigidBody->SetMaxGravitySpeed(10.f);
 	
 	// FSM
 	m_FSM->AddState(L"IDLE", new CMettool_Idle);

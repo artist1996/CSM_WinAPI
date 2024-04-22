@@ -7,6 +7,7 @@
 #include "CFSM.h"
 
 #include "CBoss.h"
+#include "CEffect_MonsterDead.h"
 
 CPlatform::CPlatform()
 	: m_Boss(true)
@@ -54,6 +55,14 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 		pRB->SetGround(true);
 	}
 
+	if (L"Mettool" == _OtherObj->GetName())
+	{
+		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
+		_OtherObj->SetPos(_OtherObj->GetPos().x, GetPos().y - GetScale().y * 0.5f);
+		pRB->SetGround(true);
+		pRB->UseGravity(false);
+	}
+
 	if (LAYER_TYPE::BOSS == _OtherObj->GetLayerType())
 	{
 		CRigidBody* pRB = _OtherObj->GetComponent<CRigidBody>();
@@ -63,6 +72,9 @@ void CPlatform::BeginOverlap(CCollider* _OwnCollider, CObj* _OtherObj, CCollider
 	if (L"BattonBomb" == _OtherObj->GetName())
 	{
 		_OtherObj->Destroy();
+		CEffect_MonsterDead* pEffect = new CEffect_MonsterDead(_OtherObj);
+		pEffect->SetPos(Vec2(_OtherObj->GetPos().x, GetPos().y - GetScale().y * 0.5f));
+		SpawnObject(CLevelMgr::GetInst()->GetCurrentLevel(), LAYER_TYPE::DUMMY, pEffect);
 	}
 
 	if (L"ZERO" == _OtherObj->GetName())
