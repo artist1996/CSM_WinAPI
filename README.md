@@ -16,3 +16,5 @@
 개발자는 Animation Tool 및 Editor를 개발해 Sprite이미지를 활용한 Animation 제작 및 Editor를 활용한
 Line과 Platform 을 활용한 지형 및 몬스터 및 장애물 Object를 해당 위치에 직접 배치 할 수 있습니다.
 ```
+<h2>프로젝트 개요</h2>
+<h4>게임 설명</h4>
