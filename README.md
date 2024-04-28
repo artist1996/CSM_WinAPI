@@ -57,7 +57,10 @@ Stage01에서 문을 파괴하면 Stage02로 진입하며 Stage02에선 보스�
 ```
 
 <h4>프로젝트 설명</h4>
-<p align="left"><img width="550" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/a9121eed-56a7-46e1-8910-1041f89b2fd0"></p>
+
+```
+Animation Tool 및 Editor
+```
 
 * Animation Tool
 <p align="left"><img width="550" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/4742d374-bb80-4e2c-9cf7-1b48b7c5e5ba"></p>
@@ -88,7 +91,7 @@ https://github.com/artist1996/CSM_WinAPI/assets/160116004/7d97485f-bf19-4224-a34
 
   https://github.com/artist1996/CSM_WinAPI/assets/160116004/b9842710-6e31-4414-a0fd-de2a54d15ff6
 
-> 보스 전 : 보스의 패턴을 회피하며 보스를 
+> 보스 전 : 보스의 패턴을 회피하며 보스를 클리어
 
   [![Video Label](http://img.youtube.com/vi/4u9LCBTxj80/0.jpg)](https://youtu.be/4u9LCBTxj80)
 
@@ -108,3 +111,9 @@ https://github.com/artist1996/CSM_WinAPI/assets/160116004/32be248d-f33e-4c86-bc9
 
 https://github.com/artist1996/CSM_WinAPI/assets/160116004/7941451d-e662-4cf5-804e-41d5ac63eabb
 
+> 일정표
+
+<p align="left"><img width="400" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/3f2bc6d7-903c-4a98-80d1-b5c7f07624c2"></p>
+<p align="left"><img width="400" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/01f4c725-6af2-42b2-bbc7-66ec85131964"></p>
+<p align="left"><img width="400" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/d9fd11d1-29bf-4926-acfb-16e44412e436"></p>
+<p align="left"><img width="400" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/89848de5-b14d-47b5-9a44-197132ace2a6"></p>
