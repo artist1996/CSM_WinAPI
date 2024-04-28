@@ -88,12 +88,12 @@ https://github.com/artist1996/CSM_WinAPI/assets/160116004/7d97485f-bf19-4224-a34
 
   > 구현 영상
  
-    https://github.com/artist1996/CSM_WinAPI/assets/160116004/b9842710-6e31-4414-a0fd-de2a54d15ff6
+  https://github.com/artist1996/CSM_WinAPI/assets/160116004/b9842710-6e31-4414-a0fd-de2a54d15ff6
 
 > 보스 전 : 보스의 패턴을 회피하며 보스를 
 
   > 구현 영상
     
-    [![Video Label](http://img.youtube.com/vi/4u9LCBTxj80/0.jpg)](https://youtu.be/4u9LCBTxj80)
+  [![Video Label](http://img.youtube.com/vi/4u9LCBTxj80/0.jpg)](https://youtu.be/4u9LCBTxj80)
 
 * 캐릭터 스킬
