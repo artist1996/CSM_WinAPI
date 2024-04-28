@@ -113,7 +113,7 @@ https://github.com/artist1996/CSM_WinAPI/assets/160116004/7941451d-e662-4cf5-804
 
 > 일정표
 
-<p align="left"><img width="400" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/3f2bc6d7-903c-4a98-80d1-b5c7f07624c2"></p>
-<p align="left"><img width="400" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/01f4c725-6af2-42b2-bbc7-66ec85131964"></p>
-<p align="left"><img width="400" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/d9fd11d1-29bf-4926-acfb-16e44412e436"></p>
-<p align="left"><img width="400" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/89848de5-b14d-47b5-9a44-197132ace2a6"></p>
+<p align="left"><img width="600" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/3f2bc6d7-903c-4a98-80d1-b5c7f07624c2"></p>
+<p align="left"><img width="600" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/01f4c725-6af2-42b2-bbc7-66ec85131964"></p>
+<p align="left"><img width="600" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/d9fd11d1-29bf-4926-acfb-16e44412e436"></p>
+<p align="left"><img width="600" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/89848de5-b14d-47b5-9a44-197132ace2a6"></p>
