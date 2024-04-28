@@ -63,6 +63,7 @@ Stage01에서 문을 파괴하면 Stage02로 진입하며 Stage02에선 보스�
 <p align="left"><img width="550" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/4742d374-bb80-4e2c-9cf7-1b48b7c5e5ba"></p>
 
 > 구현 영상
+
 https://github.com/artist1996/CSM_WinAPI/assets/160116004/dc020d1c-8fec-47f4-bf4d-4165ada8e0e3
 
 
@@ -71,6 +72,26 @@ https://github.com/artist1996/CSM_WinAPI/assets/160116004/dc020d1c-8fec-47f4-bf4
 <p align="left"><img width="550" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/7270dbe9-e0dc-45a0-a0d9-2378dbe11b54"></p>
 
 > 구현 영상
+
 https://github.com/artist1996/CSM_WinAPI/assets/160116004/7d97485f-bf19-4224-a342-f73695586d19
 
+```
+원작 ‘RockMan X4’의 플레이 방식 / 컨텐츠를 재현
+```
 
+* 조작 방식
+<p align="left"><img width="200" alt="1" src="https://github.com/artist1996/CSM_WinAPI/assets/160116004/27d59c89-579e-4441-a047-37f50a2f9ddc"></p>
+
+* 컨텐츠
+
+> Stage 돌파: 몬스터 및 장애물을 파괴 및 회피 후 다음 Stage로 이동
+
+  > 구현 영상
+    https://github.com/artist1996/CSM_WinAPI/assets/160116004/b9842710-6e31-4414-a0fd-de2a54d15ff6
+
+> 보스 전 : 보스의 패턴을 회피하며 보스를 
+
+  > 구현 영상
+    
+
+* 캐릭터 스킬
